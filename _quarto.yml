@@ -8,9 +8,9 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/harishb00
+      - icon: linkedin
+        href: https://www.linkedin.com/in/harish-b-33b701152/
 format:
   html:
     theme: cosmo
