@@ -1,0 +1,6 @@
+---
+title: "Projects"
+page-layout: full
+---
+
+My projects span Machine Learning, programming languages.
