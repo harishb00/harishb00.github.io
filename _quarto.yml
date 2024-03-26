@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Harish B"
+  navbar:
+    left:
+      - index.qmd
+      - posts.qmd
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/harishb00
+      - icon: linkedin
+        href: https://www.linkedin.com/in/harish-b-33b701152/
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+
+
