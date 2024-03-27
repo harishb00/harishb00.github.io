@@ -1,6 +1,13 @@
 ---
 title: "Projects"
+listing:
+  type: grid
+  contents:
+    - title: "Picasso Monet Painting Classifier"
+      description: An image classifier for classifying drawings made by Picasso and Monet.
+      path: https://harishb00-painting-classifier.hf.space
+      image: /projects/paintingclf.jpg
+      categories: [Deep Learning, fastai]
 page-layout: full
 ---
 
-My projects span Machine Learning, programming languages.
