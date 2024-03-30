@@ -7,6 +7,11 @@ categories: [welcome]
 
 This is the first post in a Quarto blog. Welcome!
 
-![](thumbnail.jpg)
+<figure>
+    <img src="thumbnail.jpg"
+        alt="thumbnail"
+        class="post-thumbnail">
+    <figcaption>Created by Microsoft Designer</figcaption>
+</figure>
 
 Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
