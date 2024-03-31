@@ -6,6 +6,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/painting-classifier/index.html",
       "/posts/welcome/index.html"
     ]
   }
