@@ -11,21 +11,70 @@
     "href": "posts/painting-classifier/index.html",
     "title": "Picasso and Monet Painting Classifier",
     "section": "",
-    "text": "Created by Microsoft Designer\nIn this post, let’s build an image classifier to classify paintings made by Picasso and Monet. Let’s start by installing the required python packages."
+    "text": "Created by Microsoft Designer\nIn this post, let’s build an image classifier to classify paintings made by Picasso and Monet. I am currently doing Practical Deep Learning for Coders course by fastai and this blog post is to summarize my takeways."
   },
   {
-    "objectID": "posts/painting-classifier/index.html#installing-packages",
-    "href": "posts/painting-classifier/index.html#installing-packages",
+    "objectID": "posts/painting-classifier/index.html#install-packages",
+    "href": "posts/painting-classifier/index.html#install-packages",
     "title": "Picasso and Monet Painting Classifier",
-    "section": "Installing packages",
-    "text": "Installing packages\n1!pip install -Uqq fastai\n2!pip install -Uqq duckduckgo_search\n\n1\n\nInstalls fastai library to build and train deep learning models. It also provides utility methods to download images.\n\n2\n\nInstalls duckduckgo_search library to search for images programatically."
+    "section": "Install packages",
+    "text": "Install packages\nLet’s start by installing the required python packages.\n1pip install -Uqq fastai\n2pip install -Uqq duckduckgo_search\n\n1\n\nInstalls fastai library to build and train deep learning models. It also provides utility methods to download images.\n\n2\n\nInstalls duckduckgo_search library to search for images programatically."
   },
   {
     "objectID": "posts/painting-classifier/index.html#import-packages",
     "href": "posts/painting-classifier/index.html#import-packages",
     "title": "Picasso and Monet Painting Classifier",
     "section": "Import packages",
-    "text": "Import packages\n\nfrom duckduckgo_search import DDGS\n# from fastcore.all import *\nfrom fastdownload import download_url\nfrom time import sleep\nfrom fastai.vision.all import *\n\nModuleNotFoundError: No module named 'duckduckgo_search'"
+    "text": "Import packages\n\nimport random\nfrom duckduckgo_search import DDGS\nfrom time import sleep\nfrom fastai.vision.all import *"
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#image-search-using-duckduckgo-search",
+    "href": "posts/painting-classifier/index.html#image-search-using-duckduckgo-search",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Image Search using DuckDuckGo Search",
+    "text": "Image Search using DuckDuckGo Search\n\nddgs = DDGS()\nsearch_term = 'picasso painting'\nresults = ddgs.images(search_term, max_results=1)\n\nThe ddgs.images(search_term, max_results=1) method uses DuckDuckGo image search engine to search for images with keyword picasso painting and returns the search results. The number of results returned can be controlled by max_results\n\nresults\n\n[{'title': 'Woman s head and self portrait 1929 Picasso - United Kingdom',\n  'image': 'https://cdn11.bigcommerce.com/s-5qm28d53av/images/stencil/2560w/products/330/9318/Woman-s-head-and-self-portrait-1929-Picasso__04078.1586802926.jpg?c=1',\n  'thumbnail': 'https://tse2.mm.bing.net/th?id=OIP.ZCBc3r5pHCQkUXAesuRWtAHaJf&pid=Api',\n  'url': 'https://my-poster.com/Woman-s-head-and-self-portrait-1929-Picasso-/',\n  'height': 3282,\n  'width': 2560,\n  'source': 'Bing'}]\n\n\nThe search results returned by the above method is a list of dictionaries. In the dictionary, the value with key as image is the url containing the image to be downloaded. Let’s use that to download the image using fastai’s download_images method."
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#download-images",
+    "href": "posts/painting-classifier/index.html#download-images",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Download images",
+    "text": "Download images\n\nurl = results[0]['image']\n1path = Path('images')\n2path.mkdir(exist_ok=True)\n3download_images(path, urls=[url])\n\n\n1\n\nInitialize Path object to point to the directory for downloading images.\n\n2\n\nCreates a directory pointed by path. exist_ok=True supress the error if directory already exists.\n\n3\n\nDownloads the images from the list of urls passed as urls and saves in the folder pointed by path.\n\n\n\n\nLet’s find the image path and display the image. ls method lists all the contents of the Path object.\n\npath.ls()\n\n(#1) [Path('images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg')]\n\n\n\nim = Image.open('images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg')\n1im.to_thumb(256)\n\n\n1\n\nCreates thumbnail version of the image, no larger than the given size. Here it’s 256px."
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#download-dataset",
+    "href": "posts/painting-classifier/index.html#download-dataset",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Download dataset",
+    "text": "Download dataset\nNow let’s wrap the above logics to functions and download the dataset for our Picasso and Monet painting classifier.\n\ndef search_images(search_term: str, max_images:int=30):\n    print(f\"Searching for '{search_term}'\")\n    ddgs = DDGS()\n    results = ddgs.images(search_term, max_results=max_images)\n1    return L(results).itemgot('image')\n\n\n1\n\nextracts all the image attribute from the dictionaries and returns as a list\n\n\n\n\n\n1searches = 'picasso painting', 'monet painting'\n2path = Path('painting')\n\nfor o in searches:\n    dest = path/o\n    dest.mkdir(exist_ok=True, parents=True)\n    download_images(dest,\n                    urls=search_images(f'{o} photo', max_images=100))\n3    sleep(10)\n4    resize_images(path/o, max_size=400, dest=path/o)\n\n\n1\n\nKeywords used to search for images.\n\n2\n\nRoot folder path to save the downloaded images.\n\n3\n\nPause for 10 seconds between each request to the image search API.\n\n4\n\nResize all image files inside path/o to max_size.\n\n\n\n\nSearching for 'picasso painting photo'\nSearching for 'monet painting photo'\n\n\n\nDelete corrupted images\nSometimes the downloaded images may not be in right format or got corrupted. It’s good to find and delete those files before training the model. fastai provides the utility function verify_images which does this for us.\n\n1fns = get_image_files(path)\n2failed = verify_images(fns)\n3failed.map(Path.unlink)\nprint(f\"corrupted images: {len(failed)}\")\n\n\n1\n\nReturns all the image file paths in path directory.\n\n2\n\nVerifies and returns list of image file paths which are corrupted.\n\n3\n\nOn each corrupted path object, apply Path.unlink method which deletes the file.\n\n\n\n\ncorrupted images: 3"
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#dataloaders",
+    "href": "posts/painting-classifier/index.html#dataloaders",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Dataloaders",
+    "text": "Dataloaders\nBefore we train the model we should do some datapreprocessing like resizing the images, creating labels for each image file etc., All these can be done through DataBlock and DataLoaders.\n\n1db = DataBlock(\n2    blocks=(ImageBlock, CategoryBlock),\n3    get_items=get_image_files,\n4    splitter=RandomSplitter(valid_pct=0.2, seed=42),\n5    get_y=parent_label,\n6    item_tfms=[Resize(192, method='squish')]\n)\n\n\n1\n\nDataBlock is the class used to write the blueprint of our dataset.\n\n2\n\nWhat are the input (independent variable) and output (dependent variable) data types? ImageBlock tells the input variable in our dataset represents Image datatype and CategoryBlock tells the output variable in our dataset represents Category datatype (classification task).\n\n3\n\nHow do we extract individual items of our dataset? get_image_files is a function which takes root folder path as input and returns all the image files as output.\n\n4\n\nHow to split the dataset into train and validation sets? RandomSplitter is one of the splitting strategies. It splits the dataset randomly. valid_pct=0.2 tells 20% of the dataset should be part of validation set. seed=42 is used for reproducibility.\n\n5\n\nHow to create label (y) for each input sample in our dataset? parent_label is a function which extracts the parent folder name of the file and returns as output.\n\n6\n\nAny transformations to be applied on each item of the dataset? Usually when we train the model, we won’t be training one image at a time but a batch of images. To make this convenient, we make sure all the images are of same size. Resize method is used to resize the image to specified size. Here it’s 192. While resizing, the image may be cropped/squished/anything else. Here, we are asking to squish the image.\n\n\n\n\nThe above code serves as a blueprint of our dataset. But for training the model, we actually need the training and validation dataset created from the downloaded images with all the inputs and outputs in the right format as mentioned in the blueprint. DataLoaders exactly does that.\n\n1dls = db.dataloaders(path, bs=32)\n2dls.train.show_batch(max_n=4, nrows=1)\n\n\n1\n\nCreates dataloaders from the Datablock. Inputs are path and bs. path is used to point to the downloaded dataset path from which all the files are read by the get_image_files function used in datablock definition. bs is the batch size which ensures during model training the model gets bs # of images at a time rather just 1. This is done to make efficient use of GPUs as well as other advantages.\n\n2\n\nOnce the dataloaders is created, we can access the training and validation set using train and valid attributes respectively. The dls.train.show_batch displays 4 images from the training set in a single row which is set by max_n and nrows."
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#training",
+    "href": "posts/painting-classifier/index.html#training",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Training",
+    "text": "Training\nNow we have the dataset ready, let’s train the model to classify Picasso and Monet images. For this project, rather than training a deep learning model from scratch let’s use a pretrained model called resnet18 and finetune it for the task (Picasso and Monet classification) at hand.\nIn fastai, most of the trainer has a common api which is domain_learner. Since we are going to solve a Computer Vision problem, we’ll be using vision_learner. We will be passing the dataset, pretrained deep learning model and metrics (to log) as inputs. We’ll train the model using finetune method.\n\n1learn = vision_learner(dls, resnet18, metrics=error_rate)\n2learn.fine_tune(5)\n\n\n1\n\ndls is the dataloaders we created in previous setps. resnet18 is the Residual Network architecture with 18 layers pre-trained on Imagenet dataset. error_rate is the percentage of validation examples the model predicts wrong.\n\n2\n\nfine_tune finetunes the model for the new dataset at hand for given number of epochs. It also prints the training progress.\n\n\n\n\nDownloading: \"https://download.pytorch.org/models/resnet18-f37072fd.pth\" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth\n100%|██████████| 44.7M/44.7M [00:00&lt;00:00, 144MB/s] \n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n0.467476\n0.218055\n0.054795\n00:03\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n0.083487\n0.011494\n0.000000\n00:01\n\n\n1\n0.076097\n0.001811\n0.000000\n00:01\n\n\n2\n0.058125\n0.001642\n0.000000\n00:01\n\n\n3\n0.043209\n0.002014\n0.000000\n00:01\n\n\n4\n0.032918\n0.002884\n0.000000\n00:01\n\n\n\n\n\n\nWe can see that the validation error is around 0. It means the model does pretty good job in differentiating Picasso and Monet paintings.\n\n\n\n\n\n\nNote\n\n\n\nThe original model was pretrained on a different dataset for a different problem. For our project, we need to predict which class a painting belongs to. We have two classes. So the output layer of the model should be replaced with two nodes. This is automatically taken care by fastai. The number 5 represents the number of epochs the model should be trained for. When a model sees all the training sample once, we call it an epoch.\nThe finetune method also employes best practices while training the model. We can see there are two sections in the training log. The second section represents the 5 epochs which we requested fastai to train for. In those 5 epochs, all the layers are trained and the metrics are logged. So then what is the first section of log which shows additional epoch? The first section shows the training log of one epoch done by fastai by freezing (no training) all the layers expect the last layer which was inserted newly for our task.\n\n\n\n\n\n\n\n\nNote\n\n\n\nAn epoch is nothing but single pass of all the samples in the training dataset by the model."
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#prediction",
+    "href": "posts/painting-classifier/index.html#prediction",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Prediction",
+    "text": "Prediction\nNow we have our trained model, let’s make a prediction using the predict method.\n\nfns = get_image_files(Path('painting'))\n\n\n1fn = random.choice(fns)\n2preds = learn.predict(fn)\nprint(preds)\n\nImage.open(fn)\n\n\n1\n\nRandomly chooses an image file from the list of images.\n\n2\n\npredict method is used to make a prediction using the trained model learn.\n\n\n\n\n\n\n\n\n\n\n\n('monet painting', tensor(0), tensor([1.0000e+00, 1.8999e-08]))\n\n\n\n\n\n\n\n\n\nThe model predicts the output as ‘monet painting’ and it’s 100% confident about it!\nThe predicted output is a tuple containing three values. They are (predicted label, predicted label as index, class probabilities for each class). The index corresponding to maximum class probability is chosen as the predicted class and corresponding index is returned in the second value of the tuple. Now we have the class index, how to find the class label? learn.dls.vocab or dls.vocab can be used to see the list of labels and the order used by fastai.\n\nlearn.dls.vocab\n\n['monet painting', 'picasso painting']\n\n\nHere, the \\(0^{th}\\) index represents ‘monet painting’. Hence, the first value of the tuple returned by the predict method has ‘monet painting’ in it."
+  },
+  {
+    "objectID": "posts/painting-classifier/index.html#save-the-model",
+    "href": "posts/painting-classifier/index.html#save-the-model",
+    "title": "Picasso and Monet Painting Classifier",
+    "section": "Save the model",
+    "text": "Save the model\nNow we have our trained model, we can use this in other apps. To do so, first we need to save the model so we need not retrain. In fastai, the model can be saved to a file using the export method.\n\n1learn.export('model.pkl')\n\n\n1\n\nExport (save) the trained model in the given path.\n\n\n\n\nI deployed the above model as a web app where a user can upload images of Picasso and Monet paintings and get predictions. You can find it here. In future posts, I will share how I did it.\n\n\n\nApp deployed in HuggingFace Spaces\n\n\nThat’s it for today. See you in another post."
   },
   {
     "objectID": "about.html",
@@ -39,7 +88,7 @@
     "href": "index.html",
     "title": "Hi, I’m Harish",
     "section": "",
-    "text": "I’m a software engineer and machine learning student.\nThis is where I share lessons learned during my projects, spanning Python programming, Deep Learning and Software Design.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 27, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+    "text": "I’m a software engineer and a machine learning student. This is where I share lessons learned during my projects, spanning Python programming, Deep Learning, and Software Design.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
