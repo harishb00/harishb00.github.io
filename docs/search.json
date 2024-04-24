@@ -88,7 +88,7 @@
     "href": "index.html",
     "title": "Hi, I’m Harish",
     "section": "",
-    "text": "I’m a software engineer and a machine learning student. This is where I share lessons learned during my projects, spanning Python programming, Deep Learning, and Software Design.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+    "text": "I’m a software engineer and a machine learning student. This is where I share lessons learned during my projects, spanning Python programming, Deep Learning, and Software Design.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -96,5 +96,61 @@
     "title": "Welcome To My Blog",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\n\n\nCreated by Microsoft Designer\n\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "todo.html",
+    "href": "todo.html",
+    "title": "Harish B",
+    "section": "",
+    "text": "Hugging Face + Gradio Model Deployment\nLanguage Model Fine-Tuning & Text Classification\nMetric vs Loss\nUnderfit vs Overfit\nWeb API\nDjango\nCORS\nCSRF"
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html",
+    "href": "posts/model-deploy-hfspace/index.html",
+    "title": "Deploy Deep Learning Model",
+    "section": "",
+    "text": "In the previous post, we saw how to train a model (to classify Picasso and Monet paintings) and save the trained model in fastai. In this post, let us create an app using gradio that uses the trained model and we will also learn how to deploy the app using Hugging Face Spaces so that others can use our app. Incase if you are not familiar with training and saving a model, I suggest you to go through Picasso and Monet Painting Classifier post."
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#import-packages",
+    "href": "posts/model-deploy-hfspace/index.html#import-packages",
+    "title": "Deploy Deep Learning Model",
+    "section": "Import packages",
+    "text": "Import packages\nTo load the model, we need to import necessary modules from fastai. fastai.vision.all module provides functions related to computer vision tasks.\n\nfrom fastai.vision.all import *"
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#load-the-model",
+    "href": "posts/model-deploy-hfspace/index.html#load-the-model",
+    "title": "Deploy Deep Learning Model",
+    "section": "Load the model",
+    "text": "Load the model\n\n1learn = load_learner('model.pkl')\n\n\n1\n\nLoads the trained model saved as model.pkl file.\n\n\n\n\nNotImplementedError: cannot instantiate 'PosixPath' on your system\nUnfortunately when you load the model in a Windows system, it throws above error. Because in my case, I trained and saved the model in a Linux system and trying to load it in Windows. To get rid of this error, below code should be run before loading the model.\n\nimport platform\n1if platform.system() == 'Windows':\n    import pathlib\n    pathlib.PosixPath = pathlib.WindowsPath\n\n\n1\n\nChecks if the OS where the code is run is Windows?\n\n\n\n\n\nlearn = load_learner('model.pkl')\n\nNow the model is loaded successfully 🙂! Before making the predictions, let’s see the possible predictions (labels) of the model.\n\n1labels = learn.dls.vocab\nlabels\n\n\n1\n\ndls refers to DataLoaders and vocab refers to the class labels.\n\n\n\n\n['monet painting', 'picasso painting']\n\n\nGiven an image as input our model will predict either monet painting or picasso painting."
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#predict",
+    "href": "posts/model-deploy-hfspace/index.html#predict",
+    "title": "Deploy Deep Learning Model",
+    "section": "Predict",
+    "text": "Predict\nLet’s read an image and make prediction with the loaded model.\n\n1img = PILImage.create('images/picas3.jpg')\n2img.to_thumb(256)\n\n\n1\n\nRead the image from the path images/picas3.jpg.\n\n2\n\nResize the image to a thumbnail of size 256.\n\n\n\n\n\n\n\n\n\n\n\nNow pass the loaded image to the model’s predict method which returns the class label.\n\npred_label, pred_index, class_probs = learn.predict(img)\nprint(\"Prediction:\", pred_label)\nprint(\"Class probabilities:\", class_probs)\nprint(\"Prediction Index:\", pred_index)\n\n\n\n\n\n\n    \n      \n      0.00% [0/1 00:00&lt;?]\n    \n    \n\n\nPrediction: picasso painting\nClass probabilities: tensor([0.0028, 0.9972])\nPrediction Index: tensor(1)\n\n\nWe could see the model predicting it’s a Picasso’s painting and it is 99% confident about it. We can use the prediction index in the class probabilities array to get the probability (confidence) score of the predicted label.\nLet’s wrap the above logic to a function which gets image path as input and returns a dictionary with class label and confidence score as output.\n\ndef predict(img_path):\n1    img = PILImage.create(img_path)\n2    pred_label, pred_index, class_probs = learn.predict(img)\n3    output = {labels[i]:float(class_probs[i]) for i in range(len(labels))}\n    return output\n\n\n1\n\nRead image in the img_path.\n\n2\n\nMake predictions for the image.\n\n3\n\nCreate output dictionary where key is the class label and value is the probability score. The output is specifically constructed like this because gradio expects the labels to be in this format. We’ll discuss about gradio in the next section.\n\n\n\n\nNow let’s use the predict function to make predictions for few images.\n\npredict('images/picas1.jpg')\n\n\n\n\n\n\n    \n      \n      0.00% [0/1 00:00&lt;?]\n    \n    \n\n\n{'monet painting': 1.7153462977148592e-05,\n 'picasso painting': 0.9999828338623047}\n\n\n\npredict('images/mon2.jpg')\n\n\n\n\n\n\n\n\n{'monet painting': 0.999991774559021,\n 'picasso painting': 8.193430403480306e-06}\n\n\nNow we successfully loaded the trained model and made predictions, let’s develop an app and use this model in it."
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#hugging-face-spaces",
+    "href": "posts/model-deploy-hfspace/index.html#hugging-face-spaces",
+    "title": "Deploy Deep Learning Model",
+    "section": "Hugging Face Spaces",
+    "text": "Hugging Face Spaces\nLet’s create a space for our gradio app. Once you log into your Hugging Face account, go to Hugging Face Spaces and click Create new space.\n\n\n\n\n\nYou will be landed to a form where we will be giving basic details like the space name, license, app framework, what kind of server configs we need etc., Hugging Face provides variety of hardware like CPUs and GPUs. For our demo, we will choose the free CPU.\n\n\n\n\n\n\n\n\n\n\nOnce you click Create Space, Hugging Face will create a git repo for you which we need to clone locally and update them with trained model and python scripts. Then the updated local repo should be pushed to Hugging Face remote repo.\nLet’s clone the repo as per the instruction given.\ngit clone https://huggingface.co/spaces/harishb00/painting-classifier"
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#convert-jupyter-code-to-python-script",
+    "href": "posts/model-deploy-hfspace/index.html#convert-jupyter-code-to-python-script",
+    "title": "Deploy Deep Learning Model",
+    "section": "Convert Jupyter code to python script",
+    "text": "Convert Jupyter code to python script\nConvert all the code we written in Jupyter notebook to Python script and save it to app.py file in the cloned repo. Once we do it, it looks like below\n\n\napp.py\n\nimport platform\nfrom fastai.vision.all import *\nimport gradio as gr\n\n\nif platform.system() == 'Windows':\n    import pathlib\n    pathlib.PosixPath = pathlib.WindowsPath\n\nlearn = load_learner('model.pkl')\nlabels = learn.dls.vocab\n\ndef predict(img):\n    img = PILImage.create(img)\n    pred,pred_idx,probs = learn.predict(img)\n    return {labels[i]: float(probs[i]) for i in range(len(labels))}\n\ntitle = \"Painting Classifier\"\ndescription = \"A painting classifier trained to classify Picasso and Monet paintings using dataset scrapped from Duck Duck Go Image search.\"\ndemo = gr.Interface(\n    inputs=gr.Image(height=400),\n    outputs=gr.Label(),\n    fn=predict,\n    title=title,\n    description=description,\n    examples=['images/picas3.jpg', 'images/picas1.jpg'],\n)\ndemo.launch()\n\nAlso create a requirements file inside cloned repo with Python packages required to run the script.\n\n\nrequirements.txt\n\nfastai\ngradio\n\nCopy the model file and image example files to the same folder. Once you are done with all the steps, your folder structure looks like this."
+  },
+  {
+    "objectID": "posts/model-deploy-hfspace/index.html#commit-and-push",
+    "href": "posts/model-deploy-hfspace/index.html#commit-and-push",
+    "title": "Deploy Deep Learning Model",
+    "section": "Commit and Push",
+    "text": "Commit and Push\nIt’s time to commit and push the code to Hugging Face Spaces. Execute below commands in your terminal.\ngit add .\ngit commit -m \"app commit\"\ngit push\n\n\n\n\n\n\ngit push hangs\n\n\n\ngit push hangs at 74% for me since the uploaded model file is a large one. git config --global http.postBuffer 157286400 fixed the issue by increasing the git buffer.\n\n\nThat’s it. In few minutes, your app is live and you can visit the Hugging Face Spaces project URL (URL used with git clone URL) to use/share your app."
   }
 ]
