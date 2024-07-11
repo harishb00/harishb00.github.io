@@ -2,3 +2,4 @@
 /.quarto/
 .venv/
 .ipynb_checkpoints/
+*todo.html
