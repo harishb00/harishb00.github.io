@@ -6,6 +6,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/fastbook-ch10-qa/index.html",
       "/posts/model-deploy-hfspace/index.html",
       "/posts/painting-classifier/index.html",
       "/posts/welcome/index.html"
