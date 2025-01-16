@@ -79,16 +79,16 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Harish",
+    "title": "Harish B",
     "section": "",
-    "text": "I’m a Software Engineer and Machine Learning student from India."
+    "text": "TODO"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hi, I’m Harish",
     "section": "",
-    "text": "I’m a software engineer and a machine learning student. This is where I share lessons learned during my projects, spanning Python programming, Deep Learning, and Software Design.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+    "text": "I’m an aspiring Machine Learning Engineer. I love Programming, Computer Science, Machine Learning.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -100,9 +100,9 @@
   {
     "objectID": "todo.html",
     "href": "todo.html",
-    "title": "Harish B",
+    "title": "todo",
     "section": "",
-    "text": "Hugging Face + Gradio Model Deployment\nLanguage Model Fine-Tuning & Text Classification\nMetric vs Loss\nUnderfit vs Overfit\nWeb API\nDjango\nCORS\nCSRF"
+    "text": "Topic Modeling\nCurse of Dimensionality\nLLM\nRAG"
   },
   {
     "objectID": "posts/model-deploy-hfspace/index.html",

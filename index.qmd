@@ -10,9 +10,9 @@ listing:
   image-height: "148px"
   image-align: right
 page-layout: full
-# title-block-banner: true
+title-block-banner: true
 ---
 
-I’m a software engineer and a machine learning student. This is where I share lessons learned during my projects, spanning Python programming, Deep Learning, and Software Design.
+I'm an aspiring Machine Learning Engineer. I love Programming, Computer Science, Machine Learning.
 
 # Recent posts

@@ -1,8 +1,8 @@
 ---
-title: "Harish"
+title: "Harish B"
 image: profile.jpg
 about:
-  template: trestles
+  template: solana
 ---
 
-I'm a Software Engineer and Machine Learning student from India.
+*TODO*
