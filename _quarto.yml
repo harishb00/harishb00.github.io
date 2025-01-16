@@ -7,16 +7,18 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Posts
+        text: posts
       - href: projects.qmd
-        text: Projects
+        text: pet projects
     right:
-      - href: about.qmd
-        text: About
+      - href: todo.qmd
+        text: todo
+      # - href: about.qmd
+      #   text: about
       - icon: github
         href: https://github.com/harishb00
       - icon: linkedin
-        href: https://www.linkedin.com/in/harish-b-33b701152/
+        href: https://www.linkedin.com/in/harishb00/
 
 format:
   html:
