@@ -1,17 +1,73 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Harish B",
-    "section": "",
-    "text": "TODO"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hi, I’m Harish",
     "section": "",
-    "text": "I’m an aspiring Machine Learning Engineer. I love Programming, Computer Science, Machine Learning.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+    "text": "I’m an aspiring Machine Learning Engineer. I love Programming, Computer Science, Machine Learning.\n\nRecent posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Language AI & LLM\n\n\n\n\n\n\nLanguage AI\n\n\nLLM\n\n\nGen AI\n\n\nAI\n\n\n\n\n\n\n\n\n\nApr 10, 2025\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html",
+    "href": "posts/lang-ai-llm-intro/index.html",
+    "title": "Introduction to Language AI & LLM",
+    "section": "",
+    "text": "This notebook is heavily inspired from Chapter 1 - Hands-on LLM book by Jay Alammar and Maarten Grootendorst and also my notes on the chapter."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#bag-of-words-2000s",
+    "href": "posts/lang-ai-llm-intro/index.html#bag-of-words-2000s",
+    "title": "Introduction to Language AI & LLM",
+    "section": "Bag-of-Words, 2000s",
+    "text": "Bag-of-Words, 2000s\n\nBag-of-Words is a classic method (became popular in early 2000s) to represent unstructured text in numbers.\nHow it works? \nAs a result, a bag-of-words model aims to create representations of text in the form of numbers, also called vectors or vector representations.\nSince these models are primarily used for representing text, they are referred to as representation models.\nLimitation: It considers language to be nothing more than bag of words (literally!) and ignores the order of words, the semantic nature, or meaning, of text."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#word2vec-2013",
+    "href": "posts/lang-ai-llm-intro/index.html#word2vec-2013",
+    "title": "Introduction to Language AI & LLM",
+    "section": "Word2Vec, 2013",
+    "text": "Word2Vec, 2013\n\n💡Efficient Estimation of Word Representations in Vector Space\n\n\nReleased in 2013, word2vec was one of the first successful attempts at capturing the meaning of text in embeddings.\nEmbeddings are vector representations of data that attempt to capture its meaning.\nHow it works?\n\nTraining: It takes a large corpus of text (like Wikipedia) and learns to predict the context of a word given its surrounding words.\nRepresentation: The model learns to represent words in a dense vector space where similar words are close to each other.\n\nAs shown in the below image, the word embeddings are learned in such a way that similar words are close to each other in the vector space.\n Source: Chapter 1 - Hands-on LLM\nLimitation: word2vec creates static, downloadable representations of words. For example, the word “bank” will always have the same embedding, regardless of the context in which it is used. However “bank” refers to both a financial bank as well as the bank of a river. This is a limitation of word2vec and other static word embedding models."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#attention-2014",
+    "href": "posts/lang-ai-llm-intro/index.html#attention-2014",
+    "title": "Introduction to Language AI & LLM",
+    "section": "Attention, 2014",
+    "text": "Attention, 2014\n\n💡Neural Machine Translation by Jointly Learning to Align and Translate\n\n\nTo overcome the limitation mentioned above, the Attention mechanism was introduced.\nAttention selectively determines which words are most important in a given sentence and focuses on them. It allows the model to weigh the importance of different words in a sentence when generating an output.\nBy adding these attention mechanisms to the decoder step, the RNN can generate signals for each input word in the sequence, allowing it to focus on the most relevant words when generating the output.\nInstead of passing only a context embedding to the decoder, the hidden states of all input words are passed.\nLimitation: The attention mechanism is still limited by the sequential nature of RNNs, which makes it difficult to parallelize the training process."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#attention-is-all-you-need-2017",
+    "href": "posts/lang-ai-llm-intro/index.html#attention-is-all-you-need-2017",
+    "title": "Introduction to Language AI & LLM",
+    "section": "Attention Is All You Need, 2017",
+    "text": "Attention Is All You Need, 2017\n\n💡Attention Is All You Need\n\n\nThe Transformer architecture was introduced in 2017, which is based entirely on the attention mechanism and does not use RNNs at all.\nThe transformer architecture consists of an encoder and a decoder. The encoder takes the input sequence and generates a set of attention scores, which are then used by the decoder to generate the output sequence.\nThe transformer architecture allows for parallelization of the training process, making it much faster and more efficient than RNNs.\nThe transformer architecture has become the foundation for many state-of-the-art models in NLP, including BERT, GPT-2, and T5."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#bert-2018",
+    "href": "posts/lang-ai-llm-intro/index.html#bert-2018",
+    "title": "Introduction to Language AI & LLM",
+    "section": "BERT, 2018",
+    "text": "BERT, 2018\n\n💡BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding\n\n\nIn 2018, a new encoder-stacked architecture called Bidirectional Encoder Representations from Transformers (BERT) was introduced that could be leveraged for a wide variety of tasks and would serve as the foundation of Language AI for years to come.\nBERT is an encoder-only architecture that focuses on representing language.\nHow training works? It is trained on a large corpus of text using a masked language modeling objective, which means that it learns to predict missing words in a sentence based on the context of the surrounding words.\nThis prediction task is difficult but allows BERT to create more accurate (intermediate) representations of the input.\nThis architecture and training procedure makes BERT and related architectures incredible at representing contextual language.\n\n\nEncoder-only Models: Representation Models\nThe original Transformer model is an encoder-decoder architecture that serves translation tasks well but cannot easily be used for other tasks, like text-classification or semantic search.\nRepresentation models focus on representing language, by creating embeddings, and do not generate text. These embeddings can be used for a variety of tasks, including text classification, semantic search, and clustering."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#gpt-1-2018",
+    "href": "posts/lang-ai-llm-intro/index.html#gpt-1-2018",
+    "title": "Introduction to Language AI & LLM",
+    "section": "GPT-1, 2018",
+    "text": "GPT-1, 2018\n\n💡Improving Language Understanding by Generative Pre-Training\n\n\nIn 2018, OpenAI released the first version of the Generative Pre-trained Transformer (GPT) model, which is a decoder-only architecture that focuses on generating text.\nGPT-1 was trained on a corpus of 7,000 books and Common Crawl, a large dataset of web pages. The resulting model consisted of 117 million parameters.\nGPT-1 was trained using a language modeling objective, which means that it learns to predict the next word in a sentence given the previous words.\nIncrease in the number of parameters and the size of the training corpus led to a significant improvement in performance on a variety of NLP tasks.\nSo, larger models were trained using the same architecture, including GPT-2 with 1.5 billion parameters and GPT-3 with 175 billion parameters.\n\n\nDecoder-only Models: Generative Models\nIn contrast with Encoder-only Models, Generative Models focus primarily on generating text and typically are not trained to generate embeddings."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#what-is-large-in-llms",
+    "href": "posts/lang-ai-llm-intro/index.html#what-is-large-in-llms",
+    "title": "Introduction to Language AI & LLM",
+    "section": "What is Large in LLMs?",
+    "text": "What is Large in LLMs?\nBelow are some of the points about LLMs in the book Hands-on LLM.\n\nWhat if we create a model with the same capabilities as GPT-3 but 10 times smaller? Would such a model fall outside the “Large” Language Model categorization?\n\n\n“Large” is arbitrary and what might be considered a large model today could be small tomorrow. There are currently many names for the same thing and to us, “Large Language Models” are also models that do not generate text and can be run on consumer hardware.\n\n\nEven encoder-only models can be referred to as LLMs, but the term is more commonly used for generative models."
+  },
+  {
+    "objectID": "posts/lang-ai-llm-intro/index.html#model-vs.-product",
+    "href": "posts/lang-ai-llm-intro/index.html#model-vs.-product",
+    "title": "Introduction to Language AI & LLM",
+    "section": "Model vs. Product",
+    "text": "Model vs. Product\n\nModel is the underlying technology/architecture, while the product is the application that uses the technology to provide value to users.\nThe following table shows few examples of models and products.\n\n\n\n\nModel\nProduct\nCompany\n\n\n\n\nGPT-3\nChatGPT\nOpenAI\n\n\nMistral\nLe Chat\nMistral\n\n\nAnthropic\nClaude\nAnthropic\n\n\nGemini\nGemini\nGoogle"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -68,6 +124,13 @@
     "title": "Deploy Deep Learning Model",
     "section": "Commit and Push",
     "text": "Commit and Push\nIt’s time to commit and push the code to Hugging Face Spaces. Execute below commands in your terminal.\ngit add .\ngit commit -m \"app commit\"\ngit push\n\n\n\n\n\n\ngit push hangs\n\n\n\ngit push hangs at 74% for me since the uploaded model file is a large one. git config --global http.postBuffer 157286400 fixed the issue by increasing the git buffer.\n\n\nThat’s it. In few minutes, your app is live and you can visit the Hugging Face Spaces project URL (URL used with git clone URL) to use/share your app."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Harish B",
+    "section": "",
+    "text": "TODO"
   },
   {
     "objectID": "posts/fastbook-ch10-qa/index.html",
