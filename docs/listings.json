@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/lang-ai-llm-intro/index.html",
       "/posts/fastbook-ch10-qa/index.html",
       "/posts/model-deploy-hfspace/index.html",
       "/posts/painting-classifier/index.html",
