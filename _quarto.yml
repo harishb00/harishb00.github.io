@@ -11,10 +11,6 @@ website:
       - href: projects.qmd
         text: pet projects
     right:
-      - href: todo.qmd
-        text: todo
-      # - href: about.qmd
-      #   text: about
       - icon: github
         href: https://github.com/harishb00
       - icon: linkedin
