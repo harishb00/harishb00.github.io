@@ -1,0 +1,93 @@
+---
+title: "uv - Python package and project manager"
+author: "Harish"
+date: "2025-09-13"
+categories: [Python, uv]
+---
+
+In this article, let's explore the popular Python package and project management tool, `uv`. 
+
+## Why use `uv`?
+
+Have you encountered these common issues when working with Python projects?
+
+- Code works on your machine but fails for a colleague due to a Python version mismatch.
+- Installing or switching between Python versions is tedious.
+- Forgetting to update the requirements file after adding or removing packages.
+- Dependency conflicts arise from indirect package updates.
+- Installing packages with `pip` takes a long time, especially for large projects.
+- Unsure which Python version your project uses without activating the virtual environment.
+
+`uv` helps solve these problems, making Python project management faster and more reliable.
+
+## Installation
+`uv` can simply be installed by executing the below command in your terminal. For Windows and macOS, refer [here](https://docs.astral.sh/uv/getting-started/installation/).
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+## Setting up a project
+Everytime we start a Python project locally, we perform certain actions by default. Below is the typical workflow to start and run a project, followed by uv equivalent workflow.
+
+### Typical Workflow
+| Step | Action | Command |
+| ---- | ------ | ------- |
+| 1 | Create project directory | `mkdir my_project` |
+| 2 | Create virtual environment | `python -m venv .venv` |
+| 3 | Activate virtual environment |  `source .venv/bin/activate` |
+| 4 | Install package | `pip install package1 package2` |
+| 5 | Write scripts & run | `python program.py` |
+| 6 | Dump requirements file | `pip freeze > requirements.txt` |
+| 7 | Upgrade package | `pip upgrade package1` |
+| 8 | Update requirements file | Manually update the file or again `pip freeze > requirements.txt` |
+
+### uv Workflow
+| Step | Action | Command |
+| ---- | ------ | ------- |
+| 1 | Create project | `uv init my_project` |
+| 2 | Create virtual environment | ✅ Taken Care |
+| 3 | Activate virtual environment | ✅ Not Required |
+| 4 | Install package | `uv add package1 package2` |
+| 5 | Write scripts & run | `uv run program.py` |
+| 6 | Dump requirements file | ✅ Taken care |
+| 7 | Upgrade package | `uv upgrade package1` |
+| 8 | Update requirements file | ✅ Taken care |
+
+### Artifacts created by `uv`
+
+* Directory vs a Project?
+
+### Virtual Environment
+
+## Adding & Managing packages
+
+## Summary
+
+| Commands | Description |
+| -------- | ----------- |
+| `curl -LsSf https://astral.sh/uv/install.sh | sh` | Installs `uv` |
+|  **New Project** | |
+| `uv init` | Run this inside the project directory. Creates files to keep track of python version and all the dependencies |
+| **Existing Project** |  |
+| `uv run python --version` | Check Python version used by the current project |
+| **Running Python files** | |
+| `uv run main.py` | Runs the `main.py` file. `python file.py` to be replaced with `uv run file.py` |
+| **Adding and managing packages** | |
+| `uv add scipy` | |
+| `uv version` | |
+| `uv python list` | |
+| `uv python install` | |
+| `uv python uninstall` | |
+| `uv pip list` | |
+| `uv pip show` | |
+| `uv sync` | |
+| `uv venv` | |
+
+
+
+* uv
+* indexes, new proj, existing proj, venv, sync, add, remove,  run, pip,
+  uv python install & list, folder structure
+* quarto
+
