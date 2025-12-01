@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Harish B - Hi, I’m Harish</title>
+<title>Harish B</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,73 +66,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Harish B" href="index.xml" data-external="1"></head>
+</head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -149,7 +89,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">posts</span></a>
   </li>  
   <li class="nav-item">
@@ -181,284 +121,31 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Hi, I’m Harish</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="AI">AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Deep Learning">Deep Learning <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Gen AI">Gen AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Hugging Face">Hugging Face <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Language AI">Language AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Model Deployment">Model Deployment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Package Manager">Package Manager <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(3)</span></div><div class="category" data-category="fastbook">fastbook <span class="quarto-category-count">(1)</span></div><div class="category" data-category="uv">uv <span class="quarto-category-count">(1)</span></div><div class="category" data-category="welcome">welcome <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 
 
-
-<p>Personal notes about programming, machine Learning and other stuff in general. This is my scratchpad to write about things I learn. Also a place to improve my writing skills.</p>
-<section id="recent-posts" class="level1">
-<h1>Recent posts</h1>
-
+<section id="publish-quarto" class="level1">
+<h1>Publish Quarto</h1>
+<pre><code>quarto render
+git add docs
+git commit -m "Publish site to docs/"
+git push</code></pre>
+</section>
+<section id="preview-quarto-site-locally" class="level1">
+<h1>Preview Quarto Site Locally</h1>
+<pre><code>quarto preview</code></pre>
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Python,uv,Package Manager" data-listing-date-sort="1757701800000" data-listing-file-modified-sort="1764596115376" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="721">
-<div class="thumbnail">
-<p><a href="./posts/uv/index.html" class="no-external"></a></p><a href="./posts/uv/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 148px;">&nbsp;</div>
-</a><p><a href="./posts/uv/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/uv/index.html" class="no-external">uv - Python package and project manager</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/uv/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('uv'); return false;">
-uv
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Package Manager'); return false;">
-Package Manager
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/uv/index.html" class="no-external">In this article, let’s explore the popular Python package and project management tool, <code>uv</code>. <code>uv</code> is really fast compared to <code>pip</code>, which is an important reason for its…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/uv/index.html" class="no-external">
-<div class="listing-date">
-Sep 13, 2025
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Language AI,LLM,Gen AI,AI" data-listing-date-sort="1744223400000" data-listing-file-modified-sort="1756999042601" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1515">
-<div class="thumbnail">
-<p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\lang-ai-llm-intro\assets\lang-ai-evolution.png" alt="Language AI Evolution" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">Introduction to Language AI &amp; LLM</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Language AI'); return false;">
-Language AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
-LLM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gen AI'); return false;">
-Gen AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('AI'); return false;">
-AI
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">This notebook is heavily inspired from Chapter 1 - Hands-on LLM book by <strong>Jay Alammar</strong> and <strong>Maarten Grootendorst</strong> and also my notes on the chapter.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<div class="listing-date">
-Apr 10, 2025
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Deep Learning,fastai,NLP,fastbook" data-listing-date-sort="1714069800000" data-listing-file-modified-sort="1744290530673" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1375">
-<div class="thumbnail">
-<p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 148px;">&nbsp;</div>
-</a><p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">Fastbook NLP Deep Dive: RNNs Q&amp;A</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('NLP'); return false;">
-NLP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastbook'); return false;">
-fastbook
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">In this post, I tried to answer all the questions in Chapter 10 of Fastbook which is <strong>NLP Deep Dive: RNNs</strong>.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-date">
-Apr 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Deep Learning,Hugging Face,fastai,Model Deployment" data-listing-date-sort="1713897000000" data-listing-file-modified-sort="1714091641559" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1585">
-<div class="thumbnail">
-<p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p><a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<p><img src="./posts/model-deploy-hfspace/thumbnail.png" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">Deploy Deep Learning Model</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Hugging Face'); return false;">
-Hugging Face
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Model Deployment'); return false;">
-Model Deployment
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">In the previous post, we saw how to train a model (to classify Picasso and Monet paintings) and save the trained model in <code>fastai</code>. In this post, let us create an app using <code>gra…</code><strong></strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<div class="listing-date">
-Apr 24, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Deep Learning,fastai" data-listing-date-sort="1711823400000" data-listing-file-modified-sort="1712807096278" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1451">
-<div class="thumbnail">
-<p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p><a href="./posts/painting-classifier/index.html" class="no-external">
-<p><img src="./posts/painting-classifier/thumbnail.jpg" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/painting-classifier/index.html" class="no-external">Picasso and Monet Painting Classifier</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/painting-classifier/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/painting-classifier/index.html" class="no-external">In this post, let’s build an image classifier to classify paintings made by Picasso and Monet. I am currently doing Practical Deep Learning for Coders course by fastai and…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/painting-classifier/index.html" class="no-external">
-<div class="listing-date">
-Mar 31, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="welcome" data-listing-date-sort="1711391400000" data-listing-file-modified-sort="1711870159260" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\welcome\thumbnail.jpg" alt="thumbnail" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('welcome'); return false;">
-welcome
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Mar 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
