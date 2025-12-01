@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Harish">
+<meta name="dcterms.date" content="2025-09-13">
 
-<title>Harish B - Hi, I’m Harish</title>
+<title>Harish B - uv - Python package and project manager</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +102,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Harish B" href="index.xml" data-external="1"></head>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Harish B</span>
     </a>
   </div>
@@ -149,11 +125,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">pet projects</span></a>
   </li>  
 </ul>
@@ -169,7 +145,7 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -181,284 +157,330 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Hi, I’m Harish</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="AI">AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Deep Learning">Deep Learning <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Gen AI">Gen AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Hugging Face">Hugging Face <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Language AI">Language AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Model Deployment">Model Deployment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Package Manager">Package Manager <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(3)</span></div><div class="category" data-category="fastbook">fastbook <span class="quarto-category-count">(1)</span></div><div class="category" data-category="uv">uv <span class="quarto-category-count">(1)</span></div><div class="category" data-category="welcome">welcome <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#performance-benchmark" id="toc-performance-benchmark" class="nav-link" data-scroll-target="#performance-benchmark">Performance Benchmark</a></li>
+  <li><a href="#why-use-uv" id="toc-why-use-uv" class="nav-link" data-scroll-target="#why-use-uv">Why use <code>uv</code>?</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#project-workflow" id="toc-project-workflow" class="nav-link" data-scroll-target="#project-workflow">Project Workflow</a>
+  <ul class="collapse">
+  <li><a href="#typical-workflow" id="toc-typical-workflow" class="nav-link" data-scroll-target="#typical-workflow">Typical Workflow</a></li>
+  <li><a href="#uv-workflow" id="toc-uv-workflow" class="nav-link" data-scroll-target="#uv-workflow"><code>uv</code> Workflow</a></li>
+  </ul></li>
+  <li><a href="#project-structure" id="toc-project-structure" class="nav-link" data-scroll-target="#project-structure">Project Structure</a></li>
+  <li><a href="#commands" id="toc-commands" class="nav-link" data-scroll-target="#commands">Commands</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">uv - Python package and project manager</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">uv</div>
+    <div class="quarto-category">Package Manager</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Harish </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 13, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<p>Personal notes about programming, machine Learning and other stuff in general. This is my scratchpad to write about things I learn. Also a place to improve my writing skills.</p>
-<section id="recent-posts" class="level1">
-<h1>Recent posts</h1>
+</header>
 
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this article, let’s explore the popular Python package and project management tool, <code>uv</code>. <code>uv</code> is really fast compared to <code>pip</code>, which is an important reason for its popularity. It’s written in Rust, which helps it achieve this performance.</p>
+</section>
+<section id="performance-benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="performance-benchmark">Performance Benchmark</h2>
+</section>
+<section id="why-use-uv" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-uv">Why use <code>uv</code>?</h2>
+<p>Have you encountered these common issues when working with Python projects?</p>
+<ul>
+<li>Installing or switching between Python versions is tedious</li>
+<li>Forgetting to update the requirements file after installing or uninstalling a package</li>
+<li>Dependency conflicts arising from indirect package updates</li>
+<li>Installing packages with <code>pip</code> takes a long time, especially for large projects</li>
+<li>Keeping track of the Python version your project is using</li>
+</ul>
+<p><code>uv</code> helps solve these problems, making Python project management faster and more reliable.</p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p><code>uv</code> can simply be installed by executing the below command in your terminal. For Windows and macOS, refer <a href="https://docs.astral.sh/uv/getting-started/installation/">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="project-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="project-workflow">Project Workflow</h2>
+<p>Every time we start a Python project locally, we perform certain actions by default. Below is the typical workflow to start and run a project, followed by the <code>uv</code> equivalent workflow.</p>
+<section id="typical-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="typical-workflow">Typical Workflow</h3>
+<table class="table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 35%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Create project directory</td>
+<td><code>mkdir my_project</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Create virtual environment</td>
+<td><code>python -m venv .venv</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Activate virtual environment</td>
+<td><code>source .venv/bin/activate</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Install package</td>
+<td><code>pip install package1 package2</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Write scripts &amp; run</td>
+<td><code>python program.py</code></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Dump requirements file</td>
+<td><code>pip freeze &gt; requirements.txt</code></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Upgrade package</td>
+<td><code>pip upgrade package1</code></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Update requirements file</td>
+<td>Manually update the file or again <code>pip freeze &gt; requirements.txt</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="uv-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="uv-workflow"><code>uv</code> Workflow</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Create project</td>
+<td><code>uv init my_project</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Create virtual environment</td>
+<td>✅ Taken Care</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Activate virtual environment</td>
+<td>✅ Not Required</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Install package</td>
+<td><code>uv add package1 package2</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Write scripts &amp; run</td>
+<td><code>uv run program.py</code></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Dump requirements file</td>
+<td>✅ Taken care</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Upgrade package</td>
+<td><code>uv upgrade package1</code></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Update requirements file</td>
+<td>✅ Taken care</td>
+</tr>
+</tbody>
+</table>
+<p>Ah, that’s 50% fewer commands!</p>
+</section>
+</section>
+<section id="project-structure" class="level2">
+<h2 class="anchored" data-anchor-id="project-structure">Project Structure</h2>
+</section>
+<section id="commands" class="level2">
+<h2 class="anchored" data-anchor-id="commands">Commands</h2>
+<p>This section contains the most useful commands for working with a uv-managed Python project.</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></td>
+<td>Installs the <code>uv</code> CLI on your system.</td>
+</tr>
+<tr class="even">
+<td><strong>uv</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv self version</code></td>
+<td>Shows the installed <code>uv</code> CLI version.</td>
+</tr>
+<tr class="even">
+<td><code>uv python list</code></td>
+<td>Lists Python versions available to install via <code>uv</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>uv python install 3.13.5</code></td>
+<td>Installs Python 3.13.5 for use by <code>uv</code> (downloads and makes it available to projects).</td>
+</tr>
+<tr class="even">
+<td><code>uv python uninstall 3.13.5</code></td>
+<td>Removes the installed Python 3.13.5 from <code>uv</code>’s local installations.</td>
+</tr>
+<tr class="odd">
+<td><strong>New Project</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>uv init abc</code></td>
+<td>Creates a new project in directory <code>abc</code> and initializes <code>uv</code> project files there.</td>
+</tr>
+<tr class="odd">
+<td><code>uv init abc -p 3.13</code></td>
+<td>Initializes project <code>abc</code> and configures it to use Python 3.13.</td>
+</tr>
+<tr class="even">
+<td><code>uv init</code> or <code>uv init .</code></td>
+<td>Initializes the current directory as a <code>uv</code> project. Use <code>-p</code> to specify Python version.</td>
+</tr>
+<tr class="odd">
+<td><strong>Project information</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>uv version</code></td>
+<td>Prints the project version.</td>
+</tr>
+<tr class="odd">
+<td><code>uv run python --version</code></td>
+<td>Shows the Python version used by the current project environment.</td>
+</tr>
+<tr class="even">
+<td><strong>Running Python files</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv run main.py</code></td>
+<td>Executes <code>main.py</code> using the project’s managed Python environment.</td>
+</tr>
+<tr class="even">
+<td><strong>Adding and managing packages</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv add scipy</code></td>
+<td>Adds <code>scipy</code> as a project dependency and installs it into the project environment.</td>
+</tr>
+<tr class="even">
+<td><code>uv add ipykernel --group local</code></td>
+<td>Adds <code>ipykernel</code> to the <code>local</code> dependency group (for optional or environment-specific packages).</td>
+</tr>
+<tr class="odd">
+<td><code>uv sync</code></td>
+<td>Ensures the project environment is set up: installs required Python (if needed), creates/updates the venv, and installs all configured dependencies.</td>
+</tr>
+<tr class="even">
+<td><code>uv sync --no-default-groups --group local</code></td>
+<td>Installs packages only from the specified non-default group <code>local</code>, skipping the default groups.</td>
+</tr>
+<tr class="odd">
+<td><code>uv venv</code></td>
+<td>Creates a virtual environment for the project; will prompt before deleting an existing venv.</td>
+</tr>
+<tr class="even">
+<td><strong><code>pip</code> commands inside <code>uv</code></strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv pip list</code></td>
+<td>Lists packages installed in the project’s environment (equivalent to <code>pip list</code>).</td>
+</tr>
+<tr class="even">
+<td><code>uv pip show scipy</code></td>
+<td>Shows metadata for the installed <code>scipy</code> package (equivalent to <code>pip show scipy</code>).</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Python,uv,Package Manager" data-listing-date-sort="1757701800000" data-listing-file-modified-sort="1764596115376" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="721">
-<div class="thumbnail">
-<p><a href="./posts/uv/index.html" class="no-external"></a></p><a href="./posts/uv/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 148px;">&nbsp;</div>
-</a><p><a href="./posts/uv/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/uv/index.html" class="no-external">uv - Python package and project manager</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/uv/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('uv'); return false;">
-uv
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Package Manager'); return false;">
-Package Manager
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/uv/index.html" class="no-external">In this article, let’s explore the popular Python package and project management tool, <code>uv</code>. <code>uv</code> is really fast compared to <code>pip</code>, which is an important reason for its…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/uv/index.html" class="no-external">
-<div class="listing-date">
-Sep 13, 2025
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Language AI,LLM,Gen AI,AI" data-listing-date-sort="1744223400000" data-listing-file-modified-sort="1756999042601" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1515">
-<div class="thumbnail">
-<p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\lang-ai-llm-intro\assets\lang-ai-evolution.png" alt="Language AI Evolution" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">Introduction to Language AI &amp; LLM</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Language AI'); return false;">
-Language AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
-LLM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gen AI'); return false;">
-Gen AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('AI'); return false;">
-AI
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">This notebook is heavily inspired from Chapter 1 - Hands-on LLM book by <strong>Jay Alammar</strong> and <strong>Maarten Grootendorst</strong> and also my notes on the chapter.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<div class="listing-date">
-Apr 10, 2025
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Deep Learning,fastai,NLP,fastbook" data-listing-date-sort="1714069800000" data-listing-file-modified-sort="1744290530673" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1375">
-<div class="thumbnail">
-<p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 148px;">&nbsp;</div>
-</a><p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">Fastbook NLP Deep Dive: RNNs Q&amp;A</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('NLP'); return false;">
-NLP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastbook'); return false;">
-fastbook
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">In this post, I tried to answer all the questions in Chapter 10 of Fastbook which is <strong>NLP Deep Dive: RNNs</strong>.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-date">
-Apr 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Deep Learning,Hugging Face,fastai,Model Deployment" data-listing-date-sort="1713897000000" data-listing-file-modified-sort="1714091641559" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1585">
-<div class="thumbnail">
-<p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p><a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<p><img src="./posts/model-deploy-hfspace/thumbnail.png" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">Deploy Deep Learning Model</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Hugging Face'); return false;">
-Hugging Face
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Model Deployment'); return false;">
-Model Deployment
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">In the previous post, we saw how to train a model (to classify Picasso and Monet paintings) and save the trained model in <code>fastai</code>. In this post, let us create an app using <code>gra…</code><strong></strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<div class="listing-date">
-Apr 24, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Deep Learning,fastai" data-listing-date-sort="1711823400000" data-listing-file-modified-sort="1712807096278" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1451">
-<div class="thumbnail">
-<p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p><a href="./posts/painting-classifier/index.html" class="no-external">
-<p><img src="./posts/painting-classifier/thumbnail.jpg" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/painting-classifier/index.html" class="no-external">Picasso and Monet Painting Classifier</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/painting-classifier/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/painting-classifier/index.html" class="no-external">In this post, let’s build an image classifier to classify paintings made by Picasso and Monet. I am currently doing Practical Deep Learning for Coders course by fastai and…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/painting-classifier/index.html" class="no-external">
-<div class="listing-date">
-Mar 31, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="welcome" data-listing-date-sort="1711391400000" data-listing-file-modified-sort="1711870159260" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\welcome\thumbnail.jpg" alt="thumbnail" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('welcome'); return false;">
-welcome
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Mar 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -868,6 +890,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="harishb00/harishb00.github.io" data-repo-id="R_kgDOLlyWtg" data-category="General" data-category-id="DIC_kwDOLlyWts4CeW8Y" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 
 

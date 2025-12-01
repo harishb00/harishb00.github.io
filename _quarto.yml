@@ -4,6 +4,8 @@ project:
 
 website:
   title: "Harish B"
+  site-url: "https://harishb00.github.io/"
+  description: "A simple blog about AI, Machine Learning and Programming."
   navbar:
     left:
       - href: index.qmd
@@ -15,10 +17,12 @@ website:
         href: https://github.com/harishb00
       - icon: linkedin
         href: https://www.linkedin.com/in/harishb00/
+      - icon: rss
+        href: index.xml
 
 format:
   html:
-    theme: cosmo
+    theme: default   
     css: styles.css
 
 

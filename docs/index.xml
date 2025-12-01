@@ -1,0 +1,2326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Harish B</title>
+<link>https://harishb00.github.io/</link>
+<atom:link href="https://harishb00.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description>A simple blog about AI, Machine Learning and Programming.</description>
+<generator>quarto-1.4.552</generator>
+<lastBuildDate>Fri, 12 Sep 2025 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>uv - Python package and project manager</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/uv/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this article, let’s explore the popular Python package and project management tool, <code>uv</code>. <code>uv</code> is really fast compared to <code>pip</code>, which is an important reason for its popularity. It’s written in Rust, which helps it achieve this performance.</p>
+</section>
+<section id="performance-benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="performance-benchmark">Performance Benchmark</h2>
+</section>
+<section id="why-use-uv" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-uv">Why use <code>uv</code>?</h2>
+<p>Have you encountered these common issues when working with Python projects?</p>
+<ul>
+<li>Installing or switching between Python versions is tedious</li>
+<li>Forgetting to update the requirements file after installing or uninstalling a package</li>
+<li>Dependency conflicts arising from indirect package updates</li>
+<li>Installing packages with <code>pip</code> takes a long time, especially for large projects</li>
+<li>Keeping track of the Python version your project is using</li>
+</ul>
+<p><code>uv</code> helps solve these problems, making Python project management faster and more reliable.</p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p><code>uv</code> can simply be installed by executing the below command in your terminal. For Windows and macOS, refer <a href="https://docs.astral.sh/uv/getting-started/installation/">here</a>.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">curl</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sh</span></span></code></pre></div>
+</section>
+<section id="project-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="project-workflow">Project Workflow</h2>
+<p>Every time we start a Python project locally, we perform certain actions by default. Below is the typical workflow to start and run a project, followed by the <code>uv</code> equivalent workflow.</p>
+<section id="typical-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="typical-workflow">Typical Workflow</h3>
+<table class="table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 35%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Create project directory</td>
+<td><code>mkdir my_project</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Create virtual environment</td>
+<td><code>python -m venv .venv</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Activate virtual environment</td>
+<td><code>source .venv/bin/activate</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Install package</td>
+<td><code>pip install package1 package2</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Write scripts &amp; run</td>
+<td><code>python program.py</code></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Dump requirements file</td>
+<td><code>pip freeze &gt; requirements.txt</code></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Upgrade package</td>
+<td><code>pip upgrade package1</code></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Update requirements file</td>
+<td>Manually update the file or again <code>pip freeze &gt; requirements.txt</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="uv-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="uv-workflow"><code>uv</code> Workflow</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Create project</td>
+<td><code>uv init my_project</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Create virtual environment</td>
+<td>✅ Taken Care</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Activate virtual environment</td>
+<td>✅ Not Required</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Install package</td>
+<td><code>uv add package1 package2</code></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Write scripts &amp; run</td>
+<td><code>uv run program.py</code></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Dump requirements file</td>
+<td>✅ Taken care</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Upgrade package</td>
+<td><code>uv upgrade package1</code></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Update requirements file</td>
+<td>✅ Taken care</td>
+</tr>
+</tbody>
+</table>
+<p>Ah, that’s 50% fewer commands!</p>
+</section>
+</section>
+<section id="project-structure" class="level2">
+<h2 class="anchored" data-anchor-id="project-structure">Project Structure</h2>
+</section>
+<section id="commands" class="level2">
+<h2 class="anchored" data-anchor-id="commands">Commands</h2>
+<p>This section contains the most useful commands for working with a uv-managed Python project.</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commands</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></td>
+<td>Installs the <code>uv</code> CLI on your system.</td>
+</tr>
+<tr class="even">
+<td><strong>uv</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv self version</code></td>
+<td>Shows the installed <code>uv</code> CLI version.</td>
+</tr>
+<tr class="even">
+<td><code>uv python list</code></td>
+<td>Lists Python versions available to install via <code>uv</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>uv python install 3.13.5</code></td>
+<td>Installs Python 3.13.5 for use by <code>uv</code> (downloads and makes it available to projects).</td>
+</tr>
+<tr class="even">
+<td><code>uv python uninstall 3.13.5</code></td>
+<td>Removes the installed Python 3.13.5 from <code>uv</code>’s local installations.</td>
+</tr>
+<tr class="odd">
+<td><strong>New Project</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>uv init abc</code></td>
+<td>Creates a new project in directory <code>abc</code> and initializes <code>uv</code> project files there.</td>
+</tr>
+<tr class="odd">
+<td><code>uv init abc -p 3.13</code></td>
+<td>Initializes project <code>abc</code> and configures it to use Python 3.13.</td>
+</tr>
+<tr class="even">
+<td><code>uv init</code> or <code>uv init .</code></td>
+<td>Initializes the current directory as a <code>uv</code> project. Use <code>-p</code> to specify Python version.</td>
+</tr>
+<tr class="odd">
+<td><strong>Project information</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>uv version</code></td>
+<td>Prints the project version.</td>
+</tr>
+<tr class="odd">
+<td><code>uv run python --version</code></td>
+<td>Shows the Python version used by the current project environment.</td>
+</tr>
+<tr class="even">
+<td><strong>Running Python files</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv run main.py</code></td>
+<td>Executes <code>main.py</code> using the project’s managed Python environment.</td>
+</tr>
+<tr class="even">
+<td><strong>Adding and managing packages</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv add scipy</code></td>
+<td>Adds <code>scipy</code> as a project dependency and installs it into the project environment.</td>
+</tr>
+<tr class="even">
+<td><code>uv add ipykernel --group local</code></td>
+<td>Adds <code>ipykernel</code> to the <code>local</code> dependency group (for optional or environment-specific packages).</td>
+</tr>
+<tr class="odd">
+<td><code>uv sync</code></td>
+<td>Ensures the project environment is set up: installs required Python (if needed), creates/updates the venv, and installs all configured dependencies.</td>
+</tr>
+<tr class="even">
+<td><code>uv sync --no-default-groups --group local</code></td>
+<td>Installs packages only from the specified non-default group <code>local</code>, skipping the default groups.</td>
+</tr>
+<tr class="odd">
+<td><code>uv venv</code></td>
+<td>Creates a virtual environment for the project; will prompt before deleting an existing venv.</td>
+</tr>
+<tr class="even">
+<td><strong><code>pip</code> commands inside <code>uv</code></strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>uv pip list</code></td>
+<td>Lists packages installed in the project’s environment (equivalent to <code>pip list</code>).</td>
+</tr>
+<tr class="even">
+<td><code>uv pip show scipy</code></td>
+<td>Shows metadata for the installed <code>scipy</code> package (equivalent to <code>pip show scipy</code>).</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+ ]]></description>
+  <category>Python</category>
+  <category>uv</category>
+  <category>Package Manager</category>
+  <guid>https://harishb00.github.io/posts/uv/</guid>
+  <pubDate>Fri, 12 Sep 2025 18:30:00 GMT</pubDate>
+</item>
+<item>
+  <title>Introduction to Language AI &amp; LLM</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/lang-ai-llm-intro/</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>This notebook is heavily inspired from <a href="https://learning.oreilly.com/library/view/hands-on-large-language/9781098150952/">Chapter 1 - Hands-on LLM</a> book by <strong>Jay Alammar</strong> and <strong>Maarten Grootendorst</strong> and also my notes on the chapter.</p>
+</blockquote>
+<section id="language-ai" class="level1">
+<h1>Language AI</h1>
+<ul>
+<li><p><strong>Artificial Intelligence (AI)</strong> is often used to describe computer systems dedicated to performing tasks close to human intelligence, such as speech recognition, language translation, and visual perception.</p></li>
+<li><p><strong>Language AI</strong> refers to a subfield of AI that focuses on developing technologies capable of understanding, processing, and generating human language. It can be used interchangeably with <strong>Natural Language Processing</strong>.</p></li>
+</ul>
+</section>
+<section id="history" class="level1">
+<h1>History</h1>
+<ul>
+<li><p>Lot of research and development has happened in the field of Language AI aiming <strong>to represent and generate language</strong>. Below image shows those developments over the years.</p>
+<p><img src="https://harishb00.github.io/posts/lang-ai-llm-intro/assets/lang-ai-evolution.png" class="img-fluid" alt="Language AI Evolution"><br> <em>Source: <a href="https://learning.oreilly.com/library/view/hands-on-large-language/9781098150952/">Chapter 1 - Hands-on LLM</a></em></p></li>
+<li><p><strong>Text is unstructured</strong> in nature and loses its meaning when represented by zeros and ones (individual characters). As a result, throughout the history of Language AI, there has been a large focus on <strong>representing language in a structured manner so that it can more easily be used by computers</strong>.</p></li>
+</ul>
+</section>
+<section id="representing-language" class="level1">
+<h1>Representing Language</h1>
+<section id="bag-of-words-2000s" class="level2">
+<h2 class="anchored" data-anchor-id="bag-of-words-2000s">Bag-of-Words, 2000s</h2>
+<ul>
+<li>Bag-of-Words is a classic method (became popular in early 2000s) to represent unstructured text in numbers.</li>
+<li><strong>How it works?</strong> <img src="https://harishb00.github.io/posts/lang-ai-llm-intro/assets/bow-alg.png" class="img-fluid" alt="Bag of Words Algorithm"></li>
+<li>As a result, a bag-of-words model aims <strong>to create representations of text in the form of numbers</strong>, also called vectors or <strong>vector representations</strong>.</li>
+<li>Since these models are primarily used for representing text, they are referred to as <strong>representation models</strong>.</li>
+<li><strong>Limitation</strong>: It considers language to be nothing more than bag of words (literally!) and ignores the order of words, the semantic nature, or meaning, of text.</li>
+</ul>
+</section>
+<section id="word2vec-2013" class="level2">
+<h2 class="anchored" data-anchor-id="word2vec-2013">Word2Vec, 2013</h2>
+<blockquote class="blockquote">
+<p>💡<a href="https://arxiv.org/abs/1301.3781">Efficient Estimation of Word Representations in Vector Space</a></p>
+</blockquote>
+<ul>
+<li><p>Released in 2013, <em>word2vec</em> was one of the first successful attempts at capturing the meaning of text in <strong><em>embeddings</em></strong>.</p></li>
+<li><p><strong>Embeddings</strong> are vector representations of data that attempt to capture its meaning.</p></li>
+<li><p><strong>How it works?</strong></p>
+<ol type="1">
+<li><strong>Training</strong>: It takes a large corpus of text (like Wikipedia) and learns to predict the context of a word given its surrounding words.</li>
+<li><strong>Representation</strong>: The model learns to represent words in a dense vector space where similar words are close to each other.</li>
+</ol></li>
+<li><p>As shown in the below image, the word <strong>embeddings are learned</strong> in such a way that <strong>similar words are close to each other in the vector space</strong>.</p>
+<p><img src="https://harishb00.github.io/posts/lang-ai-llm-intro/assets/word2vec-vec-space.png" class="img-fluid" alt="image-2.png"><br> <em>Source: <a href="https://learning.oreilly.com/library/view/hands-on-large-language/9781098150952/">Chapter 1 - Hands-on LLM</a></em></p></li>
+<li><p><strong>Limitation</strong>: <em>word2vec</em> creates <strong>static</strong>, downloadable <strong>representations of words</strong>. For example, the word “bank” will always have the <strong>same embedding, regardless of the context</strong> in which it is used. However “bank” refers to both a financial bank as well as the bank of a river. This is a limitation of <em>word2vec</em> and other static word embedding models.</p></li>
+</ul>
+</section>
+<section id="attention-2014" class="level2">
+<h2 class="anchored" data-anchor-id="attention-2014">Attention, 2014</h2>
+<blockquote class="blockquote">
+<p>💡<a href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a></p>
+</blockquote>
+<ul>
+<li>To overcome the limitation mentioned above, the <strong>Attention</strong> mechanism was introduced.</li>
+<li>Attention selectively determines which words are most important in a given sentence and focuses on them. It allows the model to weigh the importance of different words in a sentence when generating an output.</li>
+<li>By adding these attention mechanisms to the decoder step, the RNN can generate signals for each input word in the sequence, allowing it to focus on the most relevant words when generating the output.</li>
+<li>Instead of passing only a context embedding to the decoder, the hidden states of all input words are passed.</li>
+<li><strong>Limitation</strong>: The attention mechanism is still limited by the sequential nature of RNNs, which makes it difficult to parallelize the training process.</li>
+</ul>
+</section>
+<section id="attention-is-all-you-need-2017" class="level2">
+<h2 class="anchored" data-anchor-id="attention-is-all-you-need-2017">Attention Is All You Need, 2017</h2>
+<blockquote class="blockquote">
+<p>💡<a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p>
+</blockquote>
+<ul>
+<li>The <strong>Transformer</strong> architecture was introduced in 2017, which is based entirely on the attention mechanism and does not use RNNs at all.</li>
+<li>The transformer architecture consists of an <strong>encoder</strong> and a <strong>decoder</strong>. The encoder takes the input sequence and generates a set of attention scores, which are then used by the decoder to generate the output sequence.</li>
+<li>The transformer architecture allows for parallelization of the training process, making it much faster and more efficient than RNNs.</li>
+<li>The transformer architecture has become the foundation for many state-of-the-art models in NLP, including BERT, GPT-2, and T5.</li>
+</ul>
+</section>
+<section id="bert-2018" class="level2">
+<h2 class="anchored" data-anchor-id="bert-2018">BERT, 2018</h2>
+<blockquote class="blockquote">
+<p>💡<a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></p>
+</blockquote>
+<ul>
+<li>In 2018, a new <strong>encoder-stacked architecture</strong> called <strong>Bidirectional Encoder Representations from Transformers (BERT)</strong> was introduced that could be leveraged for a wide variety of tasks and would serve as the foundation of Language AI for years to come.</li>
+<li>BERT is an encoder-only architecture that focuses on representing language.</li>
+<li><strong>How training works?</strong> It is trained on a large corpus of text using a <strong>masked language modeling</strong> objective, which means that it learns <strong>to predict missing words in a sentence based on the context of the surrounding words</strong>.</li>
+<li>This prediction task is difficult but allows BERT to create more accurate (intermediate) representations of the input.</li>
+<li>This architecture and training procedure makes BERT and related architectures incredible at representing contextual language.</li>
+</ul>
+<section id="encoder-only-models-representation-models" class="level3">
+<h3 class="anchored" data-anchor-id="encoder-only-models-representation-models">Encoder-only Models: Representation Models</h3>
+<p>The original <em>Transformer</em> model is an encoder-decoder architecture that serves translation tasks well but cannot easily be used for other tasks, like text-classification or semantic search.</p>
+<p>Representation models focus on representing language, by creating embeddings, and do not generate text. These embeddings can be used for a variety of tasks, including text classification, semantic search, and clustering.</p>
+</section>
+</section>
+<section id="gpt-1-2018" class="level2">
+<h2 class="anchored" data-anchor-id="gpt-1-2018">GPT-1, 2018</h2>
+<blockquote class="blockquote">
+<p>💡<a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf">Improving Language Understanding by Generative Pre-Training</a></p>
+</blockquote>
+<ul>
+<li>In 2018, OpenAI released the first version of the <strong>Generative Pre-trained Transformer (GPT)</strong> model, which is a decoder-only architecture that focuses on generating text.</li>
+<li>GPT-1 was trained on a corpus of 7,000 books and Common Crawl, a large dataset of web pages. The resulting model consisted of 117 million parameters.</li>
+<li>GPT-1 was trained using a <strong>language modeling objective</strong>, which means that it learns to predict the next word in a sentence given the previous words.</li>
+<li>Increase in the number of parameters and the size of the training corpus led to a significant improvement in performance on a variety of NLP tasks.</li>
+<li>So, larger models were trained using the same architecture, including GPT-2 with 1.5 billion parameters and GPT-3 with 175 billion parameters.</li>
+</ul>
+<section id="decoder-only-models-generative-models" class="level3">
+<h3 class="anchored" data-anchor-id="decoder-only-models-generative-models">Decoder-only Models: Generative Models</h3>
+<p>In contrast with Encoder-only Models, Generative Models focus primarily on generating text and typically are not trained to generate embeddings.</p>
+</section>
+</section>
+</section>
+<section id="generative-llms" class="level1">
+<h1>Generative LLMs</h1>
+<p>The generative decoder-only models, especially the “larger” models, are commonly referred to as Large Language Models (LLMs).</p>
+<ul>
+<li><strong>Generative LLMs</strong>, as sequence-to-sequence machines, <strong>take in some text and attempts to autocomplete it</strong>.</li>
+<li>Instead of completing a text, <strong><em>what if they could be trained to answer questions? By fine-tuning these models, we can create INSTRUCT or CHAT models that can follow direction</em></strong>.</li>
+</ul>
+<section id="what-is-large-in-llms" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-large-in-llms">What is Large in LLMs?</h2>
+<p>Below are some of the points about LLMs in the book Hands-on LLM.</p>
+<blockquote class="blockquote">
+<p>What if we create a model with the <strong>same capabilities as GPT-3 but 10 times smaller?</strong> Would such a model fall outside the “Large” Language Model categorization?</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>“Large”</strong> is arbitrary and what might be considered a <strong>large model today could be small tomorrow</strong>. There are currently many names for the same thing and to us, <strong>“Large Language Models” are also models that do not generate text and can be run on consumer hardware</strong>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Even encoder-only models can be referred to as LLMs, but the term is more commonly used for generative models</strong>.</p>
+</blockquote>
+</section>
+</section>
+<section id="generative-ai-gen-ai" class="level1">
+<h1>Generative AI (Gen AI)</h1>
+<p>The impact of these generative models led to a new wave of interest in the field of AI, often referred to as Generative AI. <strong>Generative AI refers to the use of AI models to generate content, such as text, images, music, and more</strong>.</p>
+<p>There are many companies and startups that are <strong>building products and services</strong> based <strong>on Generative AI models</strong>, including OpenAI, Google, Microsoft, and many others.</p>
+<section id="model-vs.-product" class="level2">
+<h2 class="anchored" data-anchor-id="model-vs.-product">Model vs.&nbsp;Product</h2>
+<ul>
+<li>Model is the underlying technology/architecture, while the product is the application that uses the technology to provide value to users.</li>
+<li>The following table shows few examples of models and products.</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Product</th>
+<th>Company</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GPT-3</td>
+<td>ChatGPT</td>
+<td>OpenAI</td>
+</tr>
+<tr class="even">
+<td>Mistral</td>
+<td>Le Chat</td>
+<td>Mistral</td>
+</tr>
+<tr class="odd">
+<td>Anthropic</td>
+<td>Claude</td>
+<td>Anthropic</td>
+</tr>
+<tr class="even">
+<td>Gemini</td>
+<td>Gemini</td>
+<td>Google</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="accessing-llms" class="level1">
+<h1>Accessing LLMs</h1>
+<p>LLMs can be accessed using GUIs or through APIs. The latter makes it possible for developers to build applications using LLMs. Having said that, we can categorize LLMs into two main categories:</p>
+<table class="table">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>proprietary (Private) Models</th>
+<th>Open Models</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Closed Source LLMs</td>
+<td>Open Source LLMs</td>
+</tr>
+<tr class="even">
+<td>Weights and architecture are not shared with the public</td>
+<td>Weights and architecture are shared with the public</td>
+</tr>
+<tr class="odd">
+<td>Accessed through APIs provided by the companies that own them</td>
+<td>Can be downloaded, modified, and used by anyone</td>
+</tr>
+<tr class="even">
+<td><strong>Examples</strong>: OpenAI’s GPT-3, Anthropic’s Claude, Google’s Gemini</td>
+<td><strong>Examples</strong>: Meta’s LLaMA, Mistral models, Cohere’s Command R, Microsoft’s Phi</td>
+</tr>
+<tr class="odd">
+<td><strong>Advantage</strong>: Easy to use, no need to worry about infrastructure or maintenance</td>
+<td><strong>Advantage</strong>: More control, can be fine-tuned for specific tasks, can be run on local hardware</td>
+</tr>
+<tr class="even">
+<td><strong>Disadvantage</strong>: Limited customization, sharing private data with service provider</td>
+<td><strong>Disadvantage</strong>: Need to manage infrastructure, maintenance, and updates</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li><a href="https://www.oreilly.com/library/view/hands-on-large-language/9781098150952/">Hands-On Large Language Models by Jay Alammar and Maarten Grootendorst</a></li>
+<li>https://jonathan-hui.medium.com/nlp-word-embedding-glove-5e7f523999f6</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>Language AI</category>
+  <category>LLM</category>
+  <category>Gen AI</category>
+  <category>AI</category>
+  <guid>https://harishb00.github.io/posts/lang-ai-llm-intro/</guid>
+  <pubDate>Wed, 09 Apr 2025 18:30:00 GMT</pubDate>
+</item>
+<item>
+  <title>Fastbook NLP Deep Dive: RNNs Q&amp;A</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/fastbook-ch10-qa/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>In this post, I tried to answer all the questions in Chapter 10 of Fastbook which is <strong>NLP Deep Dive: RNNs</strong>.</p>
+<section id="what-is-self-supervised-learning" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-self-supervised-learning">1. What is “self-supervised learning”?</h3>
+<p>Training a model using labels that are embedded in the independent variable, rather than requiring external labels. For example, training a language model to predict the next word in a text.</p>
+</section>
+<section id="what-is-a-language-model" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-language-model">2. What is a “language model”?</h3>
+<p>Language model is a model that has been trained to guess what the next word of a given passage is.</p>
+</section>
+<section id="why-is-a-language-model-considered-self-supervised" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-a-language-model-considered-self-supervised">3. Why is a language model considered self-supervised?</h3>
+<p>The language model is considered self-supervised because there are no labels provided during training. The model learns to predict the next word by reading lots of texts.</p>
+</section>
+<section id="what-are-self-supervised-models-usually-used-for" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-self-supervised-models-usually-used-for">4. What are self-supervised models usually used for?</h3>
+<ul>
+<li>Problems where labeled data is not adequate</li>
+<li>Language models</li>
+<li>Pre-training models for transfer learning</li>
+</ul>
+</section>
+<section id="why-do-we-fine-tune-language-models" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-fine-tune-language-models">5. Why do we fine-tune language models?</h3>
+<p>Language models might be trained on a corpus that is different than the task at hand. Fine-tuning them helps the model to be good at task specific corpus.</p>
+</section>
+<section id="what-are-the-three-steps-to-create-a-state-of-the-art-text-classifier" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-three-steps-to-create-a-state-of-the-art-text-classifier">6. What are the three steps to create a state-of-the-art text classifier?</h3>
+<ol type="1">
+<li>Train a language model on a big corpus of text like wikipedia or use a pre-trained language model.</li>
+<li>Fine-tuning the language model on text classification dataset.</li>
+<li>Fine-tune the classifier model given the language model as the encoder.</li>
+</ol>
+</section>
+<section id="how-do-the-50000-unlabeled-movie-reviews-help-us-create-a-better-text-classifier-for-the-imdb-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-the-50000-unlabeled-movie-reviews-help-us-create-a-better-text-classifier-for-the-imdb-dataset">7. How do the 50,000 unlabeled movie reviews help us create a better text classifier for the IMDb dataset?</h3>
+<p>We can use the unlabelled movie reviews to fine-tune the language model so that it understands the language of movie reviews. This requires no labelling. Now we can use this fine-tuned language model (that knows how to predict next word in a movie review!) as a base for our text classifier.</p>
+</section>
+<section id="what-are-the-three-steps-to-prepare-your-data-for-a-language-model" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-the-three-steps-to-prepare-your-data-for-a-language-model">8. What are the three steps to prepare your data for a language model?</h3>
+<ol type="1">
+<li>Tokenization: Text to tokens</li>
+<li>Numericalization: tokens to integers</li>
+<li>Batches: Stream of documents to a batch of fixed-size input and outputs (tokens offset by one token). Taken care by <code>LMDataLoader</code>.</li>
+</ol>
+</section>
+<section id="what-is-tokenization-why-do-we-need-it" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-tokenization-why-do-we-need-it">9. What is “tokenization”? Why do we need it?</h3>
+<p>Tokenization is the process of converting raw text to list of tokens (words, characters, or substrings, depending on the granularity of the model). It enables us to represent each token numerically which the models can understand (compared to text).</p>
+</section>
+<section id="name-three-different-approaches-to-tokenization." class="level3">
+<h3 class="anchored" data-anchor-id="name-three-different-approaches-to-tokenization.">10. Name three different approaches to tokenization.</h3>
+<ol type="1">
+<li>Word-based: Split a sentence on spaces (or language-specific rules that define what a word is.) Eg: don’t -&gt; do, n’t</li>
+<li>Subword-based: Split words into smaller parts, based on the most commonly occuring substrings.</li>
+<li>Character-based: Split a sentence into its individual characters.</li>
+</ol>
+</section>
+<section id="what-is-xxbos" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-xxbos">11. What is <code>xxbos</code>?</h3>
+<p><code>xxbos</code> is a special token added by <em>fastai tokenizer</em> that indicates beginning of the stream (text). With this, the model will be able to learn it needs to forget what we said previously and focus on upcoming words.</p>
+</section>
+<section id="list-four-rules-that-fastai-applies-to-text-during-tokenization." class="level3">
+<h3 class="anchored" data-anchor-id="list-four-rules-that-fastai-applies-to-text-during-tokenization.">12. List four rules that fastai applies to text during tokenization.</h3>
+<ul>
+<li><code>replace_wrep</code>: Replaces any word repeated three times or more with a special token for word repetion (<code>xxwrep</code>), the number of times it’s repeated, then the word.</li>
+<li><code>rm_useless_spaces</code>: Removes all repetitions of the space character.</li>
+<li><code>replace_maj</code>: Lowercases a capitalized word and adds a special token for capitalized (<code>xxmaj</code>) in front of it.</li>
+<li><code>lowercase</code>: Lowercases all text and adds a special token at the beginning (<code>xxbos</code>) and/or the end (<code>xxeos</code>)</li>
+</ul>
+<div id="cell-25" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:55:59.016812Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:55:59.016229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:55:59.025692Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:55:59.023669Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:55:59.016748Z&quot;}" data-trusted="true">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> lowercase</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> replace_wrep</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> rm_useless_spaces</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> replace_maj</span></code></pre></div>
+</div>
+<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:08.450642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:08.450156Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:08.460619Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:08.459045Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:08.450609Z&quot;}" data-trusted="true" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">lowercase(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'My name is Harish.'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>'xxbos my name is harish.'</code></pre>
+</div>
+</div>
+<div id="cell-27" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:16.894419Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:16.894009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:16.903451Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:16.901849Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:16.894388Z&quot;}" data-trusted="true" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">replace_maj(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"My name is Harish."</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>'xxmaj my name is xxmaj harish.'</code></pre>
+</div>
+</div>
+<div id="cell-28" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.205637Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.204498Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.213585Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.211995Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.205591Z&quot;}" data-trusted="true" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">rm_useless_spaces(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"My    name  is      Harish."</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>'My name is Harish.'</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.520589Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.519009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.529152Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.527563Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.520543Z&quot;}" data-trusted="true" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">replace_wrep(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"My name is harish harish harish"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>'My name is xxwrep 3 harish '</code></pre>
+</div>
+</div>
+</section>
+<section id="why-are-repeated-characters-replaced-with-a-token-showing-the-number-of-repetitions-and-the-character-thats-repeated" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-repeated-characters-replaced-with-a-token-showing-the-number-of-repetitions-and-the-character-thats-repeated">13. Why are repeated characters replaced with a token showing the number of repetitions and the character that’s repeated?</h3>
+<p>In this way, the model’s embedding matrix can encode information about general concepts such as repeated punctuation (or any character) rather than requiring a seperate token for every number of repetitions.</p>
+</section>
+<section id="what-is-numericalization" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-numericalization">14. What is “numericalization”?</h3>
+<p>Numericalization is the process of mapping tokens to integers.</p>
+</section>
+<section id="why-might-there-be-words-that-are-replaced-with-the-unknown-word-token" class="level3">
+<h3 class="anchored" data-anchor-id="why-might-there-be-words-that-are-replaced-with-the-unknown-word-token">15. Why might there be words that are replaced with the “unknown word” token?</h3>
+<p>We’ll be having lot of rare words in the corpus for which there won’t be enough data to train representations for the same. These words can be replaced with <code>xxunk</code> token. This is useful to avoid having an overly large embedding matrix with lot of rare words, since that can slow down training and use up too much memory.</p>
+</section>
+<section id="with-a-batch-size-of-64-the-first-row-of-the-tensor-representing-the-first-batch-contains-the-first-64-tokens-for-the-dataset.-what-does-the-second-row-of-that-tensor-contain-what-does-the-first-row-of-the-second-batch-contain-carefulstudents-often-get-this-one-wrong-be-sure-to-check-your-answer-on-the-books-website." class="level3">
+<h3 class="anchored" data-anchor-id="with-a-batch-size-of-64-the-first-row-of-the-tensor-representing-the-first-batch-contains-the-first-64-tokens-for-the-dataset.-what-does-the-second-row-of-that-tensor-contain-what-does-the-first-row-of-the-second-batch-contain-carefulstudents-often-get-this-one-wrong-be-sure-to-check-your-answer-on-the-books-website.">16. With a batch size of 64, the first row of the tensor representing the first batch contains the first 64 tokens for the dataset. What does the second row of that tensor contain? What does the first row of the second batch contain? (Careful—students often get this one wrong! Be sure to check your answer on the book’s website.)</h3>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?Batch%5C%20Size%20=%2064">. The dataset is split into <img src="https://latex.codecogs.com/png.latex?64"> stream of texts.</li>
+<li><img src="https://latex.codecogs.com/png.latex?Sequence%5C%20Length%20=%2064">. Each row (<img src="https://latex.codecogs.com/png.latex?i">) in an individual batch has <img src="https://latex.codecogs.com/png.latex?64"> tokens from the <img src="https://latex.codecogs.com/png.latex?i%5E%7Bth%7D"> stream of text.</li>
+<li><img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> row of <img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> batch contains 64 tokens from <img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> stream of text starting from <img src="https://latex.codecogs.com/png.latex?0%5E%7Bth%7D"> token.</li>
+<li><img src="https://latex.codecogs.com/png.latex?2%5E%7Bnd%7D"> row of <img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> batch contains 64 tokens from <img src="https://latex.codecogs.com/png.latex?2%5E%7Bnd%7D"> stream of text starting from <img src="https://latex.codecogs.com/png.latex?0%5E%7Bth%7D"> token.</li>
+<li><img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> row of <img src="https://latex.codecogs.com/png.latex?2%5E%7Bnd%7D"> batch contains 64 tokens from <img src="https://latex.codecogs.com/png.latex?1%5E%7Bst%7D"> stream of text starting from <img src="https://latex.codecogs.com/png.latex?65%5E%7Bth%7D"> token.</li>
+</ul>
+</section>
+<section id="why-do-we-need-padding-for-text-classification-why-dont-we-need-it-for-language-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-need-padding-for-text-classification-why-dont-we-need-it-for-language-modeling">17. Why do we need padding for text classification? Why don’t we need it for language modeling?</h3>
+<p>PyTorch <code>DataLoader</code>s need to collate all the items into a single tensor, and a single tensor has a fixed shape. We can’t do cropping like we do for Images to bring all inputs to a fixed size. So we do padding. We use a special padding token that will be ignored by our model.</p>
+<p>How?</p>
+<p>We won’t pad every batch to the same size, but will instead use the size of the largest document in each batch as the target size. Additionally, to avoid memory issues and improve performance, we will batch together texts that are roughly the same lengths (with some shuffling for the training set). We do this by (approximately, for the training set) sorting the documents by length prior to each epoch. The result of this is that the documents collated into a single batch will tend to be of similar lengths.</p>
+<p>Why don’t we need padding for language modelling?</p>
+<p>In language modelling, the input to the model is a big corpus of text concatenated to a single stream. We don’t have explicit notion of first sample, second sample where each sample is of different size. Every row in an individual batch is a part (fixed sequence length in order) of the big corpus.</p>
+</section>
+<section id="what-does-an-embedding-matrix-for-nlp-contain-what-is-its-shape" class="level3">
+<h3 class="anchored" data-anchor-id="what-does-an-embedding-matrix-for-nlp-contain-what-is-its-shape">18. What does an embedding matrix for NLP contain? What is its shape?</h3>
+<p>Embedding matrix contain the vector representation of vocab in the corpus. It encodes token to a vector representation. It’s a matrix with <strong>|vocab|</strong> number of rows and <strong><em>x</em></strong> columns. Here <strong><em>x</em></strong> is 400 for the model used in the chapter. It can vary depending on how the embedding layers are defined.</p>
+</section>
+<section id="what-is-perplexity" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-perplexity">19. What is “perplexity”?</h3>
+<p>Perplexity is exponential of the loss function used in language model. <code>torch.exp(cross_entropy)</code></p>
+<p>In general, perplexity is a measurement of how well a probability model predicts a sample. It quantifies how uncertain the model is in predicting the next word in a sequence. Lower perplexity values indicate better performance, as the model is less “perplexed” (puzzled) by the data.</p>
+</section>
+<section id="why-do-we-have-to-pass-the-vocabulary-of-the-language-model-to-the-classifier-data-block" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-have-to-pass-the-vocabulary-of-the-language-model-to-the-classifier-data-block">20. Why do we have to pass the vocabulary of the language model to the classifier data block?</h3>
+<p>The reason that we pass the vocab of the language model is to make sure we use the same correspondence of token to index. Otherwise the embeddings we learned in our fine-tuned language model won’t make any sense to this model, and the fine-tuning step won’t be of any use.</p>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">dls_clas <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> DataBlock(</span>
+<span id="cb10-2">    blocks<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(TextBlock.from_folder(path, vocab<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>dls_lm.vocab),CategoryBlock),</span>
+<span id="cb10-3">    get_y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> parent_label,</span>
+<span id="cb10-4">    get_items<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>partial(get_text_files, folders<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'train'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'test'</span>]),</span>
+<span id="cb10-5">    splitter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>GrandparentSplitter(valid_name<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'test'</span>)</span>
+<span id="cb10-6">).dataloaders(path, path<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>path, bs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">128</span>, seq_len<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">72</span>)</span></code></pre></div>
+</section>
+<section id="what-is-gradual-unfreezing" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-gradual-unfreezing">21. What is “gradual unfreezing”?</h3>
+<p>It’s a technique in fine-tuning where we <strong>unfreeze few layers at a time</strong> until the whole model is unfroze. In NLP classifiers, it makes a real difference and achieved using <code>learn.freeze_to</code> method.</p>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2e-2</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># by default only last layer unfroze for pretrained models</span></span>
+<span id="cb11-2">learn.freeze_to(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># unfreeze last two param groups</span></span>
+<span id="cb11-3">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.6</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>),<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-2</span>))</span>
+<span id="cb11-4">learn.freeze_to(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># unfreeze last three param groups</span></span>
+<span id="cb11-5">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5e-3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.6</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>),<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5e-3</span>))</span>
+<span id="cb11-6">learn.unfreeze() <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># unfreeze all layers</span></span>
+<span id="cb11-7">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.6</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">**</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>),<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1e-3</span>))</span></code></pre></div>
+<p>Here <em>discriminative learning rates</em> are used.</p>
+</section>
+<section id="why-is-text-generation-always-likely-to-be-ahead-of-automatic-identification-of-machine-generated-texts" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-text-generation-always-likely-to-be-ahead-of-automatic-identification-of-machine-generated-texts">22. Why is text generation always likely to be ahead of automatic identification of machine-generated texts?</h3>
+<p>Classification algorithms can automatically recognise autogenerated content. The problem, however, is that this will always be an arms race, in which better classification (or discriminator) algorithms can be used to create better generation algorithms.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Deep Learning</category>
+  <category>fastai</category>
+  <category>NLP</category>
+  <category>fastbook</category>
+  <guid>https://harishb00.github.io/posts/fastbook-ch10-qa/</guid>
+  <pubDate>Thu, 25 Apr 2024 18:30:00 GMT</pubDate>
+</item>
+<item>
+  <title>Deploy Deep Learning Model</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/model-deploy-hfspace/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>In the <a href="../../posts/painting-classifier/index.html">previous post</a>, we saw how to train a model (to classify Picasso and Monet paintings) and save the trained model in <code>fastai</code>. In this post, let us create an app using <code>gradio</code> that uses the trained model and we will also learn how to deploy the app using <strong>Hugging Face Spaces</strong> so that others can use our app. Incase if you are not familiar with training and saving a model, I suggest you to go through <a href="../../posts/painting-classifier/index.html">Picasso and Monet Painting Classifier</a> post.</p>
+<section id="install-libraries" class="level1">
+<h1>Install Libraries</h1>
+<p>Let’s start by installing necessary Python packages.</p>
+<div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-Uqq</span> fastai</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-2" class="code-annotation-target"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-Uqq</span> gradio</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Installs <code>fastai</code>. It provides functions to load the model trained using <code>fastai</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">Installs <code>gradio</code>. It is a library used to build web interfaces using Python.</span>
+</dd>
+</dl>
+</section>
+<section id="predict-using-trained-model" class="level1">
+<h1>Predict using trained model</h1>
+<p>Let us now load the trained model and make predictions on sample images.</p>
+<section id="import-packages" class="level2">
+<h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
+<p>To load the model, we need to import necessary modules from <code>fastai</code>. <code>fastai.vision.all</code> module provides functions related to computer vision tasks.</p>
+<div id="cell-11" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.vision.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span></span></code></pre></div>
+</div>
+</section>
+<section id="load-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-model">Load the model</h2>
+<div id="cell-13" class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-3" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> load_learner(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="1" data-code-annotation="1">Loads the trained model saved as <code>model.pkl</code> file.</span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">NotImplementedError</span>: cannot instantiate <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'PosixPath'</span> on your system</span></code></pre></div>
+<p>Unfortunately when you load the model in a <code>Windows</code> system, it throws above error. Because in my case, I trained and saved the model in a <code>Linux</code> system and trying to load it in <code>Windows</code>. To get rid of this error, below code should be run before loading the model.</p>
+<div id="cell-17" class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> platform</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-2" class="code-annotation-target"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> platform.system() <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Windows'</span>:</span>
+<span id="annotated-cell-5-3">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pathlib</span>
+<span id="annotated-cell-5-4">    pathlib.PosixPath <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pathlib.WindowsPath</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="1">Checks if the OS where the code is run is <code>Windows</code>?</span>
+</dd>
+</dl>
+</div>
+</div>
+<div id="cell-19" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">learn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> load_learner(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'model.pkl'</span>)</span></code></pre></div>
+</div>
+<p>Now the model is loaded successfully 🙂! Before making the predictions, let’s see the possible predictions (labels) of the model.</p>
+<div id="cell-21" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-1" class="code-annotation-target">labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.dls.vocab</span>
+<span id="annotated-cell-7-2">labels</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1"><code>dls</code> refers to <code>DataLoaders</code> and <code>vocab</code> refers to the class labels.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>['monet painting', 'picasso painting']</code></pre>
+</div>
+</div>
+<p>Given an image as input our model will predict either <strong><em>monet painting</em></strong> or <strong><em>picasso painting</em></strong>.</p>
+</section>
+<section id="predict" class="level2">
+<h2 class="anchored" data-anchor-id="predict">Predict</h2>
+<p>Let’s read an image and make prediction with the loaded model.</p>
+<div id="cell-26" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-1" class="code-annotation-target">img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> PILImage.create(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas3.jpg'</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-2" class="code-annotation-target">img.to_thumb(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">Read the image from the path <code>images/picas3.jpg</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="2" data-code-annotation="2">Resize the image to a thumbnail of size 256.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/model-deploy-hfspace/index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now pass the loaded image to the model’s <code>predict</code> method which returns the class label.</p>
+<div id="cell-29" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">pred_label, pred_index, class_probs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.predict(img)</span>
+<span id="cb5-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Prediction:"</span>, pred_label)</span>
+<span id="cb5-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Class probabilities:"</span>, class_probs)</span>
+<span id="cb5-4"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Prediction Index:"</span>, pred_index)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+
+    <div>
+      <progress value="0" class="" max="1" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      0.00% [0/1 00:00&lt;?]
+    </div>
+    
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Prediction: picasso painting
+Class probabilities: tensor([0.0028, 0.9972])
+Prediction Index: tensor(1)</code></pre>
+</div>
+</div>
+<p>We could see the model predicting it’s a <strong><em>Picasso’s painting and it is 99% confident</em></strong> about it. We can use the prediction index in the class probabilities array to get the probability (confidence) score of the predicted label.</p>
+<p>Let’s wrap the above logic to a function which gets image path as input and returns a dictionary with class label and confidence score as output.</p>
+<div id="cell-32" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-10-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> predict(img_path):</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-2" class="code-annotation-target">    img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> PILImage.create(img_path)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-3" class="code-annotation-target">    pred_label, pred_index, class_probs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.predict(img)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3">3</button><span id="annotated-cell-10-4" class="code-annotation-target">    output <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {labels[i]:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>(class_probs[i]) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(labels))}</span>
+<span id="annotated-cell-10-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> output</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="1">Read image in the <code>img_path</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="2">Make predictions for the image.</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="4" data-code-annotation="3">Create output dictionary where key is the class label and value is the probability score. The output is specifically constructed like this because <code>gradio</code> expects the labels to be in this format. We’ll discuss about <code>gradio</code> in the next section.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Now let’s use the <code>predict</code> function to make predictions for few images.</p>
+<div id="cell-35" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">predict(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas1.jpg'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+
+    <div>
+      <progress value="0" class="" max="1" style="width:300px; height:20px; vertical-align: middle;"></progress>
+      0.00% [0/1 00:00&lt;?]
+    </div>
+    
+</div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>{'monet painting': 1.7153462977148592e-05,
+ 'picasso painting': 0.9999828338623047}</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">predict(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/mon2.jpg'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>{'monet painting': 0.999991774559021,
+ 'picasso painting': 8.193430403480306e-06}</code></pre>
+</div>
+</div>
+<p>Now we successfully loaded the trained model and made predictions, let’s develop an app and use this model in it.</p>
+</section>
+</section>
+<section id="create-web-interface-using-gradio" class="level1">
+<h1>Create Web Interface using Gradio</h1>
+<p>We can create an application using any web (or app) frameworks and use our model in it. Since we are already familiar with Python, we can use Python libraries to create User Interfaces quickly with no app development background. There are few popular packages to do it like <strong>Streamlit</strong> and <strong>Gradio</strong>. In this post, we will see how to develop an app using Gradio with very few lines of code.</p>
+<p>Let’s start by importing <code>gradio</code>.</p>
+<div id="cell-41" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> gradio <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> gr</span></code></pre></div>
+</div>
+<p>Gradio provides a high-level abstraction (<code>gr.Interface</code>) that allows us to quickly create a demo for any Python function (we have <code>predict</code> function!) simply by specificying the input types and output types.</p>
+<div id="cell-43" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">demo <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gr.Interface(</span>
+<span id="cb12-2">    inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Image(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>),</span>
+<span id="cb12-3">    outputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Label(),</span>
+<span id="cb12-4">    fn<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>predict,</span>
+<span id="cb12-5">)</span></code></pre></div>
+</div>
+<p>We see that the Interface class is initialized with three required parameters:</p>
+<ol type="1">
+<li><code>fn</code>: the function to wrap a user interface (UI) around</li>
+<li><code>inputs</code>: which Gradio component(s) to use for the input. The number of components should match the number of arguments in your function.</li>
+<li><code>outputs</code>: which Gradio component(s) to use for the output. The number of components should match the number of return values from your function.</li>
+</ol>
+<p>To run the app, call <code>launch</code> method. It runs the app and by default serves at <code>http://127.0.0.1:7860</code>. Open this URL in your browser to see the app.</p>
+<div id="cell-46" class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">demo.launch()</span></code></pre></div>
+</div>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/app0.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
+<figcaption>
+</figcaption>
+</figure>
+<p>In Jupyter notebook, we can close the running app using <code>close</code> method.</p>
+<div id="cell-49" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">demo.close()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Closing server running on port: 7860</code></pre>
+</div>
+</div>
+<p>Let’s add title and description to our app by setting the <code>title</code> and <code>description</code> parameters.</p>
+<div id="cell-51" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Painting Classifier"</span></span>
+<span id="cb16-2">description <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"A painting classifier trained to classify Picasso and Monet paintings using dataset scrapped from Duck Duck Go Image search."</span></span>
+<span id="cb16-3"></span>
+<span id="cb16-4">demo <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gr.Interface(</span>
+<span id="cb16-5">    inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Image(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>),</span>
+<span id="cb16-6">    outputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Label(),</span>
+<span id="cb16-7">    fn<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>predict,</span>
+<span id="cb16-8">    title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>title,</span>
+<span id="cb16-9">    description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>description,</span>
+<span id="cb16-10">)</span></code></pre></div>
+</div>
+<div id="cell-52" class="cell">
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">demo.launch()</span></code></pre></div>
+</div>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/app1.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
+<figcaption>
+</figcaption>
+</figure>
+<p>Our app is almost ready. Now user can drop an image in the input widget or click to upload an image. Once the image is uploaded, clicking the ‘Submit’ button will call the <code>predict</code> function and returns the output and is displayed. Let’s see it in action.</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/app2.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
+<figcaption>
+</figcaption>
+</figure>
+<div id="cell-56" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">demo.close()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Closing server running on port: 7860</code></pre>
+</div>
+</div>
+<p>The app is ready now. It may be bit confusing for new users what kind of input they should be using. Wouldn’t it be good if we add few examples inputs to the app? Luckily, gradio supports it out of the box with just a parameter. Let’s add examples to the app using <code>examples</code> parameter which takes a list of image paths.</p>
+<div id="cell-58" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">demo <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gr.Interface(</span>
+<span id="cb20-2">    inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Image(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>),</span>
+<span id="cb20-3">    outputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Label(),</span>
+<span id="cb20-4">    fn<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>predict,</span>
+<span id="cb20-5">    title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>title,</span>
+<span id="cb20-6">    description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>description,</span>
+<span id="cb20-7">    examples<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas3.jpg'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas1.jpg'</span>],</span>
+<span id="cb20-8">)</span></code></pre></div>
+</div>
+<div id="cell-59" class="cell">
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">demo.launch()</span></code></pre></div>
+</div>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/app3.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 480px">
+<figcaption>
+</figcaption>
+</figure>
+<p>You can see a new section <strong>Examples</strong> below the Clear and Submit buttons. User can click this to use as inputs.</p>
+<div id="cell-62" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">demo.close()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Closing server running on port: 7860</code></pre>
+</div>
+</div>
+</section>
+<section id="deploy-the-app" class="level1">
+<h1>Deploy the app</h1>
+<p>We have created the app and accessed it locally in the browser. Wouldn’t it be good if we deploy it and share with others to use? Without any server setup, Hugging Face Spaces help us to achieve it through simple steps for free!</p>
+<p>Before following further, create a <a href="https://huggingface.co/join">Hugging Face account</a></p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/hf1.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
+<figcaption>
+</figcaption>
+</figure>
+<section id="hugging-face-spaces" class="level2">
+<h2 class="anchored" data-anchor-id="hugging-face-spaces">Hugging Face Spaces</h2>
+<p>Let’s create a space for our gradio app. Once you log into your Hugging Face account, go to <a href="https://huggingface.co/spaces">Hugging Face Spaces</a> and click <code>Create new space</code>.</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/hf2.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 480px">
+<figcaption>
+</figcaption>
+</figure>
+<p>You will be landed to a form where we will be giving basic details like the space name, license, app framework, what kind of server configs we need etc., Hugging Face provides variety of hardware like CPUs and GPUs. For our demo, we will choose the free CPU.</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/hf3.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 480px; width: 70%">
+<figcaption>
+</figcaption>
+</figure>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/hf4.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 420px; width: 70%;">
+<figcaption>
+</figcaption>
+</figure>
+<p>Once you click <code>Create Space</code>, Hugging Face will create a git repo for you which we need to clone locally and update them with trained model and python scripts. Then the updated local repo should be pushed to Hugging Face remote repo.</p>
+<p>Let’s clone the repo as per the instruction given.</p>
+<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> clone https://huggingface.co/spaces/harishb00/painting-classifier</span></code></pre></div>
+</section>
+<section id="convert-jupyter-code-to-python-script" class="level2">
+<h2 class="anchored" data-anchor-id="convert-jupyter-code-to-python-script">Convert Jupyter code to python script</h2>
+<p>Convert all the code we written in Jupyter notebook to Python script and save it to <code>app.py</code> file in the cloned repo. Once we do it, it looks like below</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>app.py</strong></pre>
+</div>
+<div class="sourceCode" id="cb25" data-filename="app.py" style="background: #f1f3f5;"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb25-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> platform</span>
+<span id="cb25-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.vision.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span></span>
+<span id="cb25-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> gradio <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> gr</span>
+<span id="cb25-4"></span>
+<span id="cb25-5"></span>
+<span id="cb25-6"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> platform.system() <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Windows'</span>:</span>
+<span id="cb25-7">    <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pathlib</span>
+<span id="cb25-8">    pathlib.PosixPath <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pathlib.WindowsPath</span>
+<span id="cb25-9"></span>
+<span id="cb25-10">learn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> load_learner(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'model.pkl'</span>)</span>
+<span id="cb25-11">labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.dls.vocab</span>
+<span id="cb25-12"></span>
+<span id="cb25-13"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> predict(img):</span>
+<span id="cb25-14">    img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> PILImage.create(img)</span>
+<span id="cb25-15">    pred,pred_idx,probs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.predict(img)</span>
+<span id="cb25-16">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> {labels[i]: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">float</span>(probs[i]) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(labels))}</span>
+<span id="cb25-17"></span>
+<span id="cb25-18">title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Painting Classifier"</span></span>
+<span id="cb25-19">description <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"A painting classifier trained to classify Picasso and Monet paintings using dataset scrapped from Duck Duck Go Image search."</span></span>
+<span id="cb25-20">demo <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> gr.Interface(</span>
+<span id="cb25-21">    inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Image(height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>),</span>
+<span id="cb25-22">    outputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>gr.Label(),</span>
+<span id="cb25-23">    fn<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>predict,</span>
+<span id="cb25-24">    title<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>title,</span>
+<span id="cb25-25">    description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>description,</span>
+<span id="cb25-26">    examples<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas3.jpg'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/picas1.jpg'</span>],</span>
+<span id="cb25-27">)</span>
+<span id="cb25-28">demo.launch()</span></code></pre></div>
+</div>
+<p>Also create a requirements file inside cloned repo with Python packages required to run the script.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>requirements.txt</strong></pre>
+</div>
+<pre class="text" data-filename="requirements.txt"><code>fastai
+gradio</code></pre>
+</div>
+<p>Copy the model file and image example files to the same folder. Once you are done with all the steps, your folder structure looks like this.</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/model-deploy-hfspace/fold0.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px;">
+<figcaption>
+</figcaption>
+</figure>
+</section>
+<section id="commit-and-push" class="level2">
+<h2 class="anchored" data-anchor-id="commit-and-push">Commit and Push</h2>
+<p>It’s time to commit and push the code to Hugging Face Spaces. Execute below commands in your terminal.</p>
+<div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> add .</span>
+<span id="cb27-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> commit <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-m</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"app commit"</span></span>
+<span id="cb27-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">git</span> push</span></code></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>git push</code> hangs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>git push hangs at 74% for me since the uploaded model file is a large one. <code>git config --global http.postBuffer 157286400</code> fixed the issue by increasing the git buffer.</p>
+</div>
+</div>
+<p>That’s it. In few minutes, your app is live and you can visit the Hugging Face Spaces project URL (URL used with <code>git clone URL</code>) to use/share your app.</p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li><a href="https://course.fast.ai/Lessons/lesson2.html">Fastai Course - Lesson 2</a></li>
+<li><a href="https://www.tanishq.ai/blog/posts/2021-11-16-gradio-huggingface.html">Tanishq Abraham’s HF Spaces Tutorial</a></li>
+<li><a href="https://www.gradio.app/">Gradio Documentation</a></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>Deep Learning</category>
+  <category>Hugging Face</category>
+  <category>fastai</category>
+  <category>Model Deployment</category>
+  <guid>https://harishb00.github.io/posts/model-deploy-hfspace/</guid>
+  <pubDate>Tue, 23 Apr 2024 18:30:00 GMT</pubDate>
+  <media:content url="https://harishb00.github.io/posts/model-deploy-hfspace/thumbnail.png" medium="image" type="image/png" height="98" width="144"/>
+</item>
+<item>
+  <title>Picasso and Monet Painting Classifier</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/painting-classifier/</link>
+  <description><![CDATA[ 
+
+
+
+
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/painting-classifier/thumbnail.jpg" alt="thumbnail" class="post-thumbnail figure-img">
+<figcaption>
+Created by Microsoft Designer
+</figcaption>
+</figure>
+<p>In this post, let’s build an image classifier to classify paintings made by Picasso and Monet. I am currently doing <a href="https://course.fast.ai/">Practical Deep Learning for Coders</a> course by fastai and this blog post is to summarize my takeways.</p>
+<section id="install-packages" class="level2">
+<h2 class="anchored" data-anchor-id="install-packages">Install packages</h2>
+<p>Let’s start by installing the required <code>python</code> packages.</p>
+<div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-Uqq</span> fastai</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-2" class="code-annotation-target"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-Uqq</span> duckduckgo_search</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Installs <code>fastai</code> library to build and train deep learning models. It also provides utility methods to download images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">Installs <code>duckduckgo_search</code> library to search for images programatically.</span>
+</dd>
+</dl>
+</section>
+<section id="import-packages" class="level2">
+<h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
+<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:11.757623Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:11.757017Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:11.763716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:11.762680Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:11.757589Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> random</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> duckduckgo_search <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> DDGS</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> time <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> sleep</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> fastai.vision.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span></span></code></pre></div>
+</div>
+</section>
+<section id="image-search-using-duckduckgo-search" class="level2">
+<h2 class="anchored" data-anchor-id="image-search-using-duckduckgo-search">Image Search using DuckDuckGo Search</h2>
+<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:25.791024Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:25.790392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:26.236484Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:26.235661Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:25.790987Z&quot;}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">ddgs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> DDGS()</span>
+<span id="cb2-2">search_term <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'picasso painting'</span></span>
+<span id="cb2-3">results <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ddgs.images(search_term, max_results<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span></code></pre></div>
+</div>
+<p>The <code>ddgs.images(search_term, max_results=1)</code> method uses DuckDuckGo image search engine to search for images with keyword <code>picasso painting</code> and returns the search results. The number of results returned can be controlled by <code>max_results</code></p>
+<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:28.476528Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:28.475687Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:28.483242Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:28.482384Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:28.476493Z&quot;}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">results</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>[{'title': 'Woman s head and self portrait 1929 Picasso - United Kingdom',
+  'image': 'https://cdn11.bigcommerce.com/s-5qm28d53av/images/stencil/2560w/products/330/9318/Woman-s-head-and-self-portrait-1929-Picasso__04078.1586802926.jpg?c=1',
+  'thumbnail': 'https://tse2.mm.bing.net/th?id=OIP.ZCBc3r5pHCQkUXAesuRWtAHaJf&amp;pid=Api',
+  'url': 'https://my-poster.com/Woman-s-head-and-self-portrait-1929-Picasso-/',
+  'height': 3282,
+  'width': 2560,
+  'source': 'Bing'}]</code></pre>
+</div>
+</div>
+<p>The search results returned by the above method is a list of dictionaries. In the dictionary, the value with key as <code>image</code> is the url containing the image to be downloaded. Let’s use that to download the image using <code>fastai</code>’s <code>download_images</code> method.</p>
+</section>
+<section id="download-images" class="level2">
+<h2 class="anchored" data-anchor-id="download-images">Download images</h2>
+<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:58.729264Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:58.728403Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:59.138694Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:59.137657Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:58.729233Z&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1">url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> results[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>][<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image'</span>]</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-2" class="code-annotation-target">path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images'</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-3" class="code-annotation-target">path.mkdir(exist_ok<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-4" class="code-annotation-target">download_images(path, urls<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[url])</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="1">Initialize <code>Path</code> object to point to the directory for downloading images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="2">Creates a directory pointed by <code>path</code>. <code>exist_ok=True</code> supress the error if directory already exists.</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="3">Downloads the images from the list of urls passed as <code>urls</code> and saves in the folder pointed by <code>path</code>.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Let’s find the image path and display the image. <code>ls</code> method lists all the contents of the <code>Path</code> object.</p>
+<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:30.814251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:30.813436Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:30.821102Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:30.820257Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:30.814218Z&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">path.ls()</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>(#1) [Path('images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg')]</code></pre>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:55.073090Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:55.072721Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:55.307875Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:55.306950Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:55.073061Z&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-7-1">im <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Image.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg'</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target">im.to_thumb(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">Creates thumbnail version of the image, no larger than the given size. Here it’s 256px.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/painting-classifier/index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="download-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="download-dataset">Download dataset</h2>
+<p>Now let’s wrap the above logics to functions and download the dataset for our Picasso and Monet painting classifier.</p>
+<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:00:37.013274Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:00:37.012896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:00:37.018647Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:00:37.017659Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:00:37.013246Z&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-8-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">def</span> search_images(search_term: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>, max_images:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">30</span>):</span>
+<span id="annotated-cell-8-2">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Searching for '</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>search_term<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'"</span>)</span>
+<span id="annotated-cell-8-3">    ddgs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> DDGS()</span>
+<span id="annotated-cell-8-4">    results <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ddgs.images(search_term, max_results<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>max_images)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-5" class="code-annotation-target">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">return</span> L(results).itemgot(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'image'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="5" data-code-annotation="1">extracts all the <code>image</code> attribute from the dictionaries and returns as a list</span>
+</dd>
+</dl>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:19.119652Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:19.119240Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:57.921160Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:57.919877Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:19.119621Z&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="annotated-cell-9" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-1" class="code-annotation-target">searches <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'picasso painting'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'monet painting'</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-2" class="code-annotation-target">path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'painting'</span>)</span>
+<span id="annotated-cell-9-3"></span>
+<span id="annotated-cell-9-4"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> searches:</span>
+<span id="annotated-cell-9-5">    dest <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> path<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>o</span>
+<span id="annotated-cell-9-6">    dest.mkdir(exist_ok<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, parents<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="annotated-cell-9-7">    download_images(dest,</span>
+<span id="annotated-cell-9-8">                    urls<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>search_images(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>o<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> photo'</span>, max_images<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>))</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3">3</button><span id="annotated-cell-9-9" class="code-annotation-target">    sleep(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4">4</button><span id="annotated-cell-9-10" class="code-annotation-target">    resize_images(path<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>o, max_size<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>, dest<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>path<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>o)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="1" data-code-annotation="1">Keywords used to search for images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="2" data-code-annotation="2">Root folder path to save the downloaded images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="9" data-code-annotation="3">Pause for 10 seconds between each request to the image search API.</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="10" data-code-annotation="4">Resize all image files inside <code>path/o</code> to <code>max_size</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Searching for 'picasso painting photo'
+Searching for 'monet painting photo'</code></pre>
+</div>
+</div>
+<section id="delete-corrupted-images" class="level3">
+<h3 class="anchored" data-anchor-id="delete-corrupted-images">Delete corrupted images</h3>
+<p>Sometimes the downloaded images may not be in right format or got corrupted. It’s good to find and delete those files before training the model. fastai provides the utility function <code>verify_images</code> which does this for us.</p>
+<div id="cell-29" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:57.924016Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:57.923678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:58.676143Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:58.675027Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:57.923985Z&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-1" class="code-annotation-target">fns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> get_image_files(path)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-2" class="code-annotation-target">failed <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> verify_images(fns)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3">3</button><span id="annotated-cell-10-3" class="code-annotation-target">failed.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">map</span>(Path.unlink)</span>
+<span id="annotated-cell-10-4"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"corrupted images: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(failed)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="1" data-code-annotation="1">Returns all the image file paths in <code>path</code> directory.</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="2">Verifies and returns list of image file paths which are corrupted.</span>
+</dd>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="3">On each corrupted <code>path</code> object, apply <code>Path.unlink</code> method which deletes the file.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>corrupted images: 3</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="dataloaders" class="level2">
+<h2 class="anchored" data-anchor-id="dataloaders">Dataloaders</h2>
+<p>Before we train the model we should do some datapreprocessing like resizing the images, creating labels for each image file etc., All these can be done through <code>DataBlock</code> and <code>DataLoaders</code>.</p>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-11" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-1" class="code-annotation-target">db <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> DataBlock(</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2">2</button><span id="annotated-cell-11-2" class="code-annotation-target">    blocks<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(ImageBlock, CategoryBlock),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="3">3</button><span id="annotated-cell-11-3" class="code-annotation-target">    get_items<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>get_image_files,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="4">4</button><span id="annotated-cell-11-4" class="code-annotation-target">    splitter<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>RandomSplitter(valid_pct<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.2</span>, seed<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">42</span>),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="5">5</button><span id="annotated-cell-11-5" class="code-annotation-target">    get_y<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>parent_label,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="6">6</button><span id="annotated-cell-11-6" class="code-annotation-target">    item_tfms<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[Resize(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">192</span>, method<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'squish'</span>)]</span>
+<span id="annotated-cell-11-7">)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="1" data-code-annotation="1"><code>DataBlock</code> is the class used to write the blueprint of our dataset.</span>
+</dd>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="2" data-code-annotation="2">What are the input (independent variable) and output (dependent variable) data types? <code>ImageBlock</code> tells the input variable in our dataset represents <strong>Image</strong> datatype and <code>CategoryBlock</code> tells the output variable in our dataset represents <strong>Category</strong> datatype (classification task).</span>
+</dd>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="3" data-code-annotation="3">How do we extract individual items of our dataset? <code>get_image_files</code> is a function which takes root folder path as input and returns all the image files as output.</span>
+</dd>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="4" data-code-annotation="4">How to split the dataset into train and validation sets? <code>RandomSplitter</code> is one of the splitting strategies. It splits the dataset randomly. <code>valid_pct=0.2</code> tells 20% of the dataset should be part of validation set. <code>seed=42</code> is used for reproducibility.</span>
+</dd>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="5" data-code-annotation="5">How to create label (<code>y</code>) for each input sample in our dataset? <code>parent_label</code> is a function which extracts the parent folder name of the file and returns as output.</span>
+</dd>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="6" data-code-annotation="6">Any transformations to be applied on each item of the dataset? Usually when we train the model, we won’t be training one image at a time but a batch of images. To make this convenient, we make sure all the images are of same size. <code>Resize</code> method is used to resize the image to specified size. Here it’s <code>192</code>. While resizing, the image may be cropped/squished/anything else. Here, we are asking to <code>squish</code> the image.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>The above code serves as a blueprint of our dataset. But for training the model, we actually need the training and validation dataset created from the downloaded images with all the inputs and outputs in the right format as mentioned in the blueprint. <code>DataLoaders</code> exactly does that.</p>
+<div id="cell-35" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:10:41.189875Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:10:41.188974Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:10:41.791051Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:10:41.790036Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:10:41.189838Z&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="annotated-cell-12" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-1" class="code-annotation-target">dls <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> db.dataloaders(path, bs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">32</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2">2</button><span id="annotated-cell-12-2" class="code-annotation-target">dls.train.show_batch(max_n<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, nrows<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="1" data-code-annotation="1">Creates dataloaders from the <code>Datablock</code>. Inputs are <code>path</code> and <code>bs</code>. <code>path</code> is used to point to the downloaded dataset path from which all the files are read by the <code>get_image_files</code> function used in datablock definition. <code>bs</code> is the batch size which ensures during model training the model gets <code>bs</code> # of images at a time rather just 1. This is done to make efficient use of GPUs as well as other advantages.</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="2" data-code-annotation="2">Once the dataloaders is created, we can access the training and validation set using <code>train</code> and <code>valid</code> attributes respectively. The <code>dls.train.show_batch</code> displays 4 images from the training set in a single row which is set by <code>max_n</code> and <code>nrows</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/painting-classifier/index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="training" class="level2">
+<h2 class="anchored" data-anchor-id="training">Training</h2>
+<p>Now we have the dataset ready, let’s train the model to classify Picasso and Monet images. For this project, rather than training a deep learning model from scratch let’s use a pretrained model called <code>resnet18</code> and finetune it for the task (Picasso and Monet classification) at hand.</p>
+<p>In fastai, most of the trainer has a common api which is <code>domain_learner</code>. Since we are going to solve a <strong>Computer Vision</strong> problem, we’ll be using <code>vision_learner</code>. We will be passing the dataset, pretrained deep learning model and metrics (to log) as inputs. We’ll train the model using <code>finetune</code> method.</p>
+<div id="cell-39" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:04.908069Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:04.907022Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:15.383581Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:15.382451Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:04.908027Z&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="annotated-cell-13" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> vision_learner(dls, resnet18, metrics<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>error_rate)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2">2</button><span id="annotated-cell-13-2" class="code-annotation-target">learn.fine_tune(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="1" data-code-annotation="1"><code>dls</code> is the dataloaders we created in previous setps. <code>resnet18</code> is the Residual Network architecture with 18 layers pre-trained on Imagenet dataset. <code>error_rate</code> is the percentage of validation examples the model predicts wrong.</span>
+</dd>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="2" data-code-annotation="2"><code>fine_tune</code> finetunes the model for the new dataset at hand for given number of epochs. It also prints the training progress.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+100%|██████████| 44.7M/44.7M [00:00&lt;00:00, 144MB/s] </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">epoch</th>
+<th data-quarto-table-cell-role="th">train_loss</th>
+<th data-quarto-table-cell-role="th">valid_loss</th>
+<th data-quarto-table-cell-role="th">error_rate</th>
+<th data-quarto-table-cell-role="th">time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.467476</td>
+<td>0.218055</td>
+<td>0.054795</td>
+<td>00:03</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">epoch</th>
+<th data-quarto-table-cell-role="th">train_loss</th>
+<th data-quarto-table-cell-role="th">valid_loss</th>
+<th data-quarto-table-cell-role="th">error_rate</th>
+<th data-quarto-table-cell-role="th">time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.083487</td>
+<td>0.011494</td>
+<td>0.000000</td>
+<td>00:01</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.076097</td>
+<td>0.001811</td>
+<td>0.000000</td>
+<td>00:01</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.058125</td>
+<td>0.001642</td>
+<td>0.000000</td>
+<td>00:01</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0.043209</td>
+<td>0.002014</td>
+<td>0.000000</td>
+<td>00:01</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>0.032918</td>
+<td>0.002884</td>
+<td>0.000000</td>
+<td>00:01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>We can see that the validation error is around 0. It means the model does pretty good job in differentiating Picasso and Monet paintings.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The original model was pretrained on a different dataset for a different problem. For our project, we need to predict which class a painting belongs to. We have <strong>two classes</strong>. So the output layer of the model should be replaced with two nodes. This is automatically taken care by fastai. The number <strong>5</strong> represents the number of epochs the model should be trained for. When a model sees all the training sample once, we call it an epoch.</p>
+<p>The <code>finetune</code> method also employes best practices while training the model. We can see there are two sections in the training log. The second section represents the 5 epochs which we requested fastai to train for. In those 5 epochs, all the layers are trained and the metrics are logged. So then what is the first section of log which shows additional epoch? The first section shows the training log of one epoch done by fastai by freezing (no training) all the layers expect the last layer which was inserted newly for our task.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An epoch is nothing but single pass of all the samples in the training dataset by the model.</p>
+</div>
+</div>
+</section>
+<section id="prediction" class="level2">
+<h2 class="anchored" data-anchor-id="prediction">Prediction</h2>
+<p>Now we have our trained model, let’s make a prediction using the <code>predict</code> method.</p>
+<div id="cell-46" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:49.103851Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:49.103229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:49.112995Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:49.112089Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:49.103819Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">fns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> get_image_files(Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'painting'</span>))</span></code></pre></div>
+</div>
+<div id="cell-47" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:10.479716Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:10.479325Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:10.565076Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:10.564130Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:10.479685Z&quot;}" data-execution_count="32">
+<div class="sourceCode cell-code" id="annotated-cell-15" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="1">1</button><span id="annotated-cell-15-1" class="code-annotation-target">fn <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> random.choice(fns)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="2">2</button><span id="annotated-cell-15-2" class="code-annotation-target">preds <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> learn.predict(fn)</span>
+<span id="annotated-cell-15-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(preds)</span>
+<span id="annotated-cell-15-4"></span>
+<span id="annotated-cell-15-5">Image.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">open</span>(fn)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-15" data-code-lines="1" data-code-annotation="1">Randomly chooses an image file from the list of images.</span>
+</dd>
+<dt data-target-cell="annotated-cell-15" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-15" data-code-lines="2" data-code-annotation="2"><code>predict</code> method is used to make a prediction using the trained model <code>learn</code>.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display">
+
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+<div class="cell-output cell-output-display">
+
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>('monet painting', tensor(0), tensor([1.0000e+00, 1.8999e-08]))</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/painting-classifier/index_files/figure-html/cell-15-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The model predicts the output as ‘monet painting’ and it’s 100% confident about it!</p>
+<p>The predicted output is a tuple containing three values. They are <strong>(<em>predicted label</em>, <em>predicted label as index</em>, <em>class probabilities for each class</em>)</strong>. The index corresponding to maximum class probability is chosen as the predicted class and corresponding index is returned in the second value of the tuple. Now we have the class index, how to find the class label? <code>learn.dls.vocab</code> or <code>dls.vocab</code> can be used to see the list of labels and the order used by fastai.</p>
+<div id="cell-51" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:19.403756Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:19.403330Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:19.409530Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:19.408796Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:19.403725Z&quot;}" data-execution_count="33">
+<div class="sourceCode cell-code" id="annotated-cell-16" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy"><code class="sourceCode python"><span id="annotated-cell-16-1">learn.dls.vocab</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>['monet painting', 'picasso painting']</code></pre>
+</div>
+</div>
+<p>Here, the <img src="https://latex.codecogs.com/png.latex?0%5E%7Bth%7D"> index represents ‘monet painting’. Hence, the first value of the tuple returned by the <code>predict</code> method has ‘monet painting’ in it.</p>
+</section>
+<section id="save-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-model">Save the model</h2>
+<p>Now we have our trained model, we can use this in other apps. To do so, first we need to save the model so we need not retrain. In fastai, the model can be saved to a file using the <code>export</code> method.</p>
+<div id="cell-55" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:50.441985Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:50.441594Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:50.550110Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:50.549304Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:50.441954Z&quot;}" data-execution_count="24">
+<div class="sourceCode cell-code" id="annotated-cell-17" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-1" class="code-annotation-target">learn.export(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-17" data-code-lines="1" data-code-annotation="1">Export (save) the trained model in the given path.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>I deployed the above model as a web app where a user can upload images of Picasso and Monet paintings and get predictions. You can find it <a href="https://harishb00-painting-classifier.hf.space/">here</a>. In future posts, I will share how I did it.</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/painting-classifier/painting-gradio-thumbnail.png" alt="thumbnail" class="post-thumbnail figure-img">
+<figcaption>
+App deployed in HuggingFace Spaces
+</figcaption>
+</figure>
+<p>That’s it for today. See you in another post.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Deep Learning</category>
+  <category>fastai</category>
+  <guid>https://harishb00.github.io/posts/painting-classifier/</guid>
+  <pubDate>Sat, 30 Mar 2024 18:30:00 GMT</pubDate>
+  <media:content url="https://harishb00.github.io/posts/painting-classifier/thumbnail.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Welcome To My Blog</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>This is the first post in a Quarto blog. Welcome!</p>
+<figure class="figure">
+<img src="https://harishb00.github.io/posts/welcome/thumbnail.jpg" alt="thumbnail" class="post-thumbnail figure-img">
+<figcaption>
+Created by Microsoft Designer
+</figcaption>
+</figure>
+<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+
+
+
+ ]]></description>
+  <category>welcome</category>
+  <guid>https://harishb00.github.io/posts/welcome/</guid>
+  <pubDate>Mon, 25 Mar 2024 18:30:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

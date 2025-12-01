@@ -1,0 +1,92 @@
+---
+title: "uv - Python package and project manager"
+author: "Harish"
+date: "2025-09-13"
+categories: [Python, uv, Package Manager]
+---
+
+## Introduction
+In this article, let's explore the popular Python package and project management tool, `uv`. `uv` is really fast compared to `pip`, which is an important reason for its popularity. It's written in Rust, which helps it achieve this performance.
+
+## Performance Benchmark
+
+## Why use `uv`?
+
+Have you encountered these common issues when working with Python projects?
+
+- Installing or switching between Python versions is tedious
+- Forgetting to update the requirements file after installing or uninstalling a package
+- Dependency conflicts arising from indirect package updates
+- Installing packages with `pip` takes a long time, especially for large projects
+- Keeping track of the Python version your project is using
+
+`uv` helps solve these problems, making Python project management faster and more reliable.
+
+## Installation
+`uv` can simply be installed by executing the below command in your terminal. For Windows and macOS, refer [here](https://docs.astral.sh/uv/getting-started/installation/).
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+## Project Workflow
+Every time we start a Python project locally, we perform certain actions by default. Below is the typical workflow to start and run a project, followed by the `uv` equivalent workflow.
+
+### Typical Workflow
+| Step | Action | Command |
+| ---- | ------ | ------- |
+| 1 | Create project directory | `mkdir my_project` |
+| 2 | Create virtual environment | `python -m venv .venv` |
+| 3 | Activate virtual environment |  `source .venv/bin/activate` |
+| 4 | Install package | `pip install package1 package2` |
+| 5 | Write scripts & run | `python program.py` |
+| 6 | Dump requirements file | `pip freeze > requirements.txt` |
+| 7 | Upgrade package | `pip upgrade package1` |
+| 8 | Update requirements file | Manually update the file or again `pip freeze > requirements.txt` |
+
+### `uv` Workflow
+| Step | Action | Command |
+| ---- | ------ | ------- |
+| 1 | Create project | `uv init my_project` |
+| 2 | Create virtual environment | ✅ Taken Care |
+| 3 | Activate virtual environment | ✅ Not Required |
+| 4 | Install package | `uv add package1 package2` |
+| 5 | Write scripts & run | `uv run program.py` |
+| 6 | Dump requirements file | ✅ Taken care |
+| 7 | Upgrade package | `uv upgrade package1` |
+| 8 | Update requirements file | ✅ Taken care |
+
+Ah, that's 50% fewer commands!
+
+## Project Structure
+
+
+## Commands
+This section contains the most useful commands for working with a uv-managed Python project.
+
+| Commands | Description |
+| -------- | ----------- |
+| `curl -LsSf https://astral.sh/uv/install.sh | sh` | Installs the `uv` CLI on your system. |
+| **uv** | |
+| `uv self version` | Shows the installed `uv` CLI version. |
+| `uv python list` | Lists Python versions available to install via `uv`. |
+| `uv python install 3.13.5` | Installs Python 3.13.5 for use by `uv` (downloads and makes it available to projects). |
+| `uv python uninstall 3.13.5` | Removes the installed Python 3.13.5 from `uv`'s local installations. |
+| **New Project** | |
+| `uv init abc` | Creates a new project in directory `abc` and initializes `uv` project files there. |
+| `uv init abc -p 3.13` | Initializes project `abc` and configures it to use Python 3.13. |
+| `uv init` or `uv init .` | Initializes the current directory as a `uv` project. Use `-p` to specify Python version. |
+| **Project information** | |
+| `uv version` | Prints the project version. |
+| `uv run python --version` | Shows the Python version used by the current project environment. |
+| **Running Python files** | |
+| `uv run main.py` | Executes `main.py` using the project's managed Python environment. |
+| **Adding and managing packages** | |
+| `uv add scipy` | Adds `scipy` as a project dependency and installs it into the project environment. |
+| `uv add ipykernel --group local` | Adds `ipykernel` to the `local` dependency group (for optional or environment-specific packages). |
+| `uv sync` | Ensures the project environment is set up: installs required Python (if needed), creates/updates the venv, and installs all configured dependencies. |
+| `uv sync --no-default-groups --group local` | Installs packages only from the specified non-default group `local`, skipping the default groups. |
+| `uv venv` | Creates a virtual environment for the project; will prompt before deleting an existing venv. |
+| **`pip` commands inside `uv`** |  |
+| `uv pip list` | Lists packages installed in the project's environment (equivalent to `pip list`). |
+| `uv pip show scipy` | Shows metadata for the installed `scipy` package (equivalent to `pip show scipy`). |
