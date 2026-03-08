@@ -1,0 +1,28 @@
+---
+title: Favorites
+page-layout: full
+---
+
+## Talks
+* [A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout](https://www.youtube.com/watch?v=mE98Is1quwY&list=PLcs1ZorNr2uTGPZPZnBa408qLVHjbMTzT&index=1)
+* [The Dangerous Illusion of AI Coding? - Jeremy Howard](https://www.youtube.com/watch?v=dHBEQ-Ryo24)
+
+## Blogs
+* [Teach Yourself Programming in Ten Years - Peter Norvig](https://norvig.com/21-days.html)
+* [No Silver Bullet: Essence and Accidents of Software Engineering - Frederick P. Brooks, Jr.](https://www.cs.unc.edu/techreports/86-020.pdf)
+* [Impact of AI Productivity - Is it really making us productive?](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+
+## Books
+
+Books marked with 🔁 are not one time reading book.
+
+* [ ] Talent is Overrated: What Really Separates World-class Performers from Everybody Else by Geoffrey Colvin
+* [ ] Meditations - Marcus Aurelius 🔁
+* [ ] Katha Upanishad 🔁
+* [ ] Prashna Upanishad 🔁
+* [ ] Mundaka Upanishad 🔁
+* [ ] Thirukural - Thiruvalluvar 🔁
+* [ ] முதற்கனல் - ஜெயமோகன்
+* [ ] Siddhartha - Herman Hesse
+* [x] The Boy, the Mole, the Fox and the Horse - Charlie Mackesy
+* [ ] The Artist's Way: A Spiritual Path to Higher Creativity - Julia Cameron

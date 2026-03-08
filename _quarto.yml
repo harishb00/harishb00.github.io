@@ -12,6 +12,8 @@ website:
         text: posts
       - href: projects.qmd
         text: pet projects
+      - href: favorites.qmd
+        text: favorites
     right:
       - icon: github
         href: https://github.com/harishb00
