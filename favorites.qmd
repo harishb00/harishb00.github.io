@@ -7,22 +7,53 @@ page-layout: full
 * [A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout](https://www.youtube.com/watch?v=mE98Is1quwY&list=PLcs1ZorNr2uTGPZPZnBa408qLVHjbMTzT&index=1)
 * [The Dangerous Illusion of AI Coding? - Jeremy Howard](https://www.youtube.com/watch?v=dHBEQ-Ryo24)
 
-## Blogs
+## Posts
 * [Teach Yourself Programming in Ten Years - Peter Norvig](https://norvig.com/21-days.html)
 * [No Silver Bullet: Essence and Accidents of Software Engineering - Frederick P. Brooks, Jr.](https://www.cs.unc.edu/techreports/86-020.pdf)
 * [Impact of AI Productivity - Is it really making us productive?](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
+* [The Bitter Lesson - Rich Sutton](http://www.incompleteideas.net/IncIdeas/BitterLesson.html)
+* [Advice on Technical Writing - Rich Sutton](https://docs.google.com/document/d/1EKhufclxlvF0RDA3oR0Dp02iTH5biCDguE7Ou7Sprzo/edit?tab=t.0)
+* https://github.com/codecrafters-io/build-your-own-x
+
+
+## Communication
+* https://www.youtube.com/watch?v=c8_BIamLESg
+* https://www.youtube.com/watch?v=Unzc731iCUY
+
+
+## Newsletters
+
 
 ## Books
 
-Books marked with 🔁 are not one time reading book.
+### Technical
 
+* [ ] [The Elements of Computing Systems: Building a Modern Computer from First Principles](https://www.amazon.in/Elements-Computing-Systems-second-Principles/dp/0262539802)
+* [ ] [Crafting Interpreters](https://craftinginterpreters.com/contents.html)
+* [ ] [Operating Systems: Three Easy Pieces](https://www.goodreads.com/book/show/17374825-operating-systems)
+* [ ] [Designing Data-Intensive Applications, 2nd Edition](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/)
+* [ ] [Database Internals](https://www.oreilly.com/library/view/database-internals/9781492040330/)
+* [ ] [The Software Engineer's Guidebook](https://www.engguidebook.com/)
+* [ ] [Designing Machine Learning Systems](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
+* [ ] [Software Engineering at Google](https://abseil.io/resources/swe-book/html/toc.html)
+* [ ] [Hypermedia Systems](https://hypermedia.systems/)
+* [ ] A Philosophy of Software Design
+* [ ] Tidy First?
+* [ ] The Pragmatic Programmer
+* [ ] 14 Habits of Highly Productive Developer
+
+
+### Generic
+* [ ] [The Art of Doing Science and Engineering - Richard W. Hamming](https://press.stripe.com/the-art-of-doing-science-and-engineering)
 * [ ] Talent is Overrated: What Really Separates World-class Performers from Everybody Else by Geoffrey Colvin
-* [ ] Meditations - Marcus Aurelius 🔁
-* [ ] Katha Upanishad 🔁
-* [ ] Prashna Upanishad 🔁
-* [ ] Mundaka Upanishad 🔁
-* [ ] Thirukural - Thiruvalluvar 🔁
+* [ ] On Writing Well: The Essential Guide to Mastering Nonfiction Writing and Effective Communication
+* [ ] The First 90 Days: Proven Strategies for Getting Up to Speed Faster and Smarter, Updated and Expanded
+* [ ] Meditations - Marcus Aurelius
+* [ ] Katha Upanishad
+* [ ] Prashna Upanishad
+* [ ] Mundaka Upanishad
+* [ ] Thirukural - Thiruvalluvar
 * [ ] முதற்கனல் - ஜெயமோகன்
 * [ ] Siddhartha - Herman Hesse
 * [x] The Boy, the Mole, the Fox and the Horse - Charlie Mackesy
-* [ ] The Artist's Way: A Spiritual Path to Higher Creativity - Julia Cameron
+* [x] The Artist's Way: A Spiritual Path to Higher Creativity - Julia Cameron

@@ -1,5 +1,6 @@
 ---
-title: "Hi, I'm Harish"
+title: "Understanding things I don't know makes me happy. Fortunately, I don't know many things."
+# description: ""
 listing:
   contents: posts
   sort: "date desc"
@@ -13,7 +14,3 @@ listing:
 page-layout: full
 title-block-banner: true
 ---
-
-Personal notes about programming, machine Learning and other stuff in general. This is my scratchpad to write about things I learn. Also a place to improve my writing skills.
-
-# Recent posts

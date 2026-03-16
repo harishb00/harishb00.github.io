@@ -1,9 +1,5 @@
 [
   {
-    "listing": "/projects.html",
-    "items": []
-  },
-  {
     "listing": "/index.html",
     "items": [
       "/posts/uv/index.html",
@@ -13,5 +9,9 @@
       "/posts/painting-classifier/index.html",
       "/posts/welcome/index.html"
     ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": []
   }
 ]
