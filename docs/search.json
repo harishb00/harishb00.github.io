@@ -14,62 +14,6 @@
     "text": "Picasso Monet Painting Classifier\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\nAn image classifier for classifying drawings made by Picasso and Monet.\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/uv/index.html",
-    "href": "posts/uv/index.html",
-    "title": "uv - Python package and project manager",
-    "section": "",
-    "text": "In this article, let’s explore the popular Python package and project management tool, uv. uv is really fast compared to pip, which is an important reason for its popularity. It’s written in Rust, which helps it achieve this performance."
-  },
-  {
-    "objectID": "posts/uv/index.html#introduction",
-    "href": "posts/uv/index.html#introduction",
-    "title": "uv - Python package and project manager",
-    "section": "",
-    "text": "In this article, let’s explore the popular Python package and project management tool, uv. uv is really fast compared to pip, which is an important reason for its popularity. It’s written in Rust, which helps it achieve this performance."
-  },
-  {
-    "objectID": "posts/uv/index.html#performance-benchmark",
-    "href": "posts/uv/index.html#performance-benchmark",
-    "title": "uv - Python package and project manager",
-    "section": "Performance Benchmark",
-    "text": "Performance Benchmark"
-  },
-  {
-    "objectID": "posts/uv/index.html#why-use-uv",
-    "href": "posts/uv/index.html#why-use-uv",
-    "title": "uv - Python package and project manager",
-    "section": "Why use uv?",
-    "text": "Why use uv?\nHave you encountered these common issues when working with Python projects?\n\nInstalling or switching between Python versions is tedious\nForgetting to update the requirements file after installing or uninstalling a package\nDependency conflicts arising from indirect package updates\nInstalling packages with pip takes a long time, especially for large projects\nKeeping track of the Python version your project is using\n\nuv helps solve these problems, making Python project management faster and more reliable."
-  },
-  {
-    "objectID": "posts/uv/index.html#installation",
-    "href": "posts/uv/index.html#installation",
-    "title": "uv - Python package and project manager",
-    "section": "Installation",
-    "text": "Installation\nuv can simply be installed by executing the below command in your terminal. For Windows and macOS, refer here.\ncurl -LsSf https://astral.sh/uv/install.sh | sh"
-  },
-  {
-    "objectID": "posts/uv/index.html#project-workflow",
-    "href": "posts/uv/index.html#project-workflow",
-    "title": "uv - Python package and project manager",
-    "section": "Project Workflow",
-    "text": "Project Workflow\nEvery time we start a Python project locally, we perform certain actions by default. Below is the typical workflow to start and run a project, followed by the uv equivalent workflow.\n\nTypical Workflow\n\n\n\n\n\n\n\n\nStep\nAction\nCommand\n\n\n\n\n1\nCreate project directory\nmkdir my_project\n\n\n2\nCreate virtual environment\npython -m venv .venv\n\n\n3\nActivate virtual environment\nsource .venv/bin/activate\n\n\n4\nInstall package\npip install package1 package2\n\n\n5\nWrite scripts & run\npython program.py\n\n\n6\nDump requirements file\npip freeze &gt; requirements.txt\n\n\n7\nUpgrade package\npip upgrade package1\n\n\n8\nUpdate requirements file\nManually update the file or again pip freeze &gt; requirements.txt\n\n\n\n\n\nuv Workflow\n\n\n\nStep\nAction\nCommand\n\n\n\n\n1\nCreate project\nuv init my_project\n\n\n2\nCreate virtual environment\n✅ Taken Care\n\n\n3\nActivate virtual environment\n✅ Not Required\n\n\n4\nInstall package\nuv add package1 package2\n\n\n5\nWrite scripts & run\nuv run program.py\n\n\n6\nDump requirements file\n✅ Taken care\n\n\n7\nUpgrade package\nuv upgrade package1\n\n\n8\nUpdate requirements file\n✅ Taken care\n\n\n\nAh, that’s 50% fewer commands!"
-  },
-  {
-    "objectID": "posts/uv/index.html#project-structure",
-    "href": "posts/uv/index.html#project-structure",
-    "title": "uv - Python package and project manager",
-    "section": "Project Structure",
-    "text": "Project Structure"
-  },
-  {
-    "objectID": "posts/uv/index.html#commands",
-    "href": "posts/uv/index.html#commands",
-    "title": "uv - Python package and project manager",
-    "section": "Commands",
-    "text": "Commands\nThis section contains the most useful commands for working with a uv-managed Python project.\n\n\n\n\n\n\n\nCommands\nDescription\n\n\n\n\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nInstalls the uv CLI on your system.\n\n\nuv\n\n\n\nuv self version\nShows the installed uv CLI version.\n\n\nuv python list\nLists Python versions available to install via uv.\n\n\nuv python install 3.13.5\nInstalls Python 3.13.5 for use by uv (downloads and makes it available to projects).\n\n\nuv python uninstall 3.13.5\nRemoves the installed Python 3.13.5 from uv’s local installations.\n\n\nNew Project\n\n\n\nuv init abc\nCreates a new project in directory abc and initializes uv project files there.\n\n\nuv init abc -p 3.13\nInitializes project abc and configures it to use Python 3.13.\n\n\nuv init or uv init .\nInitializes the current directory as a uv project. Use -p to specify Python version.\n\n\nProject information\n\n\n\nuv version\nPrints the project version.\n\n\nuv run python --version\nShows the Python version used by the current project environment.\n\n\nRunning Python files\n\n\n\nuv run main.py\nExecutes main.py using the project’s managed Python environment.\n\n\nAdding and managing packages\n\n\n\nuv add scipy\nAdds scipy as a project dependency and installs it into the project environment.\n\n\nuv add ipykernel --group local\nAdds ipykernel to the local dependency group (for optional or environment-specific packages).\n\n\nuv sync\nEnsures the project environment is set up: installs required Python (if needed), creates/updates the venv, and installs all configured dependencies.\n\n\nuv sync --no-default-groups --group local\nInstalls packages only from the specified non-default group local, skipping the default groups.\n\n\nuv venv\nCreates a virtual environment for the project; will prompt before deleting an existing venv.\n\n\npip commands inside uv\n\n\n\nuv pip list\nLists packages installed in the project’s environment (equivalent to pip list).\n\n\nuv pip show scipy\nShows metadata for the installed scipy package (equivalent to pip show scipy)."
-  },
-  {
     "objectID": "posts/model-deploy-hfspace/index.html",
     "href": "posts/model-deploy-hfspace/index.html",
     "title": "Deploy Deep Learning Model",
@@ -186,7 +130,7 @@
     "href": "index.html",
     "title": "Understanding things I don’t know makes me happy. Fortunately, I don’t know many things.",
     "section": "",
-    "text": "uv - Python package and project manager\n\n\n\n\n\n\nPython\n\n\nuv\n\n\nPackage Manager\n\n\n\n\n\n\n\n\n\nSep 13, 2025\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Language AI & LLM\n\n\n\n\n\n\nLanguage AI\n\n\nLLM\n\n\nGen AI\n\n\nAI\n\n\n\n\n\n\n\n\n\nApr 10, 2025\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
+    "text": "Introduction to Language AI & LLM\n\n\n\n\n\n\nLanguage AI\n\n\nLLM\n\n\nGen AI\n\n\nAI\n\n\n\n\n\n\n\n\n\nApr 10, 2025\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nFastbook NLP Deep Dive: RNNs Q&A\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\nNLP\n\n\nfastbook\n\n\n\n\n\n\n\n\n\nApr 26, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy Deep Learning Model\n\n\n\n\n\n\nDeep Learning\n\n\nHugging Face\n\n\nfastai\n\n\nModel Deployment\n\n\n\n\n\n\n\n\n\nApr 24, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nPicasso and Monet Painting Classifier\n\n\n\n\n\n\nDeep Learning\n\n\nfastai\n\n\n\n\n\n\n\n\n\nMar 31, 2024\n\n\nHarish\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nwelcome\n\n\n\n\n\n\n\n\n\nMar 26, 2024\n\n\nHarish\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/lang-ai-llm-intro/index.html",
