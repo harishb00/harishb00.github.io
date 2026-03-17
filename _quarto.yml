@@ -14,6 +14,8 @@ website:
         text: pet projects
       - href: favorites.qmd
         text: favorites
+      - href: quotes.qmd
+        text: quotes
     right:
       - icon: github
         href: https://github.com/harishb00
