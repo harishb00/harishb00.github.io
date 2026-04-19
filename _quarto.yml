@@ -11,7 +11,7 @@ website:
       - href: index.qmd
         text: posts
       - href: projects.qmd
-        text: pet projects
+        text: projects
       - href: favorites.qmd
         text: favorites
       - href: quotes.qmd

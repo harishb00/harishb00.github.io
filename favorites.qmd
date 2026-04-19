@@ -6,6 +6,8 @@ page-layout: full
 ## Talks
 * [A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout](https://www.youtube.com/watch?v=mE98Is1quwY&list=PLcs1ZorNr2uTGPZPZnBa408qLVHjbMTzT&index=1)
 * [The Dangerous Illusion of AI Coding? - Jeremy Howard](https://www.youtube.com/watch?v=dHBEQ-Ryo24)
+* [https://www.youtube.com/watch?v=c8_BIamLESg]() (Communication)
+* [https://www.youtube.com/watch?v=Unzc731iCUY]() (Communication)
 
 ## Posts
 * [Teach Yourself Programming in Ten Years - Peter Norvig](https://norvig.com/21-days.html)
@@ -16,18 +18,11 @@ page-layout: full
 * https://github.com/codecrafters-io/build-your-own-x
 
 
-## Communication
-* https://www.youtube.com/watch?v=c8_BIamLESg
-* https://www.youtube.com/watch?v=Unzc731iCUY
-
-
-## Newsletters
-
-
 ## Books
 
-### Technical
-
+### Science & Engineering
+* [ ] Six Easy Pieces - Richard Feynman
+* [ ] [The Art of Doing Science and Engineering - Richard W. Hamming](https://press.stripe.com/the-art-of-doing-science-and-engineering)
 * [ ] [The Elements of Computing Systems: Building a Modern Computer from First Principles](https://www.amazon.in/Elements-Computing-Systems-second-Principles/dp/0262539802)
 * [ ] [Crafting Interpreters](https://craftinginterpreters.com/contents.html)
 * [ ] [Operating Systems: Three Easy Pieces](https://www.goodreads.com/book/show/17374825-operating-systems)
@@ -44,7 +39,10 @@ page-layout: full
 
 
 ### Generic
-* [ ] [The Art of Doing Science and Engineering - Richard W. Hamming](https://press.stripe.com/the-art-of-doing-science-and-engineering)
+* [x] The Boy, the Mole, the Fox and the Horse - Charlie Mackesy
+* [x] The Artist's Way: A Spiritual Path to Higher Creativity - Julia Cameron
+* [ ] The Body Keeps the Score - Bessel Van Der Kolk
+* [ ] Drawing on the Right Side of the Brain - Betty Edwards
 * [ ] Talent is Overrated: What Really Separates World-class Performers from Everybody Else by Geoffrey Colvin
 * [ ] On Writing Well: The Essential Guide to Mastering Nonfiction Writing and Effective Communication
 * [ ] The First 90 Days: Proven Strategies for Getting Up to Speed Faster and Smarter, Updated and Expanded
@@ -55,5 +53,4 @@ page-layout: full
 * [ ] Thirukural - Thiruvalluvar
 * [ ] முதற்கனல் - ஜெயமோகன்
 * [ ] Siddhartha - Herman Hesse
-* [x] The Boy, the Mole, the Fox and the Horse - Charlie Mackesy
-* [x] The Artist's Way: A Spiritual Path to Higher Creativity - Julia Cameron
+

@@ -4,7 +4,7 @@
     "href": "todo.html",
     "title": "Harish B",
     "section": "",
-    "text": "Reduce the total # of tags to 10"
+    "text": "Reduce the total # of tags to 10\n\n“The Feynman Lectures on Physics” — free online, incredibly intuitive, written by one of the greatest physics teachers ever — a shorter, gentler intro from the same source “Physics for the Inquiring Mind” by Eric Rogers — very first-principles and visual For a more hands-on/computational approach (which suits your learning style!):\n“Structure and Interpretation of Classical Mechanics” (SICM) — teaches physics through code, very first-principles Which sounds most appealing to you?\nYes! Chemistry and physics overlap a lot at the fundamental level. A couple of good options:\n“The Mystery of the Periodic Table” by Benjamin Wiker — very intuitive and story-driven “Surely You’re Joking, Mr. Feynman!” — not a textbook, but Feynman’s autobiography, full of curiosity and insight across physics and chemistry But honestly, the physics foundations you build from Feynman will naturally carry into chemistry too.\nShall we get back to the pendulum now? 😄\nGreat taste! A few classics:\n“Structure and Interpretation of Computer Programs” (SICP) — the ultimate first-principles CS book, teaches through code “The Art of Computer Programming” by Knuth — very deep, more of a reference “Gödel, Escher, Bach” by Hofstadter — mind-bending, explores computation, logic and consciousness For your style, SICP is the obvious choice — it’s hands-on and builds everything from scratch.\nBut pendulum? 😄\nGood one! A few great options:\n“The Art of Electronics” by Horowitz & Hill — the hands-on bible for electronics, very practical “Lessons in Electric Circuits” by Tony Kuphaldt — free online, very first-principles For intuition building specifically, I’d recommend pairing any book with actual tinkering — a cheap Arduino or Raspberry Pi kit goes a long way!\nGreat curiosity! A couple of picks:\n“Behave” by Robert Sapolsky — biology of human behaviour, incredibly engaging “The Brain That Changes Itself” by Norman Doidge — intuitive, story-driven neuroscience"
   },
   {
     "objectID": "projects.html",
@@ -88,14 +88,14 @@
     "href": "favorites.html",
     "title": "Favorites",
     "section": "",
-    "text": "A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout\nThe Dangerous Illusion of AI Coding? - Jeremy Howard"
+    "text": "A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout\nThe Dangerous Illusion of AI Coding? - Jeremy Howard\nhttps://www.youtube.com/watch?v=c8_BIamLESg (Communication)\nhttps://www.youtube.com/watch?v=Unzc731iCUY (Communication)"
   },
   {
     "objectID": "favorites.html#talks",
     "href": "favorites.html#talks",
     "title": "Favorites",
     "section": "",
-    "text": "A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout\nThe Dangerous Illusion of AI Coding? - Jeremy Howard"
+    "text": "A Little Bit of Slope Makes Up For a Lot of Y-Intercept - John Ousterhout\nThe Dangerous Illusion of AI Coding? - Jeremy Howard\nhttps://www.youtube.com/watch?v=c8_BIamLESg (Communication)\nhttps://www.youtube.com/watch?v=Unzc731iCUY (Communication)"
   },
   {
     "objectID": "favorites.html#posts",
@@ -105,25 +105,11 @@
     "text": "Posts\n\nTeach Yourself Programming in Ten Years - Peter Norvig\nNo Silver Bullet: Essence and Accidents of Software Engineering - Frederick P. Brooks, Jr.\nImpact of AI Productivity - Is it really making us productive?\nThe Bitter Lesson - Rich Sutton\nAdvice on Technical Writing - Rich Sutton\nhttps://github.com/codecrafters-io/build-your-own-x"
   },
   {
-    "objectID": "favorites.html#communication",
-    "href": "favorites.html#communication",
-    "title": "Favorites",
-    "section": "Communication",
-    "text": "Communication\n\nhttps://www.youtube.com/watch?v=c8_BIamLESg\nhttps://www.youtube.com/watch?v=Unzc731iCUY"
-  },
-  {
-    "objectID": "favorites.html#newsletters",
-    "href": "favorites.html#newsletters",
-    "title": "Favorites",
-    "section": "Newsletters",
-    "text": "Newsletters"
-  },
-  {
     "objectID": "favorites.html#books",
     "href": "favorites.html#books",
     "title": "Favorites",
     "section": "Books",
-    "text": "Books\n\nTechnical\n\nThe Elements of Computing Systems: Building a Modern Computer from First Principles\nCrafting Interpreters\nOperating Systems: Three Easy Pieces\nDesigning Data-Intensive Applications, 2nd Edition\nDatabase Internals\nThe Software Engineer’s Guidebook\nDesigning Machine Learning Systems\nSoftware Engineering at Google\nHypermedia Systems\nA Philosophy of Software Design\nTidy First?\nThe Pragmatic Programmer\n14 Habits of Highly Productive Developer\n\n\n\nGeneric\n\nThe Art of Doing Science and Engineering - Richard W. Hamming\nTalent is Overrated: What Really Separates World-class Performers from Everybody Else by Geoffrey Colvin\nOn Writing Well: The Essential Guide to Mastering Nonfiction Writing and Effective Communication\nThe First 90 Days: Proven Strategies for Getting Up to Speed Faster and Smarter, Updated and Expanded\nMeditations - Marcus Aurelius\nKatha Upanishad\nPrashna Upanishad\nMundaka Upanishad\nThirukural - Thiruvalluvar\nமுதற்கனல் - ஜெயமோகன்\nSiddhartha - Herman Hesse\nThe Boy, the Mole, the Fox and the Horse - Charlie Mackesy\nThe Artist’s Way: A Spiritual Path to Higher Creativity - Julia Cameron"
+    "text": "Books\n\nScience & Engineering\n\nSix Easy Pieces - Richard Feynman\nThe Art of Doing Science and Engineering - Richard W. Hamming\nThe Elements of Computing Systems: Building a Modern Computer from First Principles\nCrafting Interpreters\nOperating Systems: Three Easy Pieces\nDesigning Data-Intensive Applications, 2nd Edition\nDatabase Internals\nThe Software Engineer’s Guidebook\nDesigning Machine Learning Systems\nSoftware Engineering at Google\nHypermedia Systems\nA Philosophy of Software Design\nTidy First?\nThe Pragmatic Programmer\n14 Habits of Highly Productive Developer\n\n\n\nGeneric\n\nThe Boy, the Mole, the Fox and the Horse - Charlie Mackesy\nThe Artist’s Way: A Spiritual Path to Higher Creativity - Julia Cameron\nThe Body Keeps the Score - Bessel Van Der Kolk\nDrawing on the Right Side of the Brain - Betty Edwards\nTalent is Overrated: What Really Separates World-class Performers from Everybody Else by Geoffrey Colvin\nOn Writing Well: The Essential Guide to Mastering Nonfiction Writing and Effective Communication\nThe First 90 Days: Proven Strategies for Getting Up to Speed Faster and Smarter, Updated and Expanded\nMeditations - Marcus Aurelius\nKatha Upanishad\nPrashna Upanishad\nMundaka Upanishad\nThirukural - Thiruvalluvar\nமுதற்கனல் - ஜெயமோகன்\nSiddhartha - Herman Hesse"
   },
   {
     "objectID": "index.html",
@@ -277,6 +263,6 @@
     "href": "quotes.html",
     "title": "Quotes",
     "section": "",
-    "text": "My go-to quotes.\n\nI know that I know nothing. - Socrates\n\nWhat a line! The more I know about things, the more I come to realize that I don’t know.\n\nI fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times. - Bruce Lee\n\nI understood this when I deeply read a single research paper for weeks, analyzing between the lines. I learned a lot. Shallow reading gave me the satisfaction of finishing more papers, but deep reading truly made me learn. I can add many such examples. If I deeply understood a topic, I could relate it to many others. That wasn’t the case with shallow understanding.\n\nPeople are people. - Jake Morin (My Boss at Nextracker). I’ll add to this even I’m part of that.\n\nJake told me this during a feedback session: people are people - we shouldn’t get angry at them. They might not read our emails or chats and ask the same questions repeatedly. That’s just how people are. It’s a mantra I repeat when someone bothers me: “People are People.” Such a profound thought. Later, I realized I do the same, so I’m part of that too.\n\nDiscipline is a luxury. - Dr. Renta Chintala Bhargavi (My Professor)\n\nDuring my Master’s degree, one fine evening she told me this: “Harish, people think that being disciplined is so tough. They don’t know that it’s a luxury.”"
+    "text": "My go-to quotes.\n\nI know that I know nothing. - Socrates\n\n\nI fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times. - Bruce Lee\n\n\nPeople are people. - Jake Morin (My Boss at Nextracker). I’ll add to this even “I’m one”.\n\n\nDiscipline is a luxury. - Dr. Renta Chintala Bhargavi (My Professor)"
   }
 ]
