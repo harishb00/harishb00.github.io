@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Harish">
+<meta name="dcterms.date" content="2026-04-19">
 
-<title>Harish B - Understanding things I don’t know makes me happy. Fortunately, I don’t know many things.</title>
+<title>Harish B - Recurrent Neural Networks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -128,17 +99,17 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Harish B" href="index.xml" data-external="1"></head>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Harish B</span>
     </a>
   </div>
@@ -149,19 +120,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./favorites.html"> 
+    <a class="nav-link" href="../../favorites.html"> 
 <span class="menu-text">favorites</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./quotes.html"> 
+    <a class="nav-link" href="../../quotes.html"> 
 <span class="menu-text">quotes</span></a>
   </li>  
 </ul>
@@ -177,7 +148,7 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -189,241 +160,122 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Understanding things I don’t know makes me happy. Fortunately, I don’t know many things.</h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="AI">AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Deep Learning">Deep Learning <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Gen AI">Gen AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Hugging Face">Hugging Face <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LLM">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Language AI">Language AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Model Deployment">Model Deployment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(3)</span></div><div class="category" data-category="fastbook">fastbook <span class="quarto-category-count">(1)</span></div><div class="category" data-category="welcome">welcome <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-sequence-data" id="toc-what-is-sequence-data" class="nav-link active" data-scroll-target="#what-is-sequence-data">What is Sequence Data?</a></li>
+  <li><a href="#vanilla-nn-its-fixed-api" id="toc-vanilla-nn-its-fixed-api" class="nav-link" data-scroll-target="#vanilla-nn-its-fixed-api">Vanilla NN &amp; Its Fixed API</a>
+  <ul class="collapse">
+  <li><a href="#why-is-this-a-problem-for-sequence-data" id="toc-why-is-this-a-problem-for-sequence-data" class="nav-link" data-scroll-target="#why-is-this-a-problem-for-sequence-data">Why is this a problem for sequence data?</a></li>
+  </ul></li>
+  <li><a href="#introducing-feedback-loops" id="toc-introducing-feedback-loops" class="nav-link" data-scroll-target="#introducing-feedback-loops">Introducing Feedback Loops</a></li>
+  <li><a href="#unrolled-rnn" id="toc-unrolled-rnn" class="nav-link" data-scroll-target="#unrolled-rnn">Unrolled RNN</a></li>
+  <li><a href="#whats-inside-a-single-cell" id="toc-whats-inside-a-single-cell" class="nav-link" data-scroll-target="#whats-inside-a-single-cell">What’s Inside a Single Cell?</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Recurrent Neural Networks</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">Deep Learning</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Harish </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 19, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p>There’s something fascinating about watching a machine write emails, generate images, compose music, produce videos, and even build software. Every time I see this, I can’t help but wonder how this is even possible. That question is exactly what leads us to some of the greatest inventions in Artificial Intelligence that made this phenomenal feat possible.</p>
+<p>In this post, we’ll learn one of those earliest inventions in modeling sequence data.</p>
+<section id="what-is-sequence-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-sequence-data">What is Sequence Data?</h2>
+<p>So before seeing the formal definition of sequence data, let’s see a few examples of sequence data. 1. A song (audio) 2. A movie (video) 3. A chapter in a book (text)</p>
+<ul>
+<li>Take a song. Rearrange its chorus and drop it in the middle. It just doesn’t sound right.</li>
+<li>Take a chapter. Shuffle the paragraphs around. It just doesn’t read right.</li>
+<li>Take a video. Shuffle the frames around. It just doesn’t look right.</li>
+</ul>
+<p>If you observe all these examples, the order (or sequence) matters in sequence data. In addition to that, this data is of variable length. A song can be 5 minutes or 20 minutes long. A video can be 5 minutes or 500 minutes long. A text can be 100 words or 1000 words long. Having seen these two properties of sequence data, let’s go through the formal definition of sequence data.</p>
+</section>
+<section id="vanilla-nn-its-fixed-api" class="level2">
+<h2 class="anchored" data-anchor-id="vanilla-nn-its-fixed-api">Vanilla NN &amp; Its Fixed API</h2>
+<p>A traditional neural network takes fixed input and produces fixed output. Let’s say it was trained to take an image of a specific size and classify it as a dog or a cat. So the network can only handle images of the same size and same possibilities.</p>
+<section id="why-is-this-a-problem-for-sequence-data" class="level3">
+<h3 class="anchored" data-anchor-id="why-is-this-a-problem-for-sequence-data">Why is this a problem for sequence data?</h3>
+<p>So we have seen in the previous section that sequence data has two key properties: one is order and the other is variable length. So a traditional neural network cannot handle variable length inputs &amp; outputs. Unfortunately, many real world problems fall into this category. Take translation or text summarization, for instance - both require handling inputs and outputs of variable length.</p>
+<p><img src="images/vanilla_nn.svg" class="img-fluid" alt="Vanilla NN"> <em>Figure: Vanilla Neural Network with fixed input and output</em></p>
+</section>
+</section>
+<section id="introducing-feedback-loops" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-feedback-loops">Introducing Feedback Loops</h2>
+<p>A vanilla NN processes input and produces output - and then it’s done. It has no memory of what it just processed. We need a network that can remember. But how can a network even remember? That’s what a feedback loop does.</p>
+<p>A feedback loop is the recurrent connection between one step and the next. At each step, the RNN cell takes two inputs: the current input and the memory from the previous step (which is empty at the very first step). Then, it updates the memory and returns it to the next step. The next step receives this memory and the current input to produce another prediction and update the memory. This loop continues till the entire input sequence is done.</p>
+<blockquote class="blockquote">
+<p>In the RNN literature, memory is referred to as <strong>hidden state</strong> because it’s “internal” (invisible) and captures the network’s current “status”. For the rest of this post, we’ll use the term hidden state instead of memory.</p>
+</blockquote>
+<p><img src="images/rnn_cell.svg" class="img-fluid" alt="RNN Single Cell"> <em>Figure: RNN Cell with feedback loop</em></p>
+</section>
+<section id="unrolled-rnn" class="level2">
+<h2 class="anchored" data-anchor-id="unrolled-rnn">Unrolled RNN</h2>
+<p>The feedback loop may be intimidating when you see it for the first time. You may think how the output of the same cell can feed back into itself. If we unroll the RNN cell into timesteps, things will start to make sense. It’s like a for loop with a global variable. At every iteration, we read the global variable and make predictions. At the end of each iteration, we also make changes to the global variable.</p>
+<p><img src="images/unrolled_rnn_cell.svg" class="img-fluid" alt="RNN Cell (unrolled)"> <em>Figure: RNN Cell (unrolled)</em></p>
+</section>
+<section id="whats-inside-a-single-cell" class="level2">
+<h2 class="anchored" data-anchor-id="whats-inside-a-single-cell">What’s Inside a Single Cell?</h2>
+<p>To make a prediction (<span class="math inline">\(y_t\)</span>), each cell considers what it has seen so far (hidden state, <span class="math inline">\(h_{t-1}\)</span>) and the current input <span class="math inline">\(x_t\)</span>. When I say consider, it should be mathematically translated to equations for computing them.</p>
+<p><img src="images/inside_rnn_cell.svg" class="img-fluid" alt="Inside RNN Cell"> <em>Figure: Inside RNN Cell</em></p>
+<p>Now let’s understand these three equations.</p>
+<ol type="1">
+<li><span class="math inline">\(z_t = W_{xh}x_t + W_{hh}h_{t-1}+b_{h}\)</span>
+<ul>
+<li>This is a linear combination of the previous hidden state and the current input. This consolidates the past and the present.</li>
+</ul></li>
+<li><span class="math inline">\(h_{t} = \tanh(z_t)\)</span>
+<ul>
+<li><span class="math inline">\(\tanh\)</span> is the activation function that introduces non-linearity and squashes the output to [-1, 1]. This keeps the hidden state values bounded, preventing them from exploding over many timesteps.</li>
+</ul></li>
+<li><span class="math inline">\(y_{t} = W_{hy}h_{t} + b_{y}\)</span>
+<ul>
+<li>Now, <span class="math inline">\(h_t\)</span> carries all the context about the past and the present. <span class="math inline">\(y_t\)</span> is simply a linear projection of that into the output space. <em>It just transforms the entire memory to output</em>.</li>
+</ul></li>
+</ol>
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Language AI,LLM,Gen AI,AI" data-listing-date-sort="1744223400000" data-listing-file-modified-sort="1756999042601" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1515">
-<div class="thumbnail">
-<p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\lang-ai-llm-intro\assets\lang-ai-evolution.png" alt="Language AI Evolution" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">Introduction to Language AI &amp; LLM</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Language AI'); return false;">
-Language AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LLM'); return false;">
-LLM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gen AI'); return false;">
-Gen AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('AI'); return false;">
-AI
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">This notebook is heavily inspired from Chapter 1 - Hands-on LLM book by <strong>Jay Alammar</strong> and <strong>Maarten Grootendorst</strong> and also my notes on the chapter.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/lang-ai-llm-intro/index.html" class="no-external">
-<div class="listing-date">
-Apr 10, 2025
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Deep Learning,fastai,NLP,fastbook" data-listing-date-sort="1714069800000" data-listing-file-modified-sort="1776614378212" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1375">
-<div class="thumbnail">
-<p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 148px;">&nbsp;</div>
-</a><p><a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">Fastbook NLP Deep Dive: RNNs Q&amp;A</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('NLP'); return false;">
-NLP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastbook'); return false;">
-fastbook
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">In this post, I tried to answer all the questions in Chapter 10 of Fastbook which is <strong>NLP Deep Dive: RNNs</strong>.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/fastbook-ch10-qa/index.html" class="no-external">
-<div class="listing-date">
-Apr 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Deep Learning,Hugging Face,fastai,Model Deployment" data-listing-date-sort="1713897000000" data-listing-file-modified-sort="1776614372076" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1585">
-<div class="thumbnail">
-<p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p><a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<p><img src="./posts/model-deploy-hfspace/thumbnail.png" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">Deploy Deep Learning Model</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Hugging Face'); return false;">
-Hugging Face
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Model Deployment'); return false;">
-Model Deployment
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">In the previous post, we saw how to train a model (to classify Picasso and Monet paintings) and save the trained model in <code>fastai</code>. In this post, let us create an app using <code>gra…</code><strong></strong></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/model-deploy-hfspace/index.html" class="no-external">
-<div class="listing-date">
-Apr 24, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Deep Learning,fastai" data-listing-date-sort="1711823400000" data-listing-file-modified-sort="1712807096278" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1451">
-<div class="thumbnail">
-<p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p><a href="./posts/painting-classifier/index.html" class="no-external">
-<p><img src="./posts/painting-classifier/thumbnail.jpg" class="thumbnail-image" style="height: 148px;"></p>
-</a><p><a href="./posts/painting-classifier/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/painting-classifier/index.html" class="no-external">Picasso and Monet Painting Classifier</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/painting-classifier/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Deep Learning'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/painting-classifier/index.html" class="no-external">In this post, let’s build an image classifier to classify paintings made by Picasso and Monet. I am currently doing Practical Deep Learning for Coders course by fastai and…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/painting-classifier/index.html" class="no-external">
-<div class="listing-date">
-Mar 31, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="welcome" data-listing-date-sort="1711391400000" data-listing-file-modified-sort="1711870159260" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\welcome\thumbnail.jpg" alt="thumbnail" style="height: 148px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('welcome'); return false;">
-welcome
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is the first post in a Quarto blog. Welcome!</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Mar 26, 2024
-</div>
-<div class="listing-author">
-Harish
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -833,6 +685,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="harishb00/harishb00.github.io" data-repo-id="R_kgDOLlyWtg" data-category="General" data-category-id="DIC_kwDOLlyWts4CeW8Y" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 
 
