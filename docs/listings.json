@@ -6,6 +6,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/llm-params-to-size/index.html",
       "/posts/lang-ai-llm-intro/index.html",
       "/posts/fastbook-ch10-qa/index.html",
       "/posts/model-deploy-hfspace/index.html",

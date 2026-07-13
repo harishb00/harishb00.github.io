@@ -9,8 +9,138 @@
 <link>https://harishb00.github.io/</link>
 <atom:link href="https://harishb00.github.io/index.xml" rel="self" type="application/rss+xml"/>
 <description>A simple blog about AI, Machine Learning and Programming.</description>
-<generator>quarto-1.4.552</generator>
-<lastBuildDate>Wed, 09 Apr 2025 18:30:00 GMT</lastBuildDate>
+<generator>quarto-1.9.38</generator>
+<lastBuildDate>Sun, 12 Jul 2026 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Decoding LLM Model Sizes: Parameters, Precision, and Memory</title>
+  <dc:creator>Harish </dc:creator>
+  <link>https://harishb00.github.io/posts/llm-params-to-size/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="llm-model-size-conventions" class="level1">
+<h1>LLM Model Size Conventions</h1>
+<p>There are a lot of AI models available in the market both open-source and closed-source. There are many ways to download and run open-source models, but the most popular is through Hugging Face. Hugging Face is a platform for sharing and downloading AI models, and it hosts a ton of them ranging from tiny models that run on your machine to massive models that require a huge server. With so many options, how do you know which model will actually run on your machine?</p>
+<section id="model-names-and-what-they-tell-us" class="level2">
+<h2 class="anchored" data-anchor-id="model-names-and-what-they-tell-us">Model Names and What They Tell Us</h2>
+<p>As of today there are over 2.8 million models available on Hugging Face. A few of them are:</p>
+<ul>
+<li>deepseek-ai/DeepSeek-R1</li>
+<li>meta-llama/Meta-Llama-3-8B</li>
+<li>openai/gpt-oss-120b</li>
+<li>mistralai/Mistral-7B-v0.1</li>
+</ul>
+<p>Notice how some names include a number like <strong>8B</strong> or <strong>7B</strong>, while others don’t. What do those numbers mean?</p>
+<p>Those numbers represent the <strong>number of parameters</strong> (or weights) of the model. When the model is trained on huge amounts of data, these parameters are learned. Each parameter is a floating point number.</p>
+<p>For example, <strong>8B</strong> means the model has 8 billion parameters, <strong>120b</strong> means the model has 120 billion parameters.</p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> Here, both <code>b</code> and <code>B</code> mean the same. Mostly you’ll find <code>B</code> but keep in mind that sometimes <code>b</code> can be used as it’s used in <code>120b</code>.</p>
+</blockquote>
+<p>But what about DeepSeek-R1? Some models don’t include the size in the name - you’ll need to check the model card.</p>
+</section>
+<section id="finding-model-size-from-the-model-card" class="level2">
+<h2 class="anchored" data-anchor-id="finding-model-size-from-the-model-card">Finding Model Size from the Model Card</h2>
+<p>A model card is a file with information about the model’s architecture, number of parameters etc. In Hugging Face, every model comes with a model card. For example, the <code>deepseek-ai/DeepSeek-R1</code>’s model card is available at <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1">model card</a>. There we can find the model size is <strong>685B parameters</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/llm-params-to-size/deepseek-size.jpg" class="img-fluid figure-img"></p>
+<figcaption>Deepseek-R1 - 685B params</figcaption>
+</figure>
+</div>
+</section>
+<section id="from-parameters-to-memory-the-math" class="level2">
+<h2 class="anchored" data-anchor-id="from-parameters-to-memory-the-math">From Parameters to Memory: The Math</h2>
+<p>Now that we understand how to find the model size from the model name or the model card, let’s get back to our original question on whether the model fits on our machine - or simply put, how do we go from “8 billion parameters” to “X GB of RAM”?</p>
+<section id="numeric-precision" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-precision">Numeric Precision</h3>
+<p>Each parameter is a number represented in a specific numeric format. Below are a few example formats:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>number representation</th>
+<th>description</th>
+<th>bits per number</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fp8</td>
+<td>floating point number with 8-bit precision</td>
+<td>8 bits</td>
+</tr>
+<tr class="even">
+<td>fp16</td>
+<td>floating point number with 16-bit precision</td>
+<td>16 bits</td>
+</tr>
+<tr class="odd">
+<td>bf16</td>
+<td>brain floating point number with 16-bit precision</td>
+<td>16 bits</td>
+</tr>
+<tr class="even">
+<td>fp32</td>
+<td>floating point number with 32-bit precision</td>
+<td>32 bits</td>
+</tr>
+<tr class="odd">
+<td>int8</td>
+<td>integer number with 8-bit precision</td>
+<td>8 bits</td>
+</tr>
+</tbody>
+</table>
+<p>But how do we find the number representation of a model? You should know it by now, the model card!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://harishb00.github.io/posts/llm-params-to-size/precision-type.jpg" class="img-fluid figure-img"></p>
+<figcaption>Llama-3.1-8B-Instruct - bf16</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="the-calculation">The Calculation</h3>
+<p>Now let’s understand the math to convert parameters to GB. Let’s take <code>meta-llama/Meta-Llama-3-8B</code> for this example.</p>
+<p>We saw this model uses <code>bf16</code>. It needs 16 bits to represent one parameter. 8 bits represent a byte. So, it’s 2 bytes per parameter. We have 8 billion parameters. So, <img src="https://latex.codecogs.com/png.latex?8%5C%20%5Ctext%7BBillion%7D%20%5Ctimes%202%5C%20%5Ctext%7BBytes%7D%20=%2016%5C%20%5Ctext%7BBillion%20Bytes%7D%20%5Capprox%2016%5C%20%5Ctext%7BGB%7D">.</p>
+<blockquote class="blockquote">
+<p>The same math applies for smaller models. If the parameters are in millions, the result is in MB. If in thousands, it’s in KB.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Technically</strong>, 16 billion bytes ≈ 14.9 GiB, since RAM is measured in binary units. But in practice, people say ~16 GB.</p>
+</blockquote>
+</section>
+</section>
+<section id="ram-vs-vram-vs-ssd-where-does-the-model-live" class="level2">
+<h2 class="anchored" data-anchor-id="ram-vs-vram-vs-ssd-where-does-the-model-live">RAM vs VRAM vs SSD: Where Does the Model Live?</h2>
+<p>When we download a model, like any other file we download from the internet, it lives in our <strong>SSD/HDD storage</strong>. When we run the model, it should be loaded into the <strong>RAM</strong> (system memory). So, we must ensure our RAM size is significantly larger (<code>&gt;&gt;</code>) than the model size. But CPUs process instructions sequentially, while AI models need massive parallel computation. That’s where GPUs come in. In the GPU world, the model is loaded into <strong>VRAM</strong> (Video RAM). So, we must ensure VRAM is significantly larger than the model size.</p>
+<p>If the model doesn’t fit in VRAM, some inference frameworks (like llama.cpp or Hugging Face Accelerate) can offload parts of the model to RAM or even SSD - but at a significant speed cost. Without such tools, you’ll simply get an out-of-memory error.</p>
+</section>
+<section id="mixture-of-experts-moe-total-vs-active-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="mixture-of-experts-moe-total-vs-active-parameters">Mixture of Experts (MoE): Total vs Active Parameters</h2>
+<p>There is a class of models called <strong>Mixture of Experts</strong> where instead of one big network, it has multiple “expert” sub-networks. During inference, only some experts are activated per token - so not all parameters are used at once.</p>
+<ul>
+<li><strong>Total parameters</strong> = all experts combined (what you need to store in memory)</li>
+<li><strong>Active parameters</strong> = the experts used per token (what affects inference speed)</li>
+</ul>
+<p>A model like DeepSeek-R1 has <strong>685B total params</strong> but only <strong>~37B active per token</strong>. This significantly changes the math we were dealing with in the previous section. For memory, we still need to store all 685B params (~1.3TB in bf16!), but inference speed is closer to a 37B model. That’s a huge practical difference.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this post, we learned how to identify the total number of parameters used by a model from the model name or from the model card. Then we went on to understand each parameter is represented by a number that’s stored in bits and how to do the math to convert those numbers to size in GBs. The formula is <img src="https://latex.codecogs.com/png.latex?%5C#%5Ctext%7Bparams%7D%20%5Ctimes%20%5Ctext%7Bbytes%20per%20param%20(based%20on%20precision)%7D">. We also explored how RAM and VRAM constraints determine whether a model can run on your hardware, and how MoE models change the picture with active vs total parameters.</p>
+<p>If you don’t have the time to do the math, you can use Hugging Face’s <a href="https://huggingface.co/docs/accelerate/en/usage_guides/model_size_estimator">model memory estimator</a>.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>AI</category>
+  <category>LLM</category>
+  <guid>https://harishb00.github.io/posts/llm-params-to-size/</guid>
+  <pubDate>Sun, 12 Jul 2026 18:30:00 GMT</pubDate>
+</item>
 <item>
   <title>Introduction to Language AI &amp; LLM</title>
   <dc:creator>Harish </dc:creator>
@@ -160,7 +290,7 @@
 <li>Model is the underlying technology/architecture, while the product is the application that uses the technology to provide value to users.</li>
 <li>The following table shows few examples of models and products.</li>
 </ul>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Model</th>
@@ -196,7 +326,7 @@
 <section id="accessing-llms" class="level1">
 <h1>Accessing LLMs</h1>
 <p>LLMs can be accessed using GUIs or through APIs. The latter makes it possible for developers to build applications using LLMs. Having said that, we can categorize LLMs into two main categories:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 60%">
 <col style="width: 39%">
@@ -331,8 +461,8 @@
 <li><code>replace_maj</code>: Lowercases a capitalized word and adds a special token for capitalized (<code>xxmaj</code>) in front of it.</li>
 <li><code>lowercase</code>: Lowercases all text and adds a special token at the beginning (<code>xxbos</code>) and/or the end (<code>xxeos</code>)</li>
 </ul>
-<div id="cell-25" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:55:59.016812Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:55:59.016229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:55:59.025692Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:55:59.023669Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:55:59.016748Z&quot;}" data-trusted="true">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div id="cell-25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:55:59.016812Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:55:59.016229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:55:59.025692Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:55:59.023669Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:55:59.016748Z&quot;}}" data-trusted="true">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
 background-color: null;
@@ -351,36 +481,36 @@ font-style: inherit;">import</span> rm_useless_spaces</span>
 background-color: null;
 font-style: inherit;">from</span> fastai.text.core <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> replace_maj</span></code></pre></div>
+font-style: inherit;">import</span> replace_maj</span></code></pre></div></div>
 </div>
-<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:08.450642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:08.450156Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:08.460619Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:08.459045Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:08.450609Z&quot;}" data-trusted="true" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">lowercase(<span class="st" style="color: #20794D;
+<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:08.450642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:08.450156Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:08.460619Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:08.459045Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:08.450609Z&quot;}}" data-trusted="true" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">lowercase(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'My name is Harish.'</span>)</span></code></pre></div>
+font-style: inherit;">'My name is Harish.'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>'xxbos my name is harish.'</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:16.894419Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:16.894009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:16.903451Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:16.901849Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:16.894388Z&quot;}" data-trusted="true" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">replace_maj(<span class="st" style="color: #20794D;
+<div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:16.894419Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:16.894009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:16.903451Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:16.901849Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:16.894388Z&quot;}}" data-trusted="true" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">replace_maj(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"My name is Harish."</span>)</span></code></pre></div>
+font-style: inherit;">"My name is Harish."</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>'xxmaj my name is xxmaj harish.'</code></pre>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.205637Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.204498Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.213585Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.211995Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.205591Z&quot;}" data-trusted="true" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">rm_useless_spaces(<span class="st" style="color: #20794D;
+<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.205637Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.204498Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.213585Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.211995Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.205591Z&quot;}}" data-trusted="true" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">rm_useless_spaces(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"My    name  is      Harish."</span>)</span></code></pre></div>
+font-style: inherit;">"My    name  is      Harish."</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>'My name is Harish.'</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.520589Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.519009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.529152Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.527563Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.520543Z&quot;}" data-trusted="true" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">replace_wrep(<span class="st" style="color: #20794D;
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-04-13T07:56:17.520589Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-04-13T07:56:17.519009Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-04-13T07:56:17.529152Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-04-13T07:56:17.527563Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-04-13T07:56:17.520543Z&quot;}}" data-trusted="true" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">replace_wrep(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"My name is harish harish harish"</span>)</span></code></pre></div>
+font-style: inherit;">"My name is harish harish harish"</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>'My name is xxwrep 3 harish '</code></pre>
 </div>
@@ -428,7 +558,7 @@ font-style: inherit;">"My name is harish harish harish"</span>)</span></code></p
 <section id="why-do-we-have-to-pass-the-vocabulary-of-the-language-model-to-the-classifier-data-block" class="level3">
 <h3 class="anchored" data-anchor-id="why-do-we-have-to-pass-the-vocabulary-of-the-language-model-to-the-classifier-data-block">20. Why do we have to pass the vocabulary of the language model to the classifier data block?</h3>
 <p>The reason that we pass the vocab of the language model is to make sure we use the same correspondence of token to index. Otherwise the embeddings we learned in our fine-tuned language model won’t make any sense to this model, and the fine-tuning step won’t be of any use.</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">dls_clas <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">dls_clas <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> DataBlock(</span>
 <span id="cb10-2">    blocks<span class="op" style="color: #5E5E5E;
@@ -465,12 +595,12 @@ font-style: inherit;">128</span>, seq_len<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">72</span>)</span></code></pre></div>
+font-style: inherit;">72</span>)</span></code></pre></div></div>
 </section>
 <section id="what-is-gradual-unfreezing" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-gradual-unfreezing">21. What is “gradual unfreezing”?</h3>
 <p>It’s a technique in fine-tuning where we <strong>unfreeze few layers at a time</strong> until the whole model is unfroze. In NLP classifiers, it makes a real difference and achieved using <code>learn.freeze_to</code> method.</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">learn.fit_one_cycle(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
 background-color: null;
@@ -544,7 +674,7 @@ font-style: inherit;">**</span><span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">4</span>),<span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1e-3</span>))</span></code></pre></div>
+font-style: inherit;">1e-3</span>))</span></code></pre></div></div>
 <p>Here <em>discriminative learning rates</em> are used.</p>
 </section>
 <section id="why-is-text-generation-always-likely-to-be-ahead-of-automatic-identification-of-machine-generated-texts" class="level3">
@@ -575,7 +705,7 @@ font-style: inherit;">1e-3</span>))</span></code></pre></div>
 <section id="install-libraries" class="level1">
 <h1>Install Libraries</h1>
 <p>Let’s start by installing necessary Python packages.</p>
-<div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
 background-color: null;
@@ -584,7 +714,7 @@ font-style: inherit;">-Uqq</span> fastai</span>
 background-color: null;
 font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">-Uqq</span> gradio</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">-Uqq</span> gradio</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
@@ -603,7 +733,7 @@ font-style: inherit;">-Uqq</span> gradio</span><div class="code-annotation-gutte
 <h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
 <p>To load the model, we need to import necessary modules from <code>fastai</code>. <code>fastai.vision.all</code> module provides functions related to computer vision tasks.</p>
 <div id="cell-11" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastai.vision.<span class="bu" style="color: null;
 background-color: null;
@@ -611,17 +741,17 @@ font-style: inherit;">all</span> <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">*</span></span></code></pre></div>
+font-style: inherit;">*</span></span></code></pre></div></div>
 </div>
 </section>
 <section id="load-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="load-the-model">Load the model</h2>
 <div id="cell-13" class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-3" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-3" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> load_learner(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
@@ -631,18 +761,19 @@ font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutt
 </dl>
 </div>
 </div>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="pp" style="color: #AD0000;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">NotImplementedError</span>: cannot instantiate <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'PosixPath'</span> on your system</span></code></pre></div>
+font-style: inherit;">'PosixPath'</span> on your system</span></code></pre></div></div>
 <p>Unfortunately when you load the model in a <code>Windows</code> system, it throws above error. Because in my case, I trained and saved the model in a <code>Linux</code> system and trying to load it in <code>Windows</code>. To get rid of this error, below code should be run before loading the model.</p>
 <div id="cell-17" class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> platform</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-2" class="code-annotation-target"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> platform.system() <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -653,7 +784,7 @@ background-color: null;
 font-style: inherit;">import</span> pathlib</span>
 <span id="annotated-cell-5-4">    pathlib.PosixPath <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> pathlib.WindowsPath</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">=</span> pathlib.WindowsPath</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
@@ -664,18 +795,18 @@ font-style: inherit;">=</span> pathlib.WindowsPath</span><div class="code-annota
 </div>
 </div>
 <div id="cell-19" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">learn <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">learn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> load_learner(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'model.pkl'</span>)</span></code></pre></div>
+font-style: inherit;">'model.pkl'</span>)</span></code></pre></div></div>
 </div>
 <p>Now the model is loaded successfully 🙂! Before making the predictions, let’s see the possible predictions (labels) of the model.</p>
 <div id="cell-21" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-1" class="code-annotation-target">labels <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-1" class="code-annotation-target">labels <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> learn.dls.vocab</span>
-<span id="annotated-cell-7-2">labels</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<span id="annotated-cell-7-2">labels</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
@@ -694,14 +825,14 @@ font-style: inherit;">=</span> learn.dls.vocab</span>
 <h2 class="anchored" data-anchor-id="predict">Predict</h2>
 <p>Let’s read an image and make prediction with the loaded model.</p>
 <div id="cell-26" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-1" class="code-annotation-target">img <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-1" class="code-annotation-target">img <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> PILImage.create(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'images/picas3.jpg'</span>)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-2" class="code-annotation-target">img.to_thumb(<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
@@ -724,7 +855,7 @@ font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"><
 </div>
 <p>Now pass the loaded image to the model’s <code>predict</code> method which returns the class label.</p>
 <div id="cell-29" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">pred_label, pred_index, class_probs <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">pred_label, pred_index, class_probs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> learn.predict(img)</span>
 <span id="cb5-2"><span class="bu" style="color: null;
@@ -741,7 +872,7 @@ font-style: inherit;">"Class probabilities:"</span>, class_probs)</span>
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Prediction Index:"</span>, pred_index)</span></code></pre></div>
+font-style: inherit;">"Prediction Index:"</span>, pred_index)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 
 <style>
@@ -777,8 +908,9 @@ Prediction Index: tensor(1)</code></pre>
 <p>We could see the model predicting it’s a <strong><em>Picasso’s painting and it is 99% confident</em></strong> about it. We can use the prediction index in the class probabilities array to get the probability (confidence) score of the predicted label.</p>
 <p>Let’s wrap the above logic to a function which gets image path as input and returns a dictionary with class label and confidence score as output.</p>
 <div id="cell-32" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-10-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-10-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> predict(img_path):</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-2" class="code-annotation-target">    img <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -792,8 +924,10 @@ font-style: inherit;">=</span> {labels[i]:<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">float</span>(class_probs[i]) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="bu" style="color: null;
@@ -801,7 +935,8 @@ background-color: null;
 font-style: inherit;">len</span>(labels))}</span>
 <span id="annotated-cell-10-5">    <span class="cf" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">return</span> output</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-weight: bold;
+font-style: inherit;">return</span> output</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
@@ -821,9 +956,9 @@ font-style: inherit;">return</span> output</span><div class="code-annotation-gut
 </div>
 <p>Now let’s use the <code>predict</code> function to make predictions for few images.</p>
 <div id="cell-35" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">predict(<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">predict(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'images/picas1.jpg'</span>)</span></code></pre></div>
+font-style: inherit;">'images/picas1.jpg'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 
 <style>
@@ -856,9 +991,9 @@ font-style: inherit;">'images/picas1.jpg'</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="cell-36" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">predict(<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">predict(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'images/mon2.jpg'</span>)</span></code></pre></div>
+font-style: inherit;">'images/mon2.jpg'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 
 <style>
@@ -893,15 +1028,15 @@ font-style: inherit;">'images/mon2.jpg'</span>)</span></code></pre></div>
 <p>We can create an application using any web (or app) frameworks and use our model in it. Since we are already familiar with Python, we can use Python libraries to create User Interfaces quickly with no app development background. There are few popular packages to do it like <strong>Streamlit</strong> and <strong>Gradio</strong>. In this post, we will see how to develop an app using Gradio with very few lines of code.</p>
 <p>Let’s start by importing <code>gradio</code>.</p>
 <div id="cell-41" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> gradio <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">as</span> gr</span></code></pre></div>
+font-style: inherit;">as</span> gr</span></code></pre></div></div>
 </div>
 <p>Gradio provides a high-level abstraction (<code>gr.Interface</code>) that allows us to quickly create a demo for any Python function (we have <code>predict</code> function!) simply by specificying the input types and output types.</p>
 <div id="cell-43" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">demo <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">demo <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gr.Interface(</span>
 <span id="cb12-2">    inputs<span class="op" style="color: #5E5E5E;
@@ -917,7 +1052,7 @@ font-style: inherit;">=</span>gr.Label(),</span>
 <span id="cb12-4">    fn<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>predict,</span>
-<span id="cb12-5">)</span></code></pre></div>
+<span id="cb12-5">)</span></code></pre></div></div>
 </div>
 <p>We see that the Interface class is initialized with three required parameters:</p>
 <ol type="1">
@@ -927,7 +1062,7 @@ font-style: inherit;">=</span>predict,</span>
 </ol>
 <p>To run the app, call <code>launch</code> method. It runs the app and by default serves at <code>http://127.0.0.1:7860</code>. Open this URL in your browser to see the app.</p>
 <div id="cell-46" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">demo.launch()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">demo.launch()</span></code></pre></div></div>
 </div>
 <figure class="figure">
 <img src="https://harishb00.github.io/posts/model-deploy-hfspace/app0.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
@@ -936,14 +1071,14 @@ font-style: inherit;">=</span>predict,</span>
 </figure>
 <p>In Jupyter notebook, we can close the running app using <code>close</code> method.</p>
 <div id="cell-49" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">demo.close()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">demo.close()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Closing server running on port: 7860</code></pre>
 </div>
 </div>
 <p>Let’s add title and description to our app by setting the <code>title</code> and <code>description</code> parameters.</p>
 <div id="cell-51" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">title <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">title <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -976,10 +1111,10 @@ font-style: inherit;">=</span>title,</span>
 <span id="cb16-9">    description<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>description,</span>
-<span id="cb16-10">)</span></code></pre></div>
+<span id="cb16-10">)</span></code></pre></div></div>
 </div>
 <div id="cell-52" class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">demo.launch()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">demo.launch()</span></code></pre></div></div>
 </div>
 <figure class="figure">
 <img src="https://harishb00.github.io/posts/model-deploy-hfspace/app1.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 360px">
@@ -993,14 +1128,14 @@ font-style: inherit;">=</span>description,</span>
 </figcaption>
 </figure>
 <div id="cell-56" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">demo.close()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">demo.close()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Closing server running on port: 7860</code></pre>
 </div>
 </div>
 <p>The app is ready now. It may be bit confusing for new users what kind of input they should be using. Wouldn’t it be good if we add few examples inputs to the app? Luckily, gradio supports it out of the box with just a parameter. Let’s add examples to the app using <code>examples</code> parameter which takes a list of image paths.</p>
 <div id="cell-58" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">demo <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">demo <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> gr.Interface(</span>
 <span id="cb20-2">    inputs<span class="op" style="color: #5E5E5E;
@@ -1029,10 +1164,10 @@ background-color: null;
 font-style: inherit;">'images/picas3.jpg'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'images/picas1.jpg'</span>],</span>
-<span id="cb20-8">)</span></code></pre></div>
+<span id="cb20-8">)</span></code></pre></div></div>
 </div>
 <div id="cell-59" class="cell">
-<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">demo.launch()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">demo.launch()</span></code></pre></div></div>
 </div>
 <figure class="figure">
 <img src="https://harishb00.github.io/posts/model-deploy-hfspace/app3.png" alt="thumbnail" class="post-thumbnail figure-img" style="height: 480px">
@@ -1041,7 +1176,7 @@ font-style: inherit;">'images/picas1.jpg'</span>],</span>
 </figure>
 <p>You can see a new section <strong>Examples</strong> below the Clear and Submit buttons. User can click this to use as inputs.</p>
 <div id="cell-62" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">demo.close()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">demo.close()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Closing server running on port: 7860</code></pre>
 </div>
@@ -1077,9 +1212,9 @@ font-style: inherit;">'images/picas1.jpg'</span>],</span>
 </figure>
 <p>Once you click <code>Create Space</code>, Hugging Face will create a git repo for you which we need to clone locally and update them with trained model and python scripts. Then the updated local repo should be pushed to Hugging Face remote repo.</p>
 <p>Let’s clone the repo as per the instruction given.</p>
-<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">git</span> clone https://huggingface.co/spaces/harishb00/painting-classifier</span></code></pre></div>
+font-style: inherit;">git</span> clone https://huggingface.co/spaces/harishb00/painting-classifier</span></code></pre></div></div>
 </section>
 <section id="convert-jupyter-code-to-python-script" class="level2">
 <h2 class="anchored" data-anchor-id="convert-jupyter-code-to-python-script">Convert Jupyter code to python script</h2>
@@ -1088,7 +1223,7 @@ font-style: inherit;">git</span> clone https://huggingface.co/spaces/harishb00/p
 <div class="code-with-filename-file">
 <pre><strong>app.py</strong></pre>
 </div>
-<div class="sourceCode" id="cb25" data-filename="app.py" style="background: #f1f3f5;"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb25-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-filename="app.py" style="background: #f1f3f5;"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb25-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> platform</span>
 <span id="cb25-2"><span class="im" style="color: #00769E;
@@ -1109,6 +1244,7 @@ font-style: inherit;">as</span> gr</span>
 <span id="cb25-5"></span>
 <span id="cb25-6"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> platform.system() <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -1132,6 +1268,7 @@ font-style: inherit;">=</span> learn.dls.vocab</span>
 <span id="cb25-12"></span>
 <span id="cb25-13"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> predict(img):</span>
 <span id="cb25-14">    img <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1141,12 +1278,15 @@ background-color: null;
 font-style: inherit;">=</span> learn.predict(img)</span>
 <span id="cb25-16">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> {labels[i]: <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">float</span>(probs[i]) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="bu" style="color: null;
@@ -1193,7 +1333,7 @@ font-style: inherit;">'images/picas3.jpg'</span>, <span class="st" style="color:
 background-color: null;
 font-style: inherit;">'images/picas1.jpg'</span>],</span>
 <span id="cb25-27">)</span>
-<span id="cb25-28">demo.launch()</span></code></pre></div>
+<span id="cb25-28">demo.launch()</span></code></pre></div></div>
 </div>
 <p>Also create a requirements file inside cloned repo with Python packages required to run the script.</p>
 <div class="code-with-filename">
@@ -1213,7 +1353,7 @@ gradio</code></pre>
 <section id="commit-and-push" class="level2">
 <h2 class="anchored" data-anchor-id="commit-and-push">Commit and Push</h2>
 <p>It’s time to commit and push the code to Hugging Face Spaces. Execute below commands in your terminal.</p>
-<div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">git</span> add .</span>
 <span id="cb27-2"><span class="fu" style="color: #4758AB;
@@ -1225,14 +1365,14 @@ background-color: null;
 font-style: inherit;">"app commit"</span></span>
 <span id="cb27-3"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">git</span> push</span></code></pre></div>
+font-style: inherit;">git</span> push</span></code></pre></div></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<code>git push</code> hangs
+<span class="screen-reader-only">Tip</span><code>git push</code> hangs
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1281,7 +1421,7 @@ Created by Microsoft Designer
 <section id="install-packages" class="level2">
 <h2 class="anchored" data-anchor-id="install-packages">Install packages</h2>
 <p>Let’s start by installing the required <code>python</code> packages.</p>
-<div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="annotated-cell-1" style="background: #f1f3f5;"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
 background-color: null;
@@ -1290,7 +1430,7 @@ font-style: inherit;">-Uqq</span> fastai</span>
 background-color: null;
 font-style: inherit;">pip</span> install <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">-Uqq</span> duckduckgo_search</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">-Uqq</span> duckduckgo_search</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
@@ -1304,8 +1444,8 @@ font-style: inherit;">-Uqq</span> duckduckgo_search</span><div class="code-annot
 </section>
 <section id="import-packages" class="level2">
 <h2 class="anchored" data-anchor-id="import-packages">Import packages</h2>
-<div id="cell-9" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:11.757623Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:11.757017Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:11.763716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:11.762680Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:11.757589Z&quot;}" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:11.757623Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:11.757017Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:11.763716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:11.762680Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:11.757589Z&quot;}}" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> random</span>
 <span id="cb1-2"><span class="im" style="color: #00769E;
@@ -1326,13 +1466,13 @@ font-style: inherit;">all</span> <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">*</span></span></code></pre></div>
+font-style: inherit;">*</span></span></code></pre></div></div>
 </div>
 </section>
 <section id="image-search-using-duckduckgo-search" class="level2">
 <h2 class="anchored" data-anchor-id="image-search-using-duckduckgo-search">Image Search using DuckDuckGo Search</h2>
-<div id="cell-11" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:25.791024Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:25.790392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:26.236484Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:26.235661Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:25.790987Z&quot;}" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">ddgs <span class="op" style="color: #5E5E5E;
+<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:25.791024Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:25.790392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:26.236484Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:26.235661Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:25.790987Z&quot;}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">ddgs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> DDGS()</span>
 <span id="cb2-2">search_term <span class="op" style="color: #5E5E5E;
@@ -1346,11 +1486,11 @@ font-style: inherit;">=</span> ddgs.images(search_term, max_results<span class="
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span>)</span></code></pre></div>
+font-style: inherit;">1</span>)</span></code></pre></div></div>
 </div>
 <p>The <code>ddgs.images(search_term, max_results=1)</code> method uses DuckDuckGo image search engine to search for images with keyword <code>picasso painting</code> and returns the search results. The number of results returned can be controlled by <code>max_results</code></p>
-<div id="cell-13" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:28.476528Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:28.475687Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:28.483242Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:28.482384Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:28.476493Z&quot;}" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">results</span></code></pre></div>
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:28.476528Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:28.475687Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:28.483242Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:28.482384Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:28.476493Z&quot;}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">results</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>[{'title': 'Woman s head and self portrait 1929 Picasso - United Kingdom',
   'image': 'https://cdn11.bigcommerce.com/s-5qm28d53av/images/stencil/2560w/products/330/9318/Woman-s-head-and-self-portrait-1929-Picasso__04078.1586802926.jpg?c=1',
@@ -1365,8 +1505,8 @@ font-style: inherit;">1</span>)</span></code></pre></div>
 </section>
 <section id="download-images" class="level2">
 <h2 class="anchored" data-anchor-id="download-images">Download images</h2>
-<div id="cell-16" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:58.729264Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:58.728403Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:59.138694Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:59.137657Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:58.729233Z&quot;}" data-execution_count="7">
-<div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1">url <span class="op" style="color: #5E5E5E;
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:58:58.729264Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:58:58.728403Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:58:59.138694Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:58:59.137657Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:58:58.729233Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-5" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> results[<span class="dv" style="color: #AD0000;
 background-color: null;
@@ -1385,7 +1525,7 @@ background-color: null;
 font-style: inherit;">True</span>)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-4" class="code-annotation-target">download_images(path, urls<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>[url])</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">=</span>[url])</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
@@ -1404,14 +1544,14 @@ font-style: inherit;">=</span>[url])</span><div class="code-annotation-gutter-bg
 </div>
 </div>
 <p>Let’s find the image path and display the image. <code>ls</code> method lists all the contents of the <code>Path</code> object.</p>
-<div id="cell-19" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:30.814251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:30.813436Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:30.821102Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:30.820257Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:30.814218Z&quot;}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">path.ls()</span></code></pre></div>
+<div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:30.814251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:30.813436Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:30.821102Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:30.820257Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:30.814218Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">path.ls()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>(#1) [Path('images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg')]</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:55.073090Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:55.072721Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:55.307875Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:55.306950Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:55.073061Z&quot;}" data-execution_count="10">
-<div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-7-1">im <span class="op" style="color: #5E5E5E;
+<div id="cell-20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T04:59:55.073090Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T04:59:55.072721Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T04:59:55.307875Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T04:59:55.306950Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T04:59:55.073061Z&quot;}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-7" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-7-1">im <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Image.<span class="bu" style="color: null;
 background-color: null;
@@ -1420,7 +1560,7 @@ background-color: null;
 font-style: inherit;">'images/c72d6b91-3379-44f9-8878-92cdf7b87d3c.jpg'</span>)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target">im.to_thumb(<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
@@ -1441,9 +1581,10 @@ font-style: inherit;">256</span>)</span><div class="code-annotation-gutter-bg"><
 <section id="download-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="download-dataset">Download dataset</h2>
 <p>Now let’s wrap the above logics to functions and download the dataset for our Picasso and Monet painting classifier.</p>
-<div id="cell-24" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:00:37.013274Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:00:37.012896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:00:37.018647Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:00:37.017659Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:00:37.013246Z&quot;}" data-execution_count="11">
-<div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-8-1"><span class="kw" style="color: #003B4F;
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:00:37.013274Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:00:37.012896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:00:37.018647Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:00:37.017659Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:00:37.013246Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-8" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> search_images(search_term: <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">str</span>, max_images:<span class="bu" style="color: null;
@@ -1474,9 +1615,10 @@ background-color: null;
 font-style: inherit;">=</span>max_images)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-5" class="code-annotation-target">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> L(results).itemgot(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'image'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">'image'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
@@ -1486,8 +1628,8 @@ font-style: inherit;">'image'</span>)</span><div class="code-annotation-gutter-b
 </dl>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:19.119652Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:19.119240Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:57.921160Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:57.919877Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:19.119621Z&quot;}" data-execution_count="15">
-<div class="sourceCode cell-code" id="annotated-cell-9" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-1" class="code-annotation-target">searches <span class="op" style="color: #5E5E5E;
+<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:19.119652Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:19.119240Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:57.921160Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:57.919877Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:19.119621Z&quot;}}" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-9" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-1" class="code-annotation-target">searches <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -1502,8 +1644,10 @@ font-style: inherit;">'painting'</span>)</span>
 <span id="annotated-cell-9-3"></span>
 <span id="annotated-cell-9-4"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> searches:</span>
 <span id="annotated-cell-9-5">    dest <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1548,7 +1692,7 @@ font-style: inherit;">400</span>, dest<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>path<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">/</span>o)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">/</span>o)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
@@ -1577,8 +1721,8 @@ Searching for 'monet painting photo'</code></pre>
 <section id="delete-corrupted-images" class="level3">
 <h3 class="anchored" data-anchor-id="delete-corrupted-images">Delete corrupted images</h3>
 <p>Sometimes the downloaded images may not be in right format or got corrupted. It’s good to find and delete those files before training the model. fastai provides the utility function <code>verify_images</code> which does this for us.</p>
-<div id="cell-29" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:57.924016Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:57.923678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:58.676143Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:58.675027Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:57.923985Z&quot;}" data-execution_count="16">
-<div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-1" class="code-annotation-target">fns <span class="op" style="color: #5E5E5E;
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:02:57.924016Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:02:57.923678Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:02:58.676143Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:02:58.675027Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:02:57.923985Z&quot;}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-10" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-1" class="code-annotation-target">fns <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> get_image_files(path)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-2" class="code-annotation-target">failed <span class="op" style="color: #5E5E5E;
@@ -1599,7 +1743,7 @@ font-style: inherit;">len</span>(failed)<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
@@ -1626,7 +1770,7 @@ font-style: inherit;">"</span>)</span><div class="code-annotation-gutter-bg"></d
 <h2 class="anchored" data-anchor-id="dataloaders">Dataloaders</h2>
 <p>Before we train the model we should do some datapreprocessing like resizing the images, creating labels for each image file etc., All these can be done through <code>DataBlock</code> and <code>DataLoaders</code>.</p>
 <div id="cell-32" class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-11" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-1" class="code-annotation-target">db <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-11" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-1" class="code-annotation-target">db <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> DataBlock(</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2">2</button><span id="annotated-cell-11-2" class="code-annotation-target">    blocks<span class="op" style="color: #5E5E5E;
@@ -1658,7 +1802,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'squish'</span>)]</span>
-<span id="annotated-cell-11-7">)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+<span id="annotated-cell-11-7">)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
@@ -1689,8 +1833,8 @@ font-style: inherit;">'squish'</span>)]</span>
 </div>
 </div>
 <p>The above code serves as a blueprint of our dataset. But for training the model, we actually need the training and validation dataset created from the downloaded images with all the inputs and outputs in the right format as mentioned in the blueprint. <code>DataLoaders</code> exactly does that.</p>
-<div id="cell-35" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:10:41.189875Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:10:41.188974Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:10:41.791051Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:10:41.790036Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:10:41.189838Z&quot;}" data-execution_count="22">
-<div class="sourceCode cell-code" id="annotated-cell-12" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-1" class="code-annotation-target">dls <span class="op" style="color: #5E5E5E;
+<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:10:41.189875Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:10:41.188974Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:10:41.791051Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:10:41.790036Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:10:41.189838Z&quot;}}" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-12" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-1" class="code-annotation-target">dls <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> db.dataloaders(path, bs<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1705,7 +1849,7 @@ font-style: inherit;">4</span>, nrows<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">1</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
@@ -1731,15 +1875,15 @@ font-style: inherit;">1</span>)</span><div class="code-annotation-gutter-bg"></d
 <h2 class="anchored" data-anchor-id="training">Training</h2>
 <p>Now we have the dataset ready, let’s train the model to classify Picasso and Monet images. For this project, rather than training a deep learning model from scratch let’s use a pretrained model called <code>resnet18</code> and finetune it for the task (Picasso and Monet classification) at hand.</p>
 <p>In fastai, most of the trainer has a common api which is <code>domain_learner</code>. Since we are going to solve a <strong>Computer Vision</strong> problem, we’ll be using <code>vision_learner</code>. We will be passing the dataset, pretrained deep learning model and metrics (to log) as inputs. We’ll train the model using <code>finetune</code> method.</p>
-<div id="cell-39" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:04.908069Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:04.907022Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:15.383581Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:15.382451Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:04.908027Z&quot;}" data-execution_count="23">
-<div class="sourceCode cell-code" id="annotated-cell-13" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
+<div id="cell-39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:04.908069Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:04.907022Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:15.383581Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:15.382451Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:04.908027Z&quot;}}" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-13" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-1" class="code-annotation-target">learn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> vision_learner(dls, resnet18, metrics<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>error_rate)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2">2</button><span id="annotated-cell-13-2" class="code-annotation-target">learn.fine_tune(<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
@@ -1775,8 +1919,7 @@ font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></d
 </style>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">epoch</th>
@@ -1797,7 +1940,6 @@ font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></d
 </tbody>
 </table>
 </div>
-</div>
 <div class="cell-output cell-output-display">
 
 <style>
@@ -1817,8 +1959,7 @@ font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></d
 </style>
 </div>
 <div class="cell-output cell-output-display">
-<div>
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">epoch</th>
@@ -1868,7 +2009,6 @@ font-style: inherit;">5</span>)</span><div class="code-annotation-gutter-bg"></d
 </table>
 </div>
 </div>
-</div>
 <p>We can see that the validation error is around 0. It means the model does pretty good job in differentiating Picasso and Monet paintings.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1901,15 +2041,15 @@ Note
 <section id="prediction" class="level2">
 <h2 class="anchored" data-anchor-id="prediction">Prediction</h2>
 <p>Now we have our trained model, let’s make a prediction using the <code>predict</code> method.</p>
-<div id="cell-46" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:49.103851Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:49.103229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:49.112995Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:49.112089Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:49.103819Z&quot;}" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">fns <span class="op" style="color: #5E5E5E;
+<div id="cell-46" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:25:49.103851Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:25:49.103229Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:25:49.112995Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:25:49.112089Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:25:49.103819Z&quot;}}" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">fns <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> get_image_files(Path(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'painting'</span>))</span></code></pre></div>
+font-style: inherit;">'painting'</span>))</span></code></pre></div></div>
 </div>
-<div id="cell-47" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:10.479716Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:10.479325Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:10.565076Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:10.564130Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:10.479685Z&quot;}" data-execution_count="32">
-<div class="sourceCode cell-code" id="annotated-cell-15" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="1">1</button><span id="annotated-cell-15-1" class="code-annotation-target">fn <span class="op" style="color: #5E5E5E;
+<div id="cell-47" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:10.479716Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:10.479325Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:10.565076Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:10.564130Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:10.479685Z&quot;}}" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-15" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="1">1</button><span id="annotated-cell-15-1" class="code-annotation-target">fn <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> random.choice(fns)</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="2">2</button><span id="annotated-cell-15-2" class="code-annotation-target">preds <span class="op" style="color: #5E5E5E;
@@ -1921,7 +2061,7 @@ font-style: inherit;">print</span>(preds)</span>
 <span id="annotated-cell-15-4"></span>
 <span id="annotated-cell-15-5">Image.<span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">open</span>(fn)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">open</span>(fn)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
@@ -1968,8 +2108,8 @@ font-style: inherit;">open</span>(fn)</span><div class="code-annotation-gutter-b
 </div>
 <p>The model predicts the output as ‘monet painting’ and it’s 100% confident about it!</p>
 <p>The predicted output is a tuple containing three values. They are <strong>(<em>predicted label</em>, <em>predicted label as index</em>, <em>class probabilities for each class</em>)</strong>. The index corresponding to maximum class probability is chosen as the predicted class and corresponding index is returned in the second value of the tuple. Now we have the class index, how to find the class label? <code>learn.dls.vocab</code> or <code>dls.vocab</code> can be used to see the list of labels and the order used by fastai.</p>
-<div id="cell-51" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:19.403756Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:19.403330Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:19.409530Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:19.408796Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:19.403725Z&quot;}" data-execution_count="33">
-<div class="sourceCode cell-code" id="annotated-cell-16" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy"><code class="sourceCode python"><span id="annotated-cell-16-1">learn.dls.vocab</span></code></pre></div>
+<div id="cell-51" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:27:19.403756Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:27:19.403330Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:27:19.409530Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:27:19.408796Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:27:19.403725Z&quot;}}" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-16" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy"><code class="sourceCode python"><span id="annotated-cell-16-1">learn.dls.vocab</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>['monet painting', 'picasso painting']</code></pre>
 </div>
@@ -1979,10 +2119,10 @@ font-style: inherit;">open</span>(fn)</span><div class="code-annotation-gutter-b
 <section id="save-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="save-the-model">Save the model</h2>
 <p>Now we have our trained model, we can use this in other apps. To do so, first we need to save the model so we need not retrain. In fastai, the model can be saved to a file using the <code>export</code> method.</p>
-<div id="cell-55" class="cell" data-execution="{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:50.441985Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:50.441594Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:50.550110Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:50.549304Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:50.441954Z&quot;}" data-execution_count="24">
-<div class="sourceCode cell-code" id="annotated-cell-17" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-1" class="code-annotation-target">learn.export(<span class="st" style="color: #20794D;
+<div id="cell-55" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2024-03-31T05:23:50.441985Z&quot;,&quot;iopub.status.busy&quot;:&quot;2024-03-31T05:23:50.441594Z&quot;,&quot;iopub.status.idle&quot;:&quot;2024-03-31T05:23:50.550110Z&quot;,&quot;shell.execute_reply&quot;:&quot;2024-03-31T05:23:50.549304Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2024-03-31T05:23:50.441954Z&quot;}}" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-17" style="background: #f1f3f5;"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-1" class="code-annotation-target">learn.export(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div>
+font-style: inherit;">'model.pkl'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>

@@ -4,3 +4,4 @@
 .ipynb_checkpoints/
 *todo.html
 *todo.md
+**/*.quarto_ipynb
